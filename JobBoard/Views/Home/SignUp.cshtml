@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Sign Up";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Board</title>
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/form.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="nav">
+        <div class="logo">
+            <h2>Job Board</h2>
+        </div>
+        <div>
+            <ul class="nav-links">
+                <li><a href="signUp.html">Sign Up</a></li>
+                <li><a href="logIn.html">LogIn</a></li>
+                <li><a href="">About us</a></li>
+                <li><a href="">Info</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <div class="form">
+            <header>Sign Up</header>
+            <form action="">
+                <label for="name">Full Name/Company Name</label>
+                <input type="text" name="name" id="" placeholder="Teodora Stoycheva / CSoft" required />
+                <label for="username">Username</label>
+                <input type="text" name="username" id="" placeholder="tedi13" required />
+                <label for="email">Email</label>
+                <input type="email" name="email" id="" placeholder="tedi@gmail.com" required />
+                <label for="role">Role</label>
+                <select name="role" id="">
+                    <option value="" disabled selected><i>Select your role</i></option>
+                    <option value="1">Company</option>
+                    <option value="2">Candidate</option>
+                </select>
+                <label for="password">Password</label>
+                <input type="password" name="password" id="" />
+                <label for="password2">Repeat password</label>
+                <input type="password" name="password2" id="" />
+                <input type="submit" value="Sign Up" />
+            </form>
+        </div>
+    </div>
+</body>
+</html>

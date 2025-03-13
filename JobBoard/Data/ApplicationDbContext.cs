@@ -6,6 +6,10 @@ namespace JobBoard.Data
     public class ApplicationDbContext : DbContext 
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-        public DbSet<Job> Jobs { get; set; } 
+        public DbSet<AccountType> AccountType { get; set; }
+        public DbSet<Account> Account { get; set; }
+
+
+
     }
 }

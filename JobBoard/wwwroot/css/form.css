@@ -1,0 +1,84 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+.form {
+    background-color: rgba(240, 248, 255, 0.384);
+    width: 80%;
+    border-radius: 30px;
+    padding: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 10%;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="tel"],
+input[type="email"], select {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    margin: 10px auto;
+    display: block;
+    font-size: 16px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+input[type="submit"] {
+    width: 40%;
+    padding: 10px;
+    background-color: #8a809ccb;
+    border-radius: 20px;
+    font-size: 16px;
+    border: none;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    margin-top: 5%;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="tel"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder,
+input[type="tel"]::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+input[type="text"]:disabled,
+input[type="password"]:disabled,
+input[type="tel"]:disabled {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+}
+
+label {
+    font-size: 17px;
+    color: #2b2a2d;
+    margin-bottom: 7px;
+    margin-top: 7px;
+    margin-left: 14%;
+    font-weight: bold;
+    display: block;
+    width: 100%;
+}
+
+
+header {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 35px;
+    color: #2b2a2d;
+}
+

@@ -18,7 +18,7 @@ namespace JobBoard.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult SignUp()
         {
             return View();
         }
