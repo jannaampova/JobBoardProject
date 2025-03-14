@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using JobBoard.Migrations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JobBoard.Models
@@ -7,8 +8,24 @@ namespace JobBoard.Models
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
-        public int candidateID { get; set; }
-        [ForeignKey("candidateId")]
+        public int CandidateId { get; set; }
+
+        [Required]
+        public int ListingId { get; set; }
+
+        [Required]
+        public ApplicationStatus Status { get; set; }
+
+        [Required]
+        public DateOnly AppliedAt { get; set; }
+
+        [ForeignKey("CandidateId")]
+        public virtual Candidate Candidate { get; set; }
+
+        [ForeignKey("ListingId")]
+        public virtual Listing Listing { get; set; }
+
     }
 }
