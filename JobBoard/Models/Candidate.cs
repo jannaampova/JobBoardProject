@@ -10,7 +10,7 @@ namespace JobBoard.Models
         public Account Account { get; set; } 
         public string PhotoPath { get; set; } 
         public string ResumePath { get; set; } 
-        public string Education { get; set; } 
+        public CandidateEducation Education { get; set; } 
         public int yearsExperience { get; set; }
 
         [NotMapped]

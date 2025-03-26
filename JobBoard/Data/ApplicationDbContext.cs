@@ -31,9 +31,13 @@ namespace JobBoard.Data
         public DbSet<Skills> Skills { get; set; }
         public DbSet<Candidate> Candidate { get; set; }
         public DbSet<CandidateSkills> CandidateSkills { get; set; }
+        public DbSet<Application> Application { get; set; }
 
 
 
+
+
+       
 
 
     }
