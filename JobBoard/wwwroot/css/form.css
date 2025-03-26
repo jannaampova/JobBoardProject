@@ -3,14 +3,27 @@
 *@
 @{
 }
+
+
+:root {
+    --text-color: #e6c6c6;
+    ;
+}
+
 .form {
-    background-color: rgba(240, 248, 255, 0.384);
-    width: 80%;
+    background-color: rgba(240, 248, 255, 0.493);
     border-radius: 30px;
-    padding: 10%;
     margin-left: 10%;
     margin-right: 10%;
-    margin-top: 10%;
+    width: 60%;
+    padding: 8%;
+    margin-top: 25%;
+    margin-bottom: 15%;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
 }
 
 input[type="text"],
@@ -31,7 +44,6 @@ input[type="email"], select {
 input[type="submit"] {
     width: 40%;
     padding: 10px;
-    background-color: #8a809ccb;
     border-radius: 20px;
     font-size: 16px;
     border: none;
@@ -39,19 +51,47 @@ input[type="submit"] {
     display: block;
     text-align: center;
     margin-top: 5%;
+    background-color: var(--text-color);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
 }
+
+    input[type="submit"]:hover {
+        width: 40%;
+        padding: 10px;
+        border-radius: 20px;
+        font-size: 16px;
+        border: none;
+        margin: 0 auto;
+        display: block;
+        text-align: center;
+        margin-top: 5%;
+        background-color: var(--text-color);
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #beaeae; /* іншы колер пры навядзенні */
+        transform: scale(1.05);
+    }
+
+
 
 input[type="text"]:focus,
 input[type="password"]:focus,
 input[type="tel"]:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    border-color: #b29ab2;
+    box-shadow: 0 0 5px rgba(219, 203, 216, 0.5);
 }
 
 input[type="text"]::placeholder,
-input[type="password"]::placeholder,
+input[type="password"]::placeholder, vk
 input[type="tel"]::placeholder {
     color: #999;
+    font-style: italic;
     font-style: italic;
 }
 
@@ -82,3 +122,21 @@ header {
     color: #2b2a2d;
 }
 
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+h1 {
+    margin-top: 50%;
+    font-weight: bold;
+    color: #dcd8e4ca;
+    margin-left: 10%;
+    text-align: center;
+    margin-right: 0%;
+}
+
+.linkToLogIn {
+    text-align: center;
+    margin-top: 10%;
+}

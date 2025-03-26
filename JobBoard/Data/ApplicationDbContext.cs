@@ -19,11 +19,6 @@ namespace JobBoard.Data
         public DbSet<ListingRequirements> ListingRequirements { get; set; }
         [NotMapped]
         public DbSet<ListingBenefits> ListingBenefits { get; set; }
-        public DbSet<Skills> Skills { get; set; }
-        public DbSet<Candidate> Candidate { get; set; }
-        public DbSet<CandidateSkills> CandidateSkills { get; set; }
-        public DbSet<Application> Application { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,6 +27,14 @@ namespace JobBoard.Data
             modelBuilder.Entity<CandidateSkills>().HasNoKey();
 
         }
+
+        public DbSet<Skills> Skills { get; set; }
+        public DbSet<Candidate> Candidate { get; set; }
+        public DbSet<CandidateSkills> CandidateSkills { get; set; }
+        public DbSet<Application> Application { get; set; }
+
+
+
 
 
        
