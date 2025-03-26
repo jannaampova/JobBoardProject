@@ -3,48 +3,62 @@
 *@
 @{
 }
+
+
+:root {
+    --text-color: #e6c6c6;
+    ;
+}
+
 .nav {
     display: flex;
     flex-direction: row;
-    background-color: rgb(79, 69, 100);
     position: fixed;
     width: 100%;
     padding: 1%;
-    justify-content: space-between;
+    border-radius: 5px;
+    justify-content: space-between; /* Или смени на space-around */
     align-items: center;
     z-index: 999;
 }
+
 
 .nav-links {
     display: flex;
     flex-direction: row;
     padding: 0;
+    gap: 20px; /* Разстояние между елементите */
 }
 
-    .nav-links li {
-        margin: 0 15px;
-        text-wrap: nowrap;
-        list-style: none;
+.nav ul {
+    margin-right: 50px;
+}
+
+.nav-links li {
+    margin: 0 15px;
+    text-wrap: nowrap;
+    list-style: none;
+}
+
+    .nav-links li a {
+        text-decoration: none;
+        color: var(--text-color);
+        font-size: 3vh;
     }
 
-        .nav-links li a {
-            text-decoration: none;
-            color: #000;
+        .nav-links li a:hover {
+            border-radius: 30px;
+            padding: 7px;
+            background-color: rgba(240, 248, 255, 0.33);
+            cursor: pointer;
         }
-
-            .nav-links li a:hover {
-                border-radius: 30px;
-                padding: 5px;
-                background-color: rgba(240, 248, 255, 0.33);
-                cursor: pointer;
-            }
 
 
 body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)), url("wallpaper.jpg");
+    background: linear-gradient(rgba(0, 0, 0, 0.67), rgba(0, 0, 0, 0.368)), url("wallpaper.jpg");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -60,9 +74,26 @@ body {
 
 .moto {
     text-align: center;
-    background-color: rgba(240, 248, 255, 0.521);
     border-radius: 45px;
-    padding: 0px 15px 0px 15px;
+    color: var(--text-color);
+    font-size: 4vh;
+    padding: 7px;
     width: 50%;
+    background: rgba(240, 248, 255, 0.15);
+    backdrop-filter: blur(8px);
+    transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease, color 0.4s ease;
 }
+
+    .moto:hover {
+        transform: scale(1.1);
+        box-shadow: 0px 0px 25px rgba(255, 255, 255, 0.4);
+        background: rgba(240, 248, 255, 0.3);
+        color: #ffffff;
+    }
+
+.logo {
+    color: var(--text-color);
+    font-size: 4vh;
+}
+
 

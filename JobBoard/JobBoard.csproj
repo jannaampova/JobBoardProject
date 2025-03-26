@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Home\logIn.cshtml" />
+    <None Include="Views\Home\LogIn.cshtml" />
   </ItemGroup>
 
 </Project>

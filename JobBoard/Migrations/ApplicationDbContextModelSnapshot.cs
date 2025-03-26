@@ -77,6 +77,23 @@ namespace JobBoard.Migrations
                     b.ToTable("AccountType");
                 });
 
+            modelBuilder.Entity("JobBoard.Models.Benefits", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("benefit")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Benefits");
+                });
+
             modelBuilder.Entity("JobBoard.Models.Candidate", b =>
                 {
                     b.Property<int>("Id")
@@ -123,40 +140,6 @@ namespace JobBoard.Migrations
                     b.HasIndex("SkillId");
 
                     b.ToTable("CandidateSkills");
-                });
-
-            modelBuilder.Entity("JobBoard.Models.Skills", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Skill")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Skills");
-                });
-
-            modelBuilder.Entity("JobBoard.Models.Benefits", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("benefit")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Benefits");
                 });
 
             modelBuilder.Entity("JobBoard.Models.Company", b =>
@@ -315,6 +298,23 @@ namespace JobBoard.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Requirements");
+                });
+
+            modelBuilder.Entity("JobBoard.Models.Skills", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Skill")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Skills");
                 });
 
             modelBuilder.Entity("JobBoard.Models.Account", b =>

@@ -1,3 +1,6 @@
+@{
+    ViewData["Title"] = "Log In";
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +11,19 @@
     <link rel="stylesheet" href="~/css/form.css" asp-append-version="true" />
 
 </head>
+<style>
+
+    .form{
+      height:50%;
+    }
+      h1{
+        font-weight: bold;
+        color:  #dcd8e4ca;
+        margin-left: 10%;
+        text-align: center;
+        margin-top: 35%;
+    }
+</style>
 <body>
     <div class="nav">
         <div class="logo">
@@ -15,15 +31,17 @@
         </div>
         <div>
             <ul class="nav-links">
-                <li><a href="signUp.html">Sign Up</a></li>
-                <li><a href="logIn.html">LogIn</a></li>
-                <li><a href="">About us</a></li>
-                <li><a href="">Info</a></li>
+                <li><a href="">Home</a></li>
             </ul>
         </div>
     </div>
-    <div class="content">
-        <div class="form">
+    <div class="grid-container">
+        <div class="grid-item">
+            <h1>
+                Welcome back! Go grab your job offer!
+            </h1>
+        </div>
+        <div class="form grid-item">
             <header>
                 Log In
             </header>
@@ -38,6 +56,9 @@
                 <input type="submit" value="Log In">
 
             </form>
+            <div class="linkToLogIn">
+                Don't have an account? Sign up <a href="signUp.html" style="text-decoration: none;">here</a>
+            </div>
         </div>
     </div>
 </body>
