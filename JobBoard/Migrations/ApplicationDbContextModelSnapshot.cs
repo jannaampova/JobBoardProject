@@ -77,24 +77,7 @@ namespace JobBoard.Migrations
                     b.ToTable("AccountType");
                 });
 
-            modelBuilder.Entity("JobBoard.Models.Benefits", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("benefit")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Benefits");
-                });
-
-            modelBuilder.Entity("JobBoard.Models.Candidate", b =>
+            modelBuilder.Entity("JobBoard.Models.Application", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

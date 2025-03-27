@@ -1,43 +1,38 @@
 ﻿using JobBoard.Data;
+using JobBoard.Dtos;
 using JobBoard.Models;
-using Microsoft.AspNetCore.Identity;
-
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+using BCrypt.Net;
 namespace JobBoard.Services
 {
-    public class AccountService
+    public class AccountService : IAccountService
     {
         private readonly ApplicationDbContext _context;
-        private readonly PasswordHasher<Account> _passwordHasher;
 
         public AccountService(ApplicationDbContext context)
         {
             _context = context;
-            _passwordHasher = new PasswordHasher<Account>();
         }
 
-        public bool IsEmailTaken(string email)
+        public async Task<bool> RegisterUserAsync(SignUpRequest model)
         {
-            return _context.Account.Any(a => a.Email == email);
-        }
+            if (await _context.Account.AnyAsync(a => a.Email == model.Email))
+                return false;  // Email already exists
 
-        public bool ArePasswordsMatching(string password1, string password2)
-        {
-            return password1 == password2;
-        }
+            var newUser = new Account
+            {
+                Name = model.Name,
+                Username = model.Username,
+                Email = model.Email,
+                Phone = model.Phone,
+                AcctTypeId = model.AcctTypeId,
+                Password = BCrypt.Net.BCrypt.HashPassword(model.Password)
+            };
 
-        public void RegisterAccount(Account account, string plainPassword)
-        {
-            account.Password = _passwordHasher.HashPassword(account, plainPassword);
-
-            _context.Account.Add(account);
-            _context.SaveChanges();
+            _context.Account.Add(newUser);
+            await _context.SaveChangesAsync();
+            return true;
         }
-
-        public bool VerifyPassword(Account account, string providedPassword)
-        {
-            var result = _passwordHasher.VerifyHashedPassword(account, account.Password, providedPassword);
-            return result == PasswordVerificationResult.Success;
-        }
-    
-}
+    } 
 }
