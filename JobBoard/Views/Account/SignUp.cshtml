@@ -1,0 +1,81 @@
+﻿@model JobBoard.Dtos.SignUpRequest
+
+@{
+    ViewData["Title"] = "Sign Up";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Board</title>
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/form.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="nav">
+        <div class="logo">
+            <h2>Job Board</h2>
+        </div>
+        <div>
+            <ul class="nav-links">
+                <li><a href="">Home</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="grid-container">
+        <div class="grid-item">
+            <h1>
+                Start your career journey here!
+                <br>We wish you luck!
+            </h1>
+        </div>
+        <div class="form grid-item">
+            <header>Sign Up</header>
+            <form asp-controller="Account" asp-action="SignUp" method="post">
+                <label for="name">Full Name/Company Name</label>
+                <input type="text" asp-for="Name" placeholder="Teodora Stoycheva / CSoft" required />
+                <span asp-validation-for="Name" class="text-danger"></span>
+
+                <label for="username">Username</label>
+                <input type="text" asp-for="Username" placeholder="tedi13" required />
+                <span asp-validation-for="Username" class="text-danger"></span>
+
+                <label for="email">Email</label>
+                <input type="email" asp-for="Email" placeholder="tedi@gmail.com" required />
+                <span asp-validation-for="Email" class="text-danger"></span>
+
+                <label for="role">Role</label>
+                <select asp-for="AcctTypeId">
+                    <option value="" disabled selected>Select your role</option>
+                    <option value="1">Company</option>
+                    <option value="2">Candidate</option>
+                </select>
+                <span asp-validation-for="AcctTypeId" class="text-danger"></span>
+                <label for="phone">Phone</label>
+                <input type="phone" asp-for="Phone" placeholder="00000" required />
+        
+                <span asp-validation-for="AcctTypeId" class="text-danger"></span>
+
+                <label for="password">Password</label>
+                <input type="password" asp-for="Password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+
+                <label for="password2">Repeat password</label>
+                <input type="password" name="password2" />
+                <span class="text-danger"></span>
+
+                <input type="submit" value="Sign Up" />
+            </form>
+
+            <div class="linkToLogIn">
+                Already have an account? Log in <a href="logIn.html" style="text-decoration: none;">here</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.0.0/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

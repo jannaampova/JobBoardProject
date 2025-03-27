@@ -1,17 +1,15 @@
-﻿using JobBoard.Data;
+﻿using JobBoard.Dtos;
 using JobBoard.Models;
 using JobBoard.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace JobBoard.Controllers
 {
-
     public class AccountController : Controller
     {
-        private readonly AccountService _accountService;
+        private readonly IAccountService _accountService;
 
-        public AccountController(AccountService accountService)
+        public AccountController(IAccountService accountService)
         {
             _accountService = accountService;
         }
@@ -22,35 +20,22 @@ namespace JobBoard.Controllers
             return View();
         }
 
-
         [HttpPost]
-        public IActionResult SignUp(Account account, string password2)
+        public async Task<IActionResult> SignUp(SignUpRequest model)
         {
             if (!ModelState.IsValid)
             {
-                return View(account);
+                return View(model);
             }
 
-            if (!_accountService.ArePasswordsMatching(account.Password, password2))
+            var result = await _accountService.RegisterUserAsync(model);
+            if (!result)
             {
-                ModelState.AddModelError("Password", "Passwords do not match.");
-                return View(account);
+                ModelState.AddModelError("", "Signup failed. Please try again.");
+                return View(model);
             }
 
-            if (_accountService.IsEmailTaken(account.Email))
-            {
-                ModelState.AddModelError("Email", "Email is already in use.");
-                return View(account);
-            }
-
-            _accountService.RegisterAccount(account, password2); // Pass the plain password for hashing
-            return RedirectToAction("Success");
+            return RedirectToAction("Login", "Account");
         }
-
-        public IActionResult Success()
-        {
-            return View();
-        }
-   
     }
-}
+    }

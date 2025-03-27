@@ -23,6 +23,11 @@ namespace JobBoard.Controllers
             return View();
         }
 
+        public IActionResult SignUpForm()
+        {
+            return View();
+        }
+
         public IActionResult LogIn()  
         {
             return View();

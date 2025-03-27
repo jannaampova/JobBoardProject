@@ -25,6 +25,7 @@ namespace JobBoard.Data
             modelBuilder.Entity<ListingRequirements>().HasNoKey();
             modelBuilder.Entity<ListingBenefits>().HasNoKey();
             modelBuilder.Entity<CandidateSkills>().HasNoKey();
+            modelBuilder.Entity<AccountType>().HasKey(a => a.Id);
 
         }
 
@@ -33,11 +34,12 @@ namespace JobBoard.Data
         public DbSet<CandidateSkills> CandidateSkills { get; set; }
         public DbSet<Application> Application { get; set; }
 
+        
 
 
 
 
-       
+
 
 
     }
