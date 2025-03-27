@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JobBoard.Controllers
 {
+    [Route("auth")]
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
@@ -14,13 +15,13 @@ namespace JobBoard.Controllers
             _accountService = accountService;
         }
 
-        [HttpGet]
+        [HttpGet("register")]
         public IActionResult SignUp()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         public async Task<IActionResult> SignUp(SignUpRequest model)
         {
             if (!ModelState.IsValid)
@@ -35,7 +36,15 @@ namespace JobBoard.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("login");
         }
+
+        [HttpGet("login")]
+        public IActionResult LogIn()
+        {
+            return View();
+        }
+
+      
     }
     }

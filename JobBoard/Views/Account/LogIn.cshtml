@@ -31,7 +31,7 @@
         </div>
         <div>
             <ul class="nav-links">
-                <li><a href="">Home</a></li>
+                <li><a asp-controller="Home" asp-action="Index" style="text-decoration: none;">Home</a></li>
             </ul>
         </div>
     </div>
@@ -57,7 +57,7 @@
 
             </form>
             <div class="linkToLogIn">
-                Don't have an account? Sign up <a href="signUp.html" style="text-decoration: none;">here</a>
+                Don't have an account? Sign up <a asp-controller="Account" asp-action="SignUp" style="text-decoration: none;">here</a>
             </div>
         </div>
     </div>

@@ -18,7 +18,7 @@ namespace JobBoard.Services
         public async Task<bool> RegisterUserAsync(SignUpRequest model)
         {
             if (await _context.Account.AnyAsync(a => a.Email == model.Email))
-                return false;  // Email already exists
+                return false;  
 
             var newUser = new Account
             {
