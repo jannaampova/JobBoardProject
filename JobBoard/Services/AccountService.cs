@@ -34,5 +34,36 @@ namespace JobBoard.Services
             await _context.SaveChangesAsync();
             return true;
         }
-    } 
+
+        public async Task<LogResult> LogInUserAsync(LogInRequest model)
+        {
+            
+            var user = await _context.Account.FirstOrDefaultAsync(a => a.Username == model.Username);
+
+                if (user != null && BCrypt.Net.BCrypt.Verify(model.Password, user.Password))
+                {
+                 return   LogResult.Success;
+                }
+
+
+            if (user == null)
+            {
+                return LogResult.IncorrectUsername;
+            }
+            else if (!BCrypt.Net.BCrypt.Verify(model.Password, user.Password))
+            {
+                return LogResult.IncorrectPassword;
+            }
+            else
+            {
+                return LogResult.None; 
+            }
+
+
+
+
+            }
+
+        
+    }
 }

@@ -38,13 +38,30 @@ namespace JobBoard.Controllers
 
             return RedirectToAction("login");
         }
-
         [HttpGet("login")]
         public IActionResult LogIn()
         {
             return View();
         }
+        [HttpPost("logIn")]
+        public async Task<IActionResult> LogIn(LogInRequest model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model); 
+            }
+            LogResult res = await _accountService.LogInUserAsync(model);
+            if (res !=LogResult.Success ) {
+                switch (res)
+                {
+                    case LogResult.IncorrectUsername: ModelState.AddModelError(nameof(model.Username), "Username not found.");break;
+                    case LogResult.IncorrectPassword: ModelState.AddModelError(nameof(model.Password), "Incorrect password."); break;
+                }
+                return View(model);
+            }
+            return RedirectToAction("register");
 
-      
+        }
+
     }
-    }
+}

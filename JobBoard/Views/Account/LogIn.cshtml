@@ -1,3 +1,5 @@
+@model JobBoard.Dtos.LogInRequest
+
 @{
     ViewData["Title"] = "Log In";
 }
@@ -9,10 +11,10 @@
     <title>Job Board</title>
     <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/form.css" asp-append-version="true" />
+    <partial name="_ValidationScriptsPartial" />
 
 </head>
 <style>
-
     .form{
       height:50%;
     }
@@ -45,16 +47,17 @@
             <header>
                 Log In
             </header>
-            <form action="">
+            <form asp-controller="Account" asp-action="LogIn" method="post">
 
-                <label for="name">Username</label>
-                <input type="text" name="username" id="" placeholder="janna_ampova">
+                <label for="username">Username</label>
+                <input asp-for="Username" placeholder="janna_ampova" />
+                <span asp-validation-for="Username" class="text-danger"></span>
 
-                <label for="name">Password</label>
-                <input type="password" name="password" id="">
+                <label for="password">Password</label>
+                <input asp-for="Password" type="password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
 
-                <input type="submit" value="Log In">
-
+                <input type="submit" value="Log In" />
             </form>
             <div class="linkToLogIn">
                 Don't have an account? Sign up <a asp-controller="Account" asp-action="SignUp" style="text-decoration: none;">here</a>
