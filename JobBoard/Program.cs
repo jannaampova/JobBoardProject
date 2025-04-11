@@ -22,7 +22,7 @@ builder.Services.AddDbContext<ApplicationIdentityDbContext>(options =>
 // Настройка на Identity
 
 builder.Services.AddIdentity<UserData, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddEntityFrameworkStores<ApplicationIdentityDbContext>()
     .AddDefaultTokenProviders();
 
 // Добавяне на аутентикация
@@ -38,12 +38,15 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("Company", policy => policy.RequireRole("Company"));
+    options.AddPolicy("Company", policy => policy.RequireRole("Company"));
     options.AddPolicy("Candidate", policy => policy.RequireRole("Candidate"));
 
 });
 
 // Register AccountService
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped< FilterService>();
+
 
 var app = builder.Build();
 
@@ -57,6 +60,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

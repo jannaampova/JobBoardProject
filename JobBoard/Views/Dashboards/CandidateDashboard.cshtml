@@ -1,0 +1,318 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model JobBoard.Models.ViewModels.CandidateDashboardViewModel
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobby - Job Board</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/candidateDash.css" asp-append-version="true" />
+
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">Jobby</div>
+        <ul class="sidebar-menu">
+            <li><a href="jobboard.html" class="active">Job Board</a></li>
+            <li><a href="my-applications.html">My Applications</a></li>
+            <li><a href="saved-listings.html">Saved Listings</a></li>
+            <li><a href="account-settings.html">My Account</a></li>
+            <li><a href="index.html">Log Out</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="filters-section">
+            <h1 class="filters-title">
+                LISTINGS
+                <span class="clear-filters">Clear All</span>
+            </h1>
+
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search jobs...">
+                <button class="search-button">Search</button>
+            </div>
+
+            <div class="selected-filters">
+                <!-- Selected filters will be added here dynamically -->
+            </div>
+
+            <div class="filters-grid">
+               
+                <div class="filter-group">
+                    <div class="filter-group-title">
+                        Industry
+                        <span class="clear-group">Clear</span>
+                    </div>
+                    <div class="filter-options">
+                        @foreach (var industry in Model.Industries)
+                        {
+                            <div class="filter-option">
+                                <input type="checkbox" id="industry-@industry.Id">
+                                <label for="industry-@industry.Id">@industry.industry</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <div class="filter-group-title">
+                        Job Type
+                        <span class="clear-group">Clear</span>
+                    </div>
+
+
+                    <div class="filter-options">
+                        @foreach (var jobType in Model.JobTypes)
+                        {
+                            <div class="filter-option">
+                                <input type="checkbox" id="type-fulltime">
+                                <label for="industry-@jobType.Id">@jobType.jobType</label>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <div class="filter-group-title">
+                        Location
+                        <span class="clear-group">Clear</span>
+                    </div>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="location-sofia">
+                            <label for="location-sofia">Sofia</label>
+                            <span class="count">(80)</span>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="location-varna">
+                            <label for="location-varna">Varna</label>
+                            <span class="count">(45)</span>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="location-plovdiv">
+                            <label for="location-plovdiv">Plovdiv</label>
+                            <span class="count">(35)</span>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="location-remote">
+                            <label for="location-remote">Remote</label>
+                            <span class="count">(60)</span>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="location-hybrid">
+                            <label for="location-hybrid">Hybrid</label>
+                            <span class="count">(40)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <div class="filter-group-title">
+                        Experience Level
+                        <span class="clear-group">Clear</span>
+                    </div>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="exp-entry">
+                            <label for="exp-entry">Entry Level</label>
+                            <span class="count">(50)</span>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="exp-mid">
+                            <label for="exp-mid">Mid Level</label>
+                            <span class="count">(80)</span>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="exp-senior">
+                            <label for="exp-senior">Senior Level</label>
+                            <span class="count">(60)</span>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="exp-lead">
+                            <label for="exp-lead">Lead</label>
+                            <span class="count">(30)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-info">
+                <h2 class="job-title">Q4 Engineer</h2>
+                <h3 class="company-name">CSoft</h3>
+                <div class="job-details">
+                    <span class="detail-item">🔥 2500 BGN</span>
+                    <span class="detail-item">📍 Varna</span>
+                    <span class="detail-item">🔼 2-5 years</span>
+                    <span class="detail-item">💻 IT</span>
+                    <span class="detail-item">⬜ Hybrid</span>
+                    <span class="detail-item">📅 01/02/2025</span>
+                </div>
+            </div>
+            <div class="job-right">
+                <div class="company-logo">
+                    <!-- Company logo will go here -->
+                </div>
+                <div class="job-actions">
+                    <button class="bookmark-btn" onclick="toggleBookmark(this)">Save</button>
+                    <a href="job-details.html" class="view-job-btn">View Details</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-info">
+                <h2 class="job-title">Frontend Developer</h2>
+                <h3 class="company-name">TechVision</h3>
+                <div class="job-details">
+                    <span class="detail-item">🔥 3000 BGN</span>
+                    <span class="detail-item">📍 Sofia</span>
+                    <span class="detail-item">🔼 3-5 years</span>
+                    <span class="detail-item">💻 IT</span>
+                    <span class="detail-item">⬜ Remote</span>
+                    <span class="detail-item">📅 15/02/2025</span>
+                </div>
+            </div>
+            <div class="job-right">
+                <div class="company-logo">
+                    <!-- Company logo will go here -->
+                </div>
+                <div class="job-actions">
+                    <button class="bookmark-btn" onclick="toggleBookmark(this)">Save</button>
+                    <a href="job-details.html" class="view-job-btn">View Details</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-info">
+                <h2 class="job-title">Product Manager</h2>
+                <h3 class="company-name">InnovateX</h3>
+                <div class="job-details">
+                    <span class="detail-item">🔥 4000 BGN</span>
+                    <span class="detail-item">📍 Plovdiv</span>
+                    <span class="detail-item">🔼 5+ years</span>
+                    <span class="detail-item">💻 Product</span>
+                    <span class="detail-item">⬜ Hybrid</span>
+                    <span class="detail-item">📅 20/02/2025</span>
+                </div>
+            </div>
+            <div class="job-right">
+                <div class="company-logo">
+                    <!-- Company logo will go here -->
+                </div>
+                <div class="job-actions">
+                    <button class="bookmark-btn" onclick="toggleBookmark(this)">Save</button>
+                    <a href="job-details.html" class="view-job-btn">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleBookmark(button) {
+            button.classList.toggle('active');
+            button.textContent = button.classList.contains('active') ? 'Saved' : 'Save';
+        }
+
+        document.querySelectorAll('.filter-option input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const label = this.nextElementSibling.textContent;
+                const count = this.nextElementSibling.nextElementSibling.textContent;
+
+                if (this.checked) {
+                    addSelectedFilter(label, count, this.id);
+                } else {
+                    removeSelectedFilter(this.id);
+                }
+            });
+        });
+
+        function addSelectedFilter(label, count, id) {
+            const selectedFilters = document.querySelector('.selected-filters');
+            const filter = document.createElement('div');
+            filter.className = 'selected-filter';
+            filter.innerHTML = `
+                ${label} ${count}
+                <span class="remove" onclick="removeFilter('${id}')">×</span>
+            `;
+            selectedFilters.appendChild(filter);
+        }
+
+        function removeSelectedFilter(id) {
+            const filter = document.querySelector(`.selected-filter span[onclick="removeFilter('${id}')"]`).parentElement;
+            filter.remove();
+        }
+
+        function removeFilter(id) {
+            const checkbox = document.getElementById(id);
+            checkbox.checked = false;
+            removeSelectedFilter(id);
+        }
+
+        document.querySelector('.clear-filters').addEventListener('click', function() {
+            document.querySelectorAll('.filter-option input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            document.querySelector('.selected-filters').innerHTML = '';
+        });
+
+        document.querySelectorAll('.clear-group').forEach(button => {
+            button.addEventListener('click', function() {
+                const group = this.closest('.filter-group');
+                group.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                const groupTitle = group.querySelector('.filter-group-title').textContent.trim();
+                document.querySelectorAll('.selected-filter').forEach(filter => {
+                    if (filter.textContent.includes(groupTitle)) {
+                        filter.remove();
+                    }
+                });
+            });
+        });
+
+        document.querySelectorAll('.filter-group').forEach(group => {
+            const options = group.querySelectorAll('.filter-option');
+            if (options.length > 4) {
+                const showMore = document.createElement('div');
+                showMore.className = 'show-more';
+                showMore.textContent = 'Show more';
+                group.appendChild(showMore);
+
+                // Hide options beyond the first 4
+                for (let i = 4; i < options.length; i++) {
+                    options[i].style.display = 'none';
+                }
+
+                showMore.addEventListener('click', function() {
+                    const isExpanded = this.classList.contains('expanded');
+                    this.classList.toggle('expanded');
+
+                    if (isExpanded) {
+                        this.textContent = 'Show more';
+                        for (let i = 4; i < options.length; i++) {
+                            options[i].style.display = 'none';
+                        }
+                    } else {
+                        this.textContent = 'Show less';
+                        for (let i = 4; i < options.length; i++) {
+                            options[i].style.display = 'flex';
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -12,7 +12,6 @@ namespace JobBoard.Data
         {
         }
 
-        public DbSet<UserData> UserData { get; set; }
         public DbSet<AccountType> AccountTypes { get; set; }
 
     }
