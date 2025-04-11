@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using JobBoard.Security;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JobBoard.Models.ViewModels
 {
@@ -6,5 +7,6 @@ namespace JobBoard.Models.ViewModels
     {
         public List<Industry> Industries { get; set; }
         public List<JobType> JobTypes { get; set; }
+        public UserData user { get; set; }
     }
 }
