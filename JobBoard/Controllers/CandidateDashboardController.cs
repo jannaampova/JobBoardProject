@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using JobBoard.Data; // or your actual namespace
 using JobBoard.Services;
 using JobBoard.Migrations;
 using JobBoard.Models.ViewModels;

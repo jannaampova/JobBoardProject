@@ -1,0 +1,71 @@
+﻿@{
+    Layout = null;
+}
+@model JobBoard.Models.ViewModels.CompanyDashboardViewModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobby - Our Listings</title>
+    <link rel="stylesheet" href="~/css/company/ourListings.css" asp-append-version="true" />
+</head>
+<body style="font-family: 'Poppins', sans-serif;">
+    @await Html.PartialAsync("~/Views/sidebarCompany.cshtml", Model)
+
+    <div class="main-content">
+        <div class="page-header">
+            <h1 class="section-title">Our Job Listings</h1>
+        </div>
+
+        <div class="listings-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Position</th>
+                        <th>Location</th>
+                        <th>Applications</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Senior Software Engineer</td>
+                        <td>Remote</td>
+                        <td>24</td>
+                        <td><span class="status active">Active</span></td>
+                        <td>
+                            <a asp-controller="OurListings" asp-action="EditListing" class="action-button edit-button">Edit</a>
+                            <a asp-controller="OurListings" asp-action="ViewListing" class="action-button view-button">View</a>
+                            <a href="#" class="action-button close-button">Close</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Product Manager</td>
+                        <td>San Francisco</td>
+                        <td>18</td>
+                        <td><span class="status active">Active</span></td>
+                        <td>
+                            <a asp-controller="OurListings" asp-action="EditListing" class="action-button edit-button">Edit</a>
+                            <a asp-controller="OurListings" asp-action="ViewListing" class="action-button view-button">View</a>
+                            <a href="#" class="action-button close-button">Close</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>UX Designer</td>
+                        <td>New York</td>
+                        <td>12</td>
+                        <td><span class="status closed">Closed</span></td>
+                        <td>
+                            <a asp-controller="OurListings" asp-action="EditListing" class="action-button edit-button">Edit</a>
+                            <a asp-controller="OurListings" asp-action="ViewListing" class="action-button view-button">View</a>
+                            <a href="#" class="action-button close-button">Close</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html> 

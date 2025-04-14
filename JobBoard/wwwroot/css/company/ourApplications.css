@@ -1,0 +1,152 @@
+﻿using Microsoft.AspNetCore.Mvc;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f8f7ff;
+    display: flex;
+    min-height: 100vh;
+}
+
+.main-content {
+    margin-left: 290px;
+    padding: 2rem;
+    width: 85%;
+}
+
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    color: #2d2d2d;
+}
+
+.filter-container {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.filter-button {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    background: white;
+    border: 1px solid #eee;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .filter-button.active {
+        background: #6c63ff;
+        color: white;
+        border-color: #6c63ff;
+    }
+
+.applications-table {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background-color: #f8f7ff;
+    color: #666;
+    font-weight: 500;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+.status {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+    .status.pending {
+        background-color: #fff3e0;
+        color: #ff9800;
+    }
+
+    .status.reviewed {
+        background-color: #e3f2fd;
+        color: #2196F3;
+    }
+
+    .status.accepted {
+        background-color: #e8f5e9;
+        color: #4CAF50;
+    }
+
+    .status.rejected {
+        background-color: #ffebee;
+        color: #f44336;
+    }
+
+.action-button {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+}
+
+.view-button {
+    background-color: #e3f2fd;
+    color: #2196F3;
+}
+
+.accept-button {
+    background-color: #e8f5e9;
+    color: #4CAF50;
+}
+
+.reject-button {
+    background-color: #ffebee;
+    color: #f44336;
+}
+
+.candidate-info {
+    display: flex;
+    align-items: center;
+}
+
+.candidate-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f0f0ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    color: #6c63ff;
+    font-weight: 600;
+}

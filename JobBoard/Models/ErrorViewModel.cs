@@ -1,4 +1,4 @@
-namespace JobBoard.Models.plainModels
+namespace JobBoard.Models
 {
     public class ErrorViewModel
     {

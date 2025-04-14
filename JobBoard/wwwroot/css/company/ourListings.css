@@ -1,0 +1,116 @@
+﻿using Microsoft.AspNetCore.Mvc;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f8f7ff;
+    display: flex;
+    min-height: 100vh;
+}
+
+
+.main-content {
+    margin-left: 290px;
+    padding: 2rem;
+    flex: 1;
+    width:85%;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    color: #2d2d2d;
+}
+
+.create-button {
+    background-color: #6c63ff;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+    .create-button:hover {
+        background-color: #5a52d5;
+    }
+
+.listings-table {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background-color: #f8f7ff;
+    color: #666;
+    font-weight: 500;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+.status {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+    .status.active {
+        background-color: #e8f5e9;
+        color: #4CAF50;
+    }
+
+    .status.closed {
+        background-color: #ffebee;
+        color: #f44336;
+    }
+
+.action-button {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-right: 0.5rem;
+}
+
+.edit-button {
+    background-color: #e3f2fd;
+    color: #2196F3;
+}
+
+.view-button {
+    background-color: #f3e5f5;
+    color: #9c27b0;
+}
+
+.close-button {
+    background-color: #ffebee;
+    color: #f44336;
+}

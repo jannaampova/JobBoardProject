@@ -1,0 +1,92 @@
+﻿@{
+	Layout = null;
+}
+@model JobBoard.Models.ViewModels.CompanyDashboardViewModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Jobby - Our Company</title>
+	<link rel="stylesheet" href="~/css/company/ourCompany.css" asp-append-version="true" />
+</head>
+<body style="font-family: 'Poppins', sans-serif;">
+
+	@await Html.PartialAsync("~/Views/sidebarCompany.cshtml", Model)
+
+	<div class="main-content">
+		<div class="page-header">
+			<h1 class="section-title">Our Company</h1>
+		</div>
+
+		<div class="settings-container">
+			<div class="settings-card">
+				<h2 class="card-title">Company Profile</h2>
+				<div class="company-logo">TC</div>
+				<button class="upload-button">Upload Company Photo</button>
+				<div class="form-group">
+					<label class="form-label">Company Name</label>
+					<input type="text" class="form-input" value="TechCorp Inc.">
+				</div>
+				<div class="form-group">
+					<label class="form-label">Username</label>
+					<input type="text" class="form-input" value="techcorp">
+				</div>
+				<div class="form-group">
+					<label class="form-label">Industry</label>
+					<select class="form-input">
+						<option value="technology">Technology</option>
+						<option value="healthcare">Healthcare</option>
+						<option value="finance">Finance</option>
+						<option value="education">Education</option>
+						<option value="retail">Retail</option>
+						<option value="manufacturing">Manufacturing</option>
+						<option value="consulting">Consulting</option>
+						<option value="media">Media & Entertainment</option>
+						<option value="transportation">Transportation</option>
+						<option value="construction">Construction</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label class="form-label">Location</label>
+					<input type="text" class="form-input" value="San Francisco, CA">
+				</div>
+				<div class="form-group">
+					<label class="form-label">Description</label>
+					<textarea class="form-textarea">TechCorp is a leading technology company specializing in innovative software solutions and digital transformation services.</textarea>
+				</div>
+				<button class="save-button">Save Changes</button>
+			</div>
+
+			<div class="settings-card">
+				<h2 class="card-title">Account Settings</h2>
+				<div class="form-group">
+					<label class="form-label">Email Address</label>
+					<input type="email" class="form-input" value="admin@techcorp.com">
+				</div>
+				<div class="form-group">
+					<label class="form-label">Phone Number</label>
+					<input type="tel" class="form-input" value="+1 (555) 123-4567">
+				</div>
+				<div class="form-group">
+					<label class="form-label">Website URL</label>
+					<input type="url" class="form-input" value="https://techcorp.com">
+				</div>
+				<div class="form-group">
+					<label class="form-label">Current Password</label>
+					<input type="password" class="form-input" placeholder="Enter current password">
+				</div>
+				<div class="form-group">
+					<label class="form-label">New Password</label>
+					<input type="password" class="form-input" placeholder="Enter new password">
+				</div>
+				<div class="form-group">
+					<label class="form-label">Confirm New Password</label>
+					<input type="password" class="form-input" placeholder="Confirm new password">
+				</div>
+				<button class="save-button">Update Settings</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

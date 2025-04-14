@@ -1,6 +1,6 @@
 ﻿using JobBoard.Data;
 using JobBoard.Dtos;
-using JobBoard.Models;
+using JobBoard.Models.plainModels;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using JobBoard.Security;

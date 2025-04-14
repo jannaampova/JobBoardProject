@@ -1,0 +1,239 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f8f7ff;
+    display: flex;
+}
+
+.main-content {
+    margin-left: 280px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.back-link {
+    display: inline-block;
+    color: #666;
+    text-decoration: none;
+    margin-bottom: 2rem;
+}
+
+    .back-link:hover {
+        color: #333;
+    }
+
+.application-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+}
+
+.candidate-info {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.candidate-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #f0f0ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c63ff;
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.candidate-details h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.candidate-details p {
+    color: #666;
+}
+
+.status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+    .status-badge.pending {
+        background-color: #fff3e0;
+        color: #ff9800;
+    }
+
+    .status-badge.accepted {
+        background-color: #e8f5e9;
+        color: #4CAF50;
+    }
+
+    .status-badge.rejected {
+        background-color: #ffebee;
+        color: #f44336;
+    }
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+.content-section {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.section-content {
+    color: #666;
+    line-height: 1.6;
+}
+
+    .section-content p {
+        margin-bottom: 1rem;
+    }
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.skill-tag {
+    background: #f0f0ff;
+    color: #6c63ff;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.application-info {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+.info-item {
+    margin-bottom: 1.5rem;
+}
+
+.info-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.info-value {
+    font-weight: 500;
+    color: #333;
+}
+
+.resume-preview {
+    margin-top: 2rem;
+}
+
+.resume-container {
+    background: #f8f7ff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+
+.resume-file {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.file-icon {
+    font-size: 24px;
+    color: #6c63ff;
+}
+
+.file-info h3 {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 0.25rem;
+}
+
+.file-info p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.download-button {
+    display: inline-block;
+    background: #6c63ff;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+    .download-button:hover {
+        background: #5a52d5;
+    }
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.action-button {
+    flex: 1;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.accept-button {
+    background-color: #e8f5e9;
+    color: #4CAF50;
+}
+
+    .accept-button:hover {
+        background-color: #d7e8d9;
+    }
+
+.reject-button {
+    background-color: #ffebee;
+    color: #f44336;
+}
+
+    .reject-button:hover {
+        background-color: #ffdde0;
+    }
