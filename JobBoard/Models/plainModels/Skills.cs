@@ -1,15 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace JobBoard.Models
+namespace JobBoard.Models.plainModels
 {
-    public class Benefits
+    public class Skills
     {
         [Key]
         public int Id { get; set; }
-        public String benefit { get; set; }
+        [Required]
+        public string Skill { get; set; }
         [NotMapped]
-        public List<ListingBenefits> benefits { get; set; }
+        public List<CandidateSkills> skills { get; set; }
+
 
     }
 }

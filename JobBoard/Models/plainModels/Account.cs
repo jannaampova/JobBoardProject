@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace JobBoard.Models
+namespace JobBoard.Models.plainModels
 {
     public class Account
     {

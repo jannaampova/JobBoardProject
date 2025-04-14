@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace JobBoard.Models
+namespace JobBoard.Models.plainModels
 {
     public class JobType
     {
         [Key]
         public int Id { get; set; }
-        public String jobType { get; set; }
+        public string jobType { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using JobBoard.Security;
 using Microsoft.EntityFrameworkCore;
-using JobBoard.Models;
+using JobBoard.Models.plainModels;
 
 namespace JobBoard.Data
 {

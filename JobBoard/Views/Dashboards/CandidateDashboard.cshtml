@@ -29,139 +29,117 @@
     </div>
 
     <div class="main-content">
-        <div class="filters-section">
-            <h1 class="filters-title">
-                LISTINGS
-                <span class="clear-filters">Clear All</span>
-            </h1>
 
-            <div class="search-box">
-                <input type="text" class="search-input" placeholder="Search jobs...">
-                <button class="search-button">Search</button>
+            <form asp-action="Filter"  asp-controller="CandidateDashboard" method="get">
+    <div class="filters-section">
+        <h1 class="filters-title">
+            LISTINGS
+            <span class="clear-filters">Clear All</span>
+        </h1>
+
+        <div class="search-box">
+            <input type="text" class="search-input" name="SearchQuery" placeholder="Search jobs..." value="@Model.SearchQuery" />
+            <button type="submit" class="search-button">Search</button>
+        </div>
+
+        <div class="filters-grid">
+            <!-- Industry Filter -->
+            <div class="filter-group">
+                <div class="filter-group-title">
+                    Industry
+                    <span class="clear-group">Clear</span>
+                </div>
+                <div class="filter-options">
+                    @foreach (var industry in Model.Industries)
+                    {
+                        <div class="filter-option">
+                            <input type="checkbox" id="industry-@industry.Id" name="SelectedIndustries" value="@industry.Id" 
+                                @if (Model.SelectedIndustries?.Contains(industry.Id) == true) { <text>checked</text> } />
+                            <label for="industry-@industry.Id">@industry.industry</label>
+                        </div>
+                    }
+                </div>
             </div>
 
-            <div class="selected-filters">
-                <!-- Selected filters will be added here dynamically -->
+            <!-- Job Type Filter -->
+            <div class="filter-group">
+                <div class="filter-group-title">
+                    Job Type
+                    <span class="clear-group">Clear</span>
+                </div>
+                <div class="filter-options">
+                    @foreach (var jobType in Model.JobTypes)
+                    {
+                        <div class="filter-option">
+                            <input type="checkbox" id="type-@jobType.Id" name="SelectedJobTypes" value="@jobType.Id"
+                                @if (Model.SelectedJobTypes?.Contains(jobType.Id) == true) { <text>checked</text> } />
+                            <label for="type-@jobType.Id">@jobType.jobType</label>
+                        </div>
+                    }
+                </div>
             </div>
 
-            <div class="filters-grid">
-               
-                <div class="filter-group">
-                    <div class="filter-group-title">
-                        Industry
-                        <span class="clear-group">Clear</span>
+            <!-- Location Filter -->
+            <div class="filter-group">
+                <div class="filter-group-title">
+                    Location
+                    <span class="clear-group">Clear</span>
+                </div>
+                <div class="filter-options">
+                    @foreach (var town in Model.Cities)
+                    {
+                        <div class="filter-option">
+                            <input type="checkbox" id="location-@town.Name" name="SelectedCities" value="@town.Id" 
+                                @if (Model.SelectedCities?.Contains(town.Id) == true) { <text>checked</text> } />
+                            <label for="location-@town.Name">@town.Name</label>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Experience Level Filter -->
+            <div class="filter-group">
+                <div class="filter-group-title">
+                            Experience Level
+                            <span class="clear-group">Clear</span>
+                        </div>
+                        <div class="filter-options">
+                            @foreach (var level in Model.Levels)
+                            {
+                                <div class="filter-option">
+                                    <input type="checkbox" id="exp-@level" name="SelectedLevels" value="@level"
+                                    @(Model.SelectedLevels?.Contains(level) == true ? "checked" : "") />
+                                    <label for="exp-@level">@level</label>
+                                    <span class="count">to be dev</span>
+                                </div>
+                            }   
+                        </div>
                     </div>
-                    <div class="filter-options">
-                        @foreach (var industry in Model.Industries)
+                </div>
+            </div>
+            </form>
+
+        @{
+            var listingsToShow = Model.FilteredJobs?.Any() == true ? Model.FilteredJobs : Model.AllListings;
+        }            @foreach (var job in listingsToShow)
                         {
-                            <div class="filter-option">
-                                <input type="checkbox" id="industry-@industry.Id">
-                                <label for="industry-@industry.Id">@industry.industry</label>
-                            </div>
-                        }
-                    </div>
-                </div>
-
-                <div class="filter-group">
-                    <div class="filter-group-title">
-                        Job Type
-                        <span class="clear-group">Clear</span>
-                    </div>
-
-
-                    <div class="filter-options">
-                        @foreach (var jobType in Model.JobTypes)
-                        {
-                            <div class="filter-option">
-                                <input type="checkbox" id="type-fulltime">
-                                <label for="industry-@jobType.Id">@jobType.jobType</label>
-                            </div>
-                        }
-
-                    </div>
-                </div>
-
-                <div class="filter-group">
-                    <div class="filter-group-title">
-                        Location
-                        <span class="clear-group">Clear</span>
-                    </div>
-                    <div class="filter-options">
-                        <div class="filter-option">
-                            <input type="checkbox" id="location-sofia">
-                            <label for="location-sofia">Sofia</label>
-                            <span class="count">(80)</span>
-                        </div>
-                        <div class="filter-option">
-                            <input type="checkbox" id="location-varna">
-                            <label for="location-varna">Varna</label>
-                            <span class="count">(45)</span>
-                        </div>
-                        <div class="filter-option">
-                            <input type="checkbox" id="location-plovdiv">
-                            <label for="location-plovdiv">Plovdiv</label>
-                            <span class="count">(35)</span>
-                        </div>
-                        <div class="filter-option">
-                            <input type="checkbox" id="location-remote">
-                            <label for="location-remote">Remote</label>
-                            <span class="count">(60)</span>
-                        </div>
-                        <div class="filter-option">
-                            <input type="checkbox" id="location-hybrid">
-                            <label for="location-hybrid">Hybrid</label>
-                            <span class="count">(40)</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="filter-group">
-                    <div class="filter-group-title">
-                        Experience Level
-                        <span class="clear-group">Clear</span>
-                    </div>
-                    <div class="filter-options">
-                        <div class="filter-option">
-                            <input type="checkbox" id="exp-entry">
-                            <label for="exp-entry">Entry Level</label>
-                            <span class="count">(50)</span>
-                        </div>
-                        <div class="filter-option">
-                            <input type="checkbox" id="exp-mid">
-                            <label for="exp-mid">Mid Level</label>
-                            <span class="count">(80)</span>
-                        </div>
-                        <div class="filter-option">
-                            <input type="checkbox" id="exp-senior">
-                            <label for="exp-senior">Senior Level</label>
-                            <span class="count">(60)</span>
-                        </div>
-                        <div class="filter-option">
-                            <input type="checkbox" id="exp-lead">
-                            <label for="exp-lead">Lead</label>
-                            <span class="count">(30)</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="job-card">
-            <div class="job-info">
-                <h2 class="job-title">Q4 Engineer</h2>
-                <h3 class="company-name">CSoft</h3>
-                <div class="job-details">
-                    <span class="detail-item">🔥 2500 BGN</span>
-                    <span class="detail-item">📍 Varna</span>
-                    <span class="detail-item">🔼 2-5 years</span>
-                    <span class="detail-item">💻 IT</span>
-                    <span class="detail-item">⬜ Hybrid</span>
-                    <span class="detail-item">📅 01/02/2025</span>
+          
+                <div class="job-info">
+                    <h2 class="job-title">@job.title</h2>
+                    <h3 class="company-name">@job.company.companyName</h3>
+                    <div class="job-details">
+@*                            <span class="detail-item">🔥 @job.company.sal BGN</span>
+ *@                        <span class="detail-item">📍 @job.town.Name</span>
+                        <span class="detail-item">🔼 @job.experienceLevel</span>
+                        <span class="detail-item">💻 @job.company.industry.industry</span>
+                        <span class="detail-item">⬜ @job.jobType.jobType</span>
+                        <span class="detail-item">📅 @job.datePosted.ToString("dd/MM/yyyy")</span>
+                    </div>
                 </div>
-            </div>
+            
             <div class="job-right">
                 <div class="company-logo">
-                    <!-- Company logo will go here -->
                 </div>
                 <div class="job-actions">
                     <button class="bookmark-btn" onclick="toggleBookmark(this)">Save</button>
@@ -169,54 +147,7 @@
                 </div>
             </div>
         </div>
-
-        <div class="job-card">
-            <div class="job-info">
-                <h2 class="job-title">Frontend Developer</h2>
-                <h3 class="company-name">TechVision</h3>
-                <div class="job-details">
-                    <span class="detail-item">🔥 3000 BGN</span>
-                    <span class="detail-item">📍 Sofia</span>
-                    <span class="detail-item">🔼 3-5 years</span>
-                    <span class="detail-item">💻 IT</span>
-                    <span class="detail-item">⬜ Remote</span>
-                    <span class="detail-item">📅 15/02/2025</span>
-                </div>
-            </div>
-            <div class="job-right">
-                <div class="company-logo">
-                    <!-- Company logo will go here -->
-                </div>
-                <div class="job-actions">
-                    <button class="bookmark-btn" onclick="toggleBookmark(this)">Save</button>
-                    <a href="job-details.html" class="view-job-btn">View Details</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="job-card">
-            <div class="job-info">
-                <h2 class="job-title">Product Manager</h2>
-                <h3 class="company-name">InnovateX</h3>
-                <div class="job-details">
-                    <span class="detail-item">🔥 4000 BGN</span>
-                    <span class="detail-item">📍 Plovdiv</span>
-                    <span class="detail-item">🔼 5+ years</span>
-                    <span class="detail-item">💻 Product</span>
-                    <span class="detail-item">⬜ Hybrid</span>
-                    <span class="detail-item">📅 20/02/2025</span>
-                </div>
-            </div>
-            <div class="job-right">
-                <div class="company-logo">
-                    <!-- Company logo will go here -->
-                </div>
-                <div class="job-actions">
-                    <button class="bookmark-btn" onclick="toggleBookmark(this)">Save</button>
-                    <a href="job-details.html" class="view-job-btn">View Details</a>
-                </div>
-            </div>
-        </div>
+                          }
     </div>
 
     <script>

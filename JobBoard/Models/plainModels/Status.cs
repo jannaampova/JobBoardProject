@@ -1,4 +1,4 @@
-﻿namespace JobBoard.Models
+﻿namespace JobBoard.Models.plainModels
 {
     public enum Status
     {

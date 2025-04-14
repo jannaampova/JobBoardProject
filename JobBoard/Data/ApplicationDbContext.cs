@@ -1,4 +1,4 @@
-﻿using JobBoard.Models; 
+﻿using JobBoard.Models.plainModels;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,6 +9,7 @@ namespace JobBoard.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         public DbSet<AccountType> AccountType { get; set; }
         public DbSet<Account> Account { get; set; }
+        public DbSet<Town> Town { get; set; }
         public DbSet<Industry> Industry { get; set; }
         public DbSet<Company> Company { get; set; }
         public DbSet<JobType> JobType { get; set; }
