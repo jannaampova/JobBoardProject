@@ -1,0 +1,133 @@
+﻿
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f8f7ff;
+    display: flex;
+}
+
+
+
+.page-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+.settings-section {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+.profile-header {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    align-items: center;
+}
+
+.profile-photo {
+    width: 120px;
+    height: 120px;
+    background: #f8f7ff;
+    border-radius: 8px;
+    position: relative;
+}
+
+.photo-upload {
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    background: #e6e1f9;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #6c63ff;
+    font-size: 18px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+    .form-control:focus {
+        outline: none;
+        border-color: #6c63ff;
+    }
+
+.save-btn {
+    background-color: #e6e1f9;
+    color: #6c63ff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+    .save-btn:hover {
+        background-color: #d9d1f8;
+    }
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 1rem;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 1rem;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-photo {
+        margin: 0 auto;
+    }
+}
+

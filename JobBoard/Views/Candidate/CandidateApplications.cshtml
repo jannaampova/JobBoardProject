@@ -1,0 +1,73 @@
+﻿@model JobBoard.Models.ViewModels.CandidateDashboardViewModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Applications - Jobby</title>
+    <link rel="stylesheet" href="~/css/sidebarCandidate.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/my-applications.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  
+</head>
+<body>
+    @await Html.PartialAsync("~/Views/sidebar.cshtml", Model)
+    <div class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">My Applications</h1>
+            <span class="applications-count">4 applications</span>
+        </div>
+
+        <div class="status-filters">
+            <button class="status-filter active">All</button>
+            <button class="status-filter">Pending</button>
+            <button class="status-filter">Reviewing</button>
+            <button class="status-filter">Accepted</button>
+            <button class="status-filter">Rejected</button>
+        </div>
+
+        <div class="application-card">
+            <div class="application-info">
+                <h2 class="job-title">Q4 Engineer</h2>
+                <h3 class="company-name">CSoft</h3>
+                <div class="application-details">
+                    <span class="detail-item">🔥 2500 BGN</span>
+                    <span class="detail-item">📍 Varna</span>
+                    <span class="detail-item">💻 IT</span>
+                    <span class="detail-item">⬜ Hybrid</span>
+                </div>
+            </div>
+            <div class="application-right">
+                <div class="company-logo">
+                    <!-- Company logo will go here -->
+                </div>
+                <span class="application-status status-reviewing">Reviewing</span>
+                <span class="application-date">Applied on Jan 15, 2024</span>
+            </div>
+        </div>
+
+        <!-- Example of other application statuses -->
+        <div class="application-card">
+            <div class="application-info">
+                <h2 class="job-title">Frontend Developer</h2>
+                <h3 class="company-name">TechCo</h3>
+                <div class="application-details">
+                    <span class="detail-item">🔥 3000 BGN</span>
+                    <span class="detail-item">📍 Sofia</span>
+                    <span class="detail-item">💻 IT</span>
+                    <span class="detail-item">⬜ Remote</span>
+                </div>
+            </div>
+            <div class="application-right">
+                <div class="company-logo">
+                    <!-- Company logo will go here -->
+                </div>
+                <span class="application-status status-accepted">Accepted</span>
+                <span class="application-date">Applied on Jan 10, 2024</span>
+            </div>
+        </div>
+
+        <!-- Add more application cards here -->
+    </div>
+</body>
+</html> 

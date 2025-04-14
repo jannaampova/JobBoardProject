@@ -1,34 +1,27 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿
 @model JobBoard.Models.ViewModels.CandidateDashboardViewModel
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jobby - Job Board</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/candidateDash.css" asp-append-version="true" />
-
+    <link rel="stylesheet" href="~/css/sidebarCandidate.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class="sidebar">
-        <div class="logo">@Model.user.UserName</div>
-        <ul class="sidebar-menu">
-            <li><a href="jobboard.html" class="active">Job Board</a></li>
-            <li><a href="my-applications.html">My Applications</a></li>
-            <li><a href="saved-listings.html">Saved Listings</a></li>
-            <li><a href="account-settings.html">My Account</a></li>
-            <li><a href="index.html">Log Out</a></li>
-        </ul>
-    </div>
-
+<style>
+    .sidebar{
+        width:187px !important;   }
+        .main-content{
+            width:82% !important;
+            padding:1.5rem !important;
+        }
+</style>
+<body style="font-family:'Poppins',sans-serif;">
+    @await Html.PartialAsync("~/Views/sidebar.cshtml",Model)
     <div class="main-content">
+
 
             <form asp-action="Filter"  asp-controller="CandidateDashboard" method="get">
     <div class="filters-section">
@@ -143,7 +136,7 @@
                 </div>
                 <div class="job-actions">
                     <button class="bookmark-btn" onclick="toggleBookmark(this)">Save</button>
-                    <a href="job-details.html" class="view-job-btn">View Details</a>
+                    <a asp-controller="JobDetails" asp-action="Index"class="view-job-btn">View Details</a>
                 </div>
             </div>
         </div>
