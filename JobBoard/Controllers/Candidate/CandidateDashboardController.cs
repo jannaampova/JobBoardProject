@@ -7,12 +7,12 @@ using JobBoard.Security;
 using Microsoft.AspNetCore.Identity;
 using JobBoard.Models.plainModels;
 
-namespace JobBoard.Controllers
+namespace JobBoard.Controllers.Candidate
 {
 
     public class CandidateDashboardController : Controller
     {
-       
+
         private readonly FilterService filterService;
         private readonly UserManager<UserData> _userManager;
 
@@ -22,31 +22,30 @@ namespace JobBoard.Controllers
             _userManager = userManager;
         }
         [HttpGet("applicantDashboard")]
-       
+
         public async Task<IActionResult> Applicant()
         {
-
             List<Industry> industries = filterService.getIndustries();
             List<JobType> jobTypes = filterService.getJobTypes();
             List<Town> cities = filterService.getCities();
-            List<String> expLevels = filterService.getExperienceLevel();
-            List<Listing> listings=filterService.GetAllJobListings();
+            List<string> expLevels = filterService.getExperienceLevel();
+            List<Listing> listings = filterService.GetAllJobListings();
 
 
-            UserData currUser =await _userManager.GetUserAsync(User);
+            UserData currUser = await _userManager.GetUserAsync(User);
 
             CandidateDashboardViewModel viewModel = new CandidateDashboardViewModel
             {
                 Industries = industries,
                 JobTypes = jobTypes,
                 user = currUser,
-                Cities=cities,
-                Levels=expLevels,
-                AllListings=listings
+                Cities = cities,
+                Levels = expLevels,
+                AllListings = listings
 
             };
 
-            return View("~/Views/Dashboards/CandidateDashboard.cshtml",viewModel);
+            return View("~/Views/Dashboards/CandidateDashboard.cshtml", viewModel);
         }
 
         [HttpGet]
@@ -64,6 +63,7 @@ namespace JobBoard.Controllers
             return View("~/Views/Dashboards/CandidateDashboard.cshtml", filteredResults);
         }
 
+      
 
 
     }

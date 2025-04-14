@@ -1,0 +1,84 @@
+﻿@model JobBoard.Models.ViewModels.CandidateDashboardViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q4 Engineer at CSoft - Job Details</title>
+    <link rel="stylesheet" href="~/css/sidebarCandidate.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/job-details.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+   
+</head>
+<body>
+        @await Html.PartialAsync("~/Views/sidebar.cshtml", Model)
+    <div class="main-content">
+        <div class="job-content">
+            <a asp-action="CandidateDashboard" asp-action="Applicant" class="back-link">← Back to Job Board</a>
+            <h1 class="page-title">Q4 Engineer</h1>
+
+            <div class="content-section">
+                <h2 class="section-title">Description</h2>
+                <div class="section-content">
+                    <p>We are looking for a talented Q4 Engineer to join our growing team at CSoft. This is an exciting opportunity to work on cutting-edge projects in a dynamic environment.</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Requirements</h2>
+                <div class="section-content">
+                    <ul>
+                        <li>2-5 years of experience in software development</li>
+                        <li>Strong programming skills</li>
+                        <li>Experience with modern development tools</li>
+                        <li>Excellent problem-solving abilities</li>
+                        <li>Good communication skills</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Benefits</h2>
+                <div class="section-content">
+                    <ul>
+                        <li>Competitive salary (2500 BGN)</li>
+                        <li>Flexible hybrid work arrangement</li>
+                        <li>Professional development opportunities</li>
+                        <li>Health insurance</li>
+                        <li>Modern office in Varna</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="company-info">
+            <div class="company-logo">
+                <!-- Company logo will go here -->
+            </div>
+            <h2 class="company-name">CSoft</h2>
+            <div class="job-meta">
+                <span class="meta-item">🔥 2500 BGN</span>
+                <span class="meta-item">📍 Varna</span>
+                <span class="meta-item">🔼 2-5 years</span>
+                <span class="meta-item">💻 IT</span>
+                <span class="meta-item">⬜ Hybrid</span>
+                <span class="meta-item">📅 01/02/2025</span>
+            </div>
+            <div class="job-actions">
+                <button class="bookmark-btn" onclick="toggleBookmark(this)">Save</button>
+                <a asp-controller="JobDetails" asp-action="Apply" class="apply-btn">Apply Now</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleBookmark(button) {
+            button.classList.toggle('active');
+            button.textContent = button.classList.contains('active') ? 'Saved' : 'Save';
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Listings - Jobby</title>
+    <link rel="stylesheet" href="~/css/saved-listings.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/sidebarCandidate.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    @model JobBoard.Models.ViewModels.CandidateDashboardViewModel
+
+       @await Html.PartialAsync("~/Views/sidebar.cshtml",Model)
+
+    <div class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Saved Listings</h1>
+            <span class="saved-count">3 jobs saved</span>
+        </div>
+
+        <div class="job-card">
+            <div class="job-info">
+                <h2 class="job-title">Q4 Engineer</h2>
+                <h3 class="company-name">CSoft</h3>
+                <div class="job-details">
+                    <span class="detail-item">🔥 2500 BGN</span>
+                    <span class="detail-item">📍 Varna</span>
+                    <span class="detail-item">🔼 2-5 years</span>
+                    <span class="detail-item">💻 IT</span>
+                    <span class="detail-item">⬜ Hybrid</span>
+                    <span class="detail-item">📅 01/02/2025</span>
+                </div>
+            </div>
+            <div class="job-right">
+                <div class="company-logo">
+                    <!-- Company logo will go here -->
+                </div>
+                <div class="job-actions">
+                    <button class="bookmark-btn active" onclick="toggleBookmark(this)">Saved</button>
+                    <a href="job-details.html" class="view-job-btn">View Details</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add more saved job cards here -->
+    </div>
+
+    <script>
+        function toggleBookmark(button) {
+            const jobCard = button.closest('.job-card');
+            button.classList.toggle('active');
+            button.textContent = button.classList.contains('active') ? 'Saved' : 'Save';
+
+            // If unsaved, add animation and remove the job card
+            if (!button.classList.contains('active')) {
+                jobCard.classList.add('removing');
+                setTimeout(() => {
+                    jobCard.remove();
+                    updateSavedCount();
+                }, 300);
+            }
+        }
+
+        function updateSavedCount() {
+            const count = document.querySelectorAll('.job-card').length;
+            document.querySelector('.saved-count').textContent = count + ' jobs saved';
+        }
+    </script>
+</body>
+</html>
