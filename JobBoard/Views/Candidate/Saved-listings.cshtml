@@ -1,16 +1,17 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Layout = null;
+}
+@model JobBoard.Models.ViewModels.CandidateDashboardViewModel
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saved Listings - Jobby</title>
-    <link rel="stylesheet" href="~/css/saved-listings.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="~/css/sidebarCandidate.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/candidate/saved-listings.css" asp-append-version="true"/>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    @model JobBoard.Models.ViewModels.CandidateDashboardViewModel
-
        @await Html.PartialAsync("~/Views/sidebar.cshtml",Model)
 
     <div class="main-content">
@@ -38,7 +39,8 @@
                 </div>
                 <div class="job-actions">
                     <button class="bookmark-btn active" onclick="toggleBookmark(this)">Saved</button>
-                    <a href="job-details.html" class="view-job-btn">View Details</a>
+                    <a asp-controller="JobDetails" asp-action="Index" class="view-job-btn">View Details</a>
+
                 </div>
             </div>
         </div>

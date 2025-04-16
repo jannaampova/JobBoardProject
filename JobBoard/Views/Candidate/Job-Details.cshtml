@@ -1,17 +1,15 @@
-﻿@model JobBoard.Models.ViewModels.CandidateDashboardViewModel
-@{
+﻿@{
     Layout = null;
 }
+@model JobBoard.Models.ViewModels.CandidateDashboardViewModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Q4 Engineer at CSoft - Job Details</title>
-    <link rel="stylesheet" href="~/css/sidebarCandidate.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/job-details.css" asp-append-version="true" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-   
+    <link rel="stylesheet" href="~/css/candidate/job-details.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
 </head>
 <body>
         @await Html.PartialAsync("~/Views/sidebar.cshtml", Model)
@@ -29,44 +27,79 @@
 
             <div class="content-section">
                 <h2 class="section-title">Requirements</h2>
-                <div class="section-content">
-                    <ul>
-                        <li>2-5 years of experience in software development</li>
-                        <li>Strong programming skills</li>
-                        <li>Experience with modern development tools</li>
-                        <li>Excellent problem-solving abilities</li>
-                        <li>Good communication skills</li>
-                    </ul>
+                <div class="tag-container">
+                    <div class="tag">
+                        <i>✓</i>
+                        <span>2-5 years experience</span>
+                    </div>
+                    <div class="tag">
+                        <i>✓</i>
+                        <span>Strong programming skills</span>
+                    </div>
+                    <div class="tag">
+                        <i>✓</i>
+                        <span>Problem solving</span>
+                    </div>
+                    <div class="tag">
+                        <i>✓</i>
+                        <span>Communication skills</span>
+                    </div>
                 </div>
             </div>
 
             <div class="content-section">
                 <h2 class="section-title">Benefits</h2>
-                <div class="section-content">
-                    <ul>
-                        <li>Competitive salary (2500 BGN)</li>
-                        <li>Flexible hybrid work arrangement</li>
-                        <li>Professional development opportunities</li>
-                        <li>Health insurance</li>
-                        <li>Modern office in Varna</li>
-                    </ul>
+                <div class="tag-container">
+                    <div class="tag benefit">
+                        <i>✓</i>
+                        <span>Competitive salary</span>
+                    </div>
+                    <div class="tag benefit">
+                        <i>✓</i>
+                        <span>Flexible hybrid work</span>
+                    </div>
+                    <div class="tag benefit">
+                        <i>✓</i>
+                        <span>Health insurance</span>
+                    </div>
+                    <div class="tag benefit">
+                        <i>✓</i>
+                        <span>Modern office</span>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="company-info">
             <div class="company-logo">
-                <!-- Company logo will go here -->
+                CS
             </div>
             <h2 class="company-name">CSoft</h2>
-            <div class="job-meta">
-                <span class="meta-item">🔥 2500 BGN</span>
-                <span class="meta-item">📍 Varna</span>
-                <span class="meta-item">🔼 2-5 years</span>
-                <span class="meta-item">💻 IT</span>
-                <span class="meta-item">⬜ Hybrid</span>
-                <span class="meta-item">📅 01/02/2025</span>
+            <div class="meta-item">
+                <i>🏢</i>
+                <span>Technology</span>
             </div>
+            <div class="meta-item">
+                <i>📍</i>
+                <span>Varna</span>
+            </div>
+            <div class="meta-item">
+                <i>💼</i>
+                <span>Hybrid</span>
+            </div>
+            <div class="meta-item">
+                <i>⭐</i>
+                <span>Mid-level</span>
+            </div>
+            <div class="meta-item">
+                <i>💰</i>
+                <span>2500 BGN</span>
+            </div>
+            <div class="meta-item">
+                <i>📅</i>
+                <span>Posted Feb 1, 2025</span>
+            </div>
+
             <div class="job-actions">
                 <button class="bookmark-btn" onclick="toggleBookmark(this)">Save</button>
                 <a asp-controller="JobDetails" asp-action="Apply" class="apply-btn">Apply Now</a>

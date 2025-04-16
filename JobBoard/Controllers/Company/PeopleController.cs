@@ -1,21 +1,43 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
+﻿using JobBoard.Models.ViewModels;
+using JobBoard.Security;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 namespace JobBoard.Controllers.Company
 {
     public class PeopleController : Controller
     {
-        [HttpGet("/people")]
-
-        public IActionResult Index()
+        private readonly UserManager<UserData> _userManager;
+        public PeopleController(UserManager<UserData> userManager)
         {
-            return View("~/Views/Company/People.cshtml");
+            _userManager = userManager;
         }
+
+        [HttpGet("/people")]
+        public async Task<IActionResult> Index()
+        {
+            UserData currUser = await _userManager.GetUserAsync(User);
+
+            CompanyDashboardViewModel viewModel = new CompanyDashboardViewModel
+            {
+                user = currUser,
+            };
+
+            return View("~/Views/Company/People.cshtml", viewModel);
+        }
+      
 
         [HttpGet("/candidateProfile")]
-
-        public IActionResult ViewProfile()
+        public async Task<IActionResult> ViewProfile()
         {
-            return View("~/Views/Company/CandidateProfile.cshtml");
+            UserData currUser = await _userManager.GetUserAsync(User);
+
+            CompanyDashboardViewModel viewModel = new CompanyDashboardViewModel
+            {
+                user = currUser,
+            };
+
+            return View("~/Views/Company/CandidateProfile.cshtml", viewModel);
         }
+     
     }
 }

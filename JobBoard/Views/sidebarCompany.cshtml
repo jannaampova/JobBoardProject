@@ -1,16 +1,9 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-    Layout = null;
-}
-@model JobBoard.Models.ViewModels.CompanyDashboardViewModel
+﻿@model JobBoard.Models.ViewModels.CompanyDashboardViewModel
 <link rel="stylesheet" href="~/css/company/sidebarCompany.css" asp-append-version="true" />
 
 <div class="sidebar">
-    <div class="logo">
-        <h2>Jobby</h2>
-    </div>
+    <div class="logo">@Model.user.UserName</div>
+
     <ul class="sidebar-menu">
         <li><a asp-controller="CompanyDashboard" asp-action="Company">Home</a></li>
         <li><a asp-controller="People" asp-action="Index">People</a></li>

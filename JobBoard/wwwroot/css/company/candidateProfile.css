@@ -1,7 +1,5 @@
 ﻿* {
-    margin: 0;
     padding: 0;
-    box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -11,9 +9,9 @@ body {
 }
 
 .main-content {
-    margin-left: 280px;
+    margin-left: 290px;
     padding: 2rem;
-    width: 100%;
+    width: 85%;
     display: flex;
     gap: 2rem;
 }

@@ -1,26 +1,56 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using JobBoard.Models.ViewModels;
+using JobBoard.Security;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JobBoard.Controllers.Company
 {
     public class OurListingsController : Controller
     {
+        private readonly UserManager<UserData> _userManager;
+        public OurListingsController(UserManager<UserData> userManager)
+        {
+            _userManager = userManager;
+        }
+
         [HttpGet("/ourListings")]
-
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View("~/Views/Company/OurListings.cshtml");
+            UserData currUser = await _userManager.GetUserAsync(User);
+
+            CompanyDashboardViewModel viewModel = new CompanyDashboardViewModel
+            {
+                user = currUser,
+            };
+
+            return View("~/Views/Company/OurListings.cshtml", viewModel);
         }
+
         [HttpGet("/editListing")]
-
-        public IActionResult EditListing()
+        public async Task<IActionResult> EditListing()
         {
-            return View("~/Views/Company/EditListing.cshtml");
+            UserData currUser = await _userManager.GetUserAsync(User);
+
+            CompanyDashboardViewModel viewModel = new CompanyDashboardViewModel
+            {
+                user = currUser,
+            };
+
+            return View("~/Views/Company/EditListing.cshtml", viewModel);
         }
+      
         [HttpGet("/listingDetails")]
-
-        public IActionResult ViewListing()
+        public async Task<IActionResult> ViewListing()
         {
-            return View("~/Views/Company/ListingDetails.cshtml");
+            UserData currUser = await _userManager.GetUserAsync(User);
+
+            CompanyDashboardViewModel viewModel = new CompanyDashboardViewModel
+            {
+                user = currUser,
+            };
+
+            return View("~/Views/Company/ListingDetails.cshtml", viewModel);
         }
+     
     }
 }

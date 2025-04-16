@@ -1,7 +1,5 @@
 ﻿* {
-    margin: 0;
     padding: 0;
-    box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -12,9 +10,10 @@ body {
 }
 
 .main-content {
-    margin-left: 280px;
+    margin-left: 290px;
     padding: 2rem;
     flex: 1;
+    width:85%;
 }
 
 .page-header {
@@ -30,9 +29,10 @@ body {
     background: white;
     border-radius: 12px;
     padding: 2rem;
+    padding-right: 3rem;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     max-width: 800px;
-    margin: 0 auto;
+    margin: 0;
 }
 
 .form-group {
