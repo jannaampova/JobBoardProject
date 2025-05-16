@@ -1,14 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
+
 namespace JobBoard.Models.plainModels
 {
     public class ListingBenefits
     {
-        public int listingId { get; set; }
-        [ForeignKey("listingId")]
-        public Listing listing { get; set; }
-        public int benefitId { get; set; }
-        [ForeignKey("benefitId")]
-        public Benefits benefit { get; set; }
+        public int ListingId { get; set; }
+
+        [ForeignKey("ListingId")]
+        public Listing Listing { get; set; }
+
+        public int BenefitId { get; set; }
+
+        [ForeignKey("BenefitId")]
+        public Benefits Benefit { get; set; }
     }
 }
+

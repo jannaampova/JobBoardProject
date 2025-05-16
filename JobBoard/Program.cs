@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using JobBoard.Security;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using JobBoard.Models.plainModels;
+using System.Reflection.Emit;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,6 +48,10 @@ builder.Services.AddAuthorization(options =>
 // Register AccountService
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped< FilterService>();
+builder.Services.AddScoped< JobDetailsService>(); 
+builder.Services.AddScoped<SavedListingService>();
+
+
 
 
 var app = builder.Build();

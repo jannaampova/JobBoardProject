@@ -11,6 +11,7 @@ namespace JobBoard.Data
         public DbSet<Account> Account { get; set; }
         public DbSet<Town> Town { get; set; }
         public DbSet<Industry> Industry { get; set; }
+        public DbSet<SavedListings> SavedListings { get; set; }
         public DbSet<Company> Company { get; set; }
         public DbSet<JobType> JobType { get; set; }
         public DbSet<Benefits> Benefits { get; set; }
@@ -27,6 +28,23 @@ namespace JobBoard.Data
             modelBuilder.Entity<ListingBenefits>().HasNoKey();
             modelBuilder.Entity<CandidateSkills>().HasNoKey();
             modelBuilder.Entity<AccountType>().HasKey(a => a.Id);
+
+            modelBuilder.Entity<SavedListings>()
+        .HasKey(sl => new { sl.candidateId, sl.listingId }); // composite primary key
+
+            modelBuilder.Entity<SavedListings>()
+                .HasOne(sl => sl.candidate)
+                .WithMany(c => c.SavedListings)
+                .HasForeignKey(sl => sl.candidateId)
+                    .OnDelete(DeleteBehavior.Cascade); // Candidate can stay Cascade if you want
+
+
+            modelBuilder.Entity<SavedListings>()
+                .HasOne(sl => sl.listing)
+                .WithMany()
+                .HasForeignKey(sl => sl.listingId)
+                    .OnDelete(DeleteBehavior.Restrict); // Listings side is now Restrict — no automatic cascade
+
 
         }
 

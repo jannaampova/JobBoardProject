@@ -134,14 +134,23 @@
             <div class="job-right">
                 <div class="company-logo">
                 </div>
+                 
+
                 <div class="job-actions">
-                    <button class="bookmark-btn" onclick="toggleBookmark(this)">Save</button>
-                    <a asp-controller="JobDetails" asp-action="Index"class="view-job-btn">View Details</a>
+                        <form asp-controller="SavedListings" asp-action="SaveListing" method="post">
+                            <input type="hidden" name="id" value="@job.Id" />
+                            <button type="submit" class="bookmark-btn">Save</button>
+                        </form>
+                        <a asp-controller="JobDetails" asp-action="Index" class="view-job-btn" asp-route-id="@job.Id">View Details</a>
                 </div>
             </div>
         </div>
-                          }
+          
+        }
     </div>
+ 
+
+
 
     <script>
         function toggleBookmark(button) {
@@ -149,18 +158,31 @@
             button.textContent = button.classList.contains('active') ? 'Saved' : 'Save';
         }
 
-        document.querySelectorAll('.filter-option input[type="checkbox"]').forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                const label = this.nextElementSibling.textContent;
-                const count = this.nextElementSibling.nextElementSibling.textContent;
+        function saveListing(button) {
+            const listingId = button.getAttribute('data-listing-id');
+            const token = document.querySelector('#saveForm input[name="__RequestVerificationToken"]').value;
 
-                if (this.checked) {
-                    addSelectedFilter(label, count, this.id);
-                } else {
-                    removeSelectedFilter(this.id);
-                }
-            });
-        });
+            fetch('/SavedListings/SaveListing', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': token
+                },
+                body: JSON.stringify({ listingId: listingId })
+            })
+                .then(response => {
+                    if (response.ok) {
+                        toggleBookmark(button);  // ТУК го сменяме само ако е успешно
+                    } else {
+                        alert('Failed to save the listing.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while saving the listing.');
+                });
+        }
+
 
         function addSelectedFilter(label, count, id) {
             const selectedFilters = document.querySelector('.selected-filters');

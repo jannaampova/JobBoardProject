@@ -8,6 +8,9 @@ namespace JobBoard.Models.plainModels
         [Key]
         public int Id { get; set; }
 
+        [Required]
+        public string UserId { get; set; }  // 🔥 Link to Identity user
+
         [Required(ErrorMessage = "Full Name/Company Name is required")]
         public string Name { get; set; }
 
@@ -26,10 +29,13 @@ namespace JobBoard.Models.plainModels
         [Required(ErrorMessage = "Username is required")]
         public string Username { get; set; }
 
+
         [Required]
         public int AcctTypeId { get; set; }
 
         [ForeignKey("AcctTypeId")]
         public AccountType AccountType { get; set; }
+        public List<SavedListings> SavedListings { get; set; }
+
     }
 }

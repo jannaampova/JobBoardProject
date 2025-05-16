@@ -37,6 +37,7 @@ namespace JobBoard.Services
 
             var newAccount = new Account
             {
+                UserId = existingUser.Id,  // ⬅️ Save the Identity GUID here!
                 Name = model.Name,
                 Username = model.Username,
                 Email = model.Email,

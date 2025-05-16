@@ -4,11 +4,16 @@ namespace JobBoard.Models.plainModels
 {
     public class ListingRequirements
     {
-        public int listingId { get; set; }
-        [ForeignKey("listingId")]
-        public Listing listing { get; set; }
-        public int requirementId { get; set; }
-        [ForeignKey("requirementId")]
-        public Requirements requirement { get; set; }
+        // Foreign key for Listing
+        public int ListingId { get; set; }
+
+        [ForeignKey("ListingId")]
+        public Listing Listing { get; set; }
+
+        // Foreign key for Requirement
+        public int RequirementId { get; set; }
+
+        [ForeignKey("RequirementId")]
+        public Requirements Requirement { get; set; }
     }
 }

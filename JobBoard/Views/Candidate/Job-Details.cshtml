@@ -1,6 +1,10 @@
-﻿@model JobBoard.Models.ViewModels.CandidateDashboardViewModel
+﻿@using JobBoard.Models.ViewModels
+@model JobBoard.Models.ViewModels.JobDetailsModel
 @{
     Layout = null;
+}
+@{
+    var job = Model.jobListed;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -14,28 +18,28 @@
    
 </head>
 <body>
-        @await Html.PartialAsync("~/Views/sidebar.cshtml", Model)
+    @await Html.PartialAsync("~/Views/sidebar.cshtml", new CandidateDashboardViewModel { user = Model.user })
     <div class="main-content">
         <div class="job-content">
             <a asp-action="CandidateDashboard" asp-action="Applicant" class="back-link">← Back to Job Board</a>
-            <h1 class="page-title">Q4 Engineer</h1>
+            <h1 class="page-title">@job.title</h1>
 
             <div class="content-section">
                 <h2 class="section-title">Description</h2>
                 <div class="section-content">
-                    <p>We are looking for a talented Q4 Engineer to join our growing team at CSoft. This is an exciting opportunity to work on cutting-edge projects in a dynamic environment.</p>
+                    <p>@job.Description</p>
                 </div>
             </div>
 
             <div class="content-section">
                 <h2 class="section-title">Requirements</h2>
                 <div class="section-content">
-                    <ul>
-                        <li>2-5 years of experience in software development</li>
-                        <li>Strong programming skills</li>
-                        <li>Experience with modern development tools</li>
-                        <li>Excellent problem-solving abilities</li>
-                        <li>Good communication skills</li>
+                    <ul
+                        >@foreach (var requiremant in Model.requirements)
+                    {
+                        <li>@requiremant</li>
+                      
+                    }
                     </ul>
                 </div>
             </div>
@@ -44,11 +48,11 @@
                 <h2 class="section-title">Benefits</h2>
                 <div class="section-content">
                     <ul>
-                        <li>Competitive salary (2500 BGN)</li>
-                        <li>Flexible hybrid work arrangement</li>
-                        <li>Professional development opportunities</li>
-                        <li>Health insurance</li>
-                        <li>Modern office in Varna</li>
+                         @foreach (var benefit in Model.benefits)
+                         {
+                             <li>@benefit</li>
+
+                         }
                     </ul>
                 </div>
             </div>
@@ -58,14 +62,14 @@
             <div class="company-logo">
                 <!-- Company logo will go here -->
             </div>
-            <h2 class="company-name">CSoft</h2>
+            <h2 class="company-name">@job.company.companyName</h2>
             <div class="job-meta">
-                <span class="meta-item">🔥 2500 BGN</span>
-                <span class="meta-item">📍 Varna</span>
-                <span class="meta-item">🔼 2-5 years</span>
-                <span class="meta-item">💻 IT</span>
-                <span class="meta-item">⬜ Hybrid</span>
-                <span class="meta-item">📅 01/02/2025</span>
+                <span class="meta-item">🔥 @job.title</span>
+                <span class="meta-item">📍 @job.town.Name</span>
+                <span class="meta-item">🔼 @job.experienceLevel</span>
+                <span class="meta-item">💻 @job.company.industry.industry</span>
+                <span class="meta-item">⬜ @job.jobType.jobType</span>
+                <span class="meta-item">📅 @job.datePosted</span>
             </div>
             <div class="job-actions">
                 <button class="bookmark-btn" onclick="toggleBookmark(this)">Save</button>

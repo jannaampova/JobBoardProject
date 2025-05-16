@@ -64,7 +64,8 @@ namespace JobBoard.Controllers.Candidate
             return View("~/Views/Dashboards/CandidateDashboard.cshtml", filteredResults);
         }
 
-      
+
+
 
 
     }

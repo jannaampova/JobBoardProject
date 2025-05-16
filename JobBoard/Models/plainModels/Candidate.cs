@@ -14,6 +14,8 @@ namespace JobBoard.Models.plainModels
         public string ExperienceLevel { get; set; }
         [NotMapped]
         public List<CandidateSkills> candidateSkills { get; set; }
+        
+        public List<SavedListings> SavedListings { get; set; }
 
 
     }
