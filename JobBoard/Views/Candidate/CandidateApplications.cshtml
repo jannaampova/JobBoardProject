@@ -1,12 +1,14 @@
-﻿@model JobBoard.Models.ViewModels.CandidateDashboardViewModel
+﻿@{
+    Layout = null;
+}
+@model JobBoard.Models.ViewModels.CandidateDashboardViewModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Applications - Jobby</title>
-    <link rel="stylesheet" href="~/css/sidebarCandidate.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/my-applications.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/candidate/my-applications.css" asp-append-version="true" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   
 </head>
@@ -21,7 +23,6 @@
         <div class="status-filters">
             <button class="status-filter active">All</button>
             <button class="status-filter">Pending</button>
-            <button class="status-filter">Reviewing</button>
             <button class="status-filter">Accepted</button>
             <button class="status-filter">Rejected</button>
         </div>
@@ -41,7 +42,7 @@
                 <div class="company-logo">
                     <!-- Company logo will go here -->
                 </div>
-                <span class="application-status status-reviewing">Reviewing</span>
+                <span class="application-status status-reviewing">Pending</span>
                 <span class="application-date">Applied on Jan 15, 2024</span>
             </div>
         </div>

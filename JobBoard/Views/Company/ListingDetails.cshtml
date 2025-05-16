@@ -1,0 +1,112 @@
+﻿@{
+    Layout = null;
+}
+@model JobBoard.Models.ViewModels.CompanyDashboardViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/company/listingDetails.css" asp-append-version="true" />
+    <title>Jobby - Listing Details</title>
+</head>
+<body style="font-family: 'Poppins', sans-serif;">
+    @await Html.PartialAsync("~/Views/sidebarCompany.cshtml", Model)
+    <div class="main-content">
+        <div class="job-content">
+            <a asp-controller="OurListings" asp-action="Index" class="back-link">← Back to Listings</a>
+            <h1 class="page-title">Senior Software Engineer</h1>
+
+            <div class="content-section">
+                <h2 class="section-title">Description</h2>
+                <div class="section-content">
+                    <p>We are looking for a Senior Software Engineer to join our team. You will be responsible for developing and maintaining our core platform, implementing new features, and mentoring junior developers.</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Requirements</h2>
+                <div class="tag-container">
+                    <div class="tag">
+                        <i>✓</i>
+                        <span>Bachelor's Degree</span>
+                    </div>
+                    <div class="tag">
+                        <i>✓</i>
+                        <span>Problem Solving</span>
+                    </div>
+                    <div class="tag">
+                        <i>✓</i>
+                        <span>Communication Skills</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Benefits</h2>
+                <div class="tag-container">
+                    <div class="tag benefit">
+                        <i>✓</i>
+                        <span>Health Insurance</span>
+                    </div>
+                    <div class="tag benefit">
+                        <i>✓</i>
+                        <span>Flexible Hours</span>
+                    </div>
+                    <div class="tag benefit">
+                        <i>✓</i>
+                        <span>Annual Bonus</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-info">
+            <div class="meta-item">
+                <i>🏢</i>
+                <span>Technology</span>
+            </div>
+            <div class="meta-item">
+                <i>📍</i>
+                <span>Sofia</span>
+            </div>
+            <div class="meta-item">
+                <i>💼</i>
+                <span>Remote</span>
+            </div>
+            <div class="meta-item">
+                <i>⭐</i>
+                <span>Senior Level</span>
+            </div>
+            <div class="meta-item">
+                <i>💰</i>
+                <span>$120,000 - $160,000</span>
+            </div>
+            <div class="meta-item">
+                <i>📅</i>
+                <span>Posted Feb 20, 2024</span>
+            </div>
+            <div class="meta-item">
+                <span class="status active">Active</span>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">24</div>
+                    <div class="stat-label">Applications</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">8</div>
+                    <div class="stat-label">Interviews</div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <a asp-controller="OurListings" asp-action="EditListing" class="action-button edit-button">Edit Listing</a>
+                <a href="#" class="action-button close-button">Close Listing</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

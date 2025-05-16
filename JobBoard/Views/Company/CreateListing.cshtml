@@ -1,0 +1,160 @@
+﻿@{
+	Layout = null;
+}
+@model JobBoard.Models.ViewModels.CompanyDashboardViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Jobby - Create Listing</title>
+	<link rel="stylesheet" href="~/css/company/createListing.css" asp-append-version="true" />
+</head>
+<body style="font-family: 'Poppins', sans-serif;">
+	@await Html.PartialAsync("~/Views/sidebarCompany.cshtml", Model)
+
+	<div class="main-content">
+		<div class="page-header">
+			<h1 class="section-title">Create New Job Listing</h1>
+		</div>
+
+		<div class="form-container">
+				<div class="form-section">
+					<h2 class="form-section-title">Basic Information</h2>
+					<div class="form-group">
+						<label class="form-label">Job Title</label>
+						<input type="text" class="form-input" placeholder="e.g. Senior Software Engineer">
+					</div>
+					<div class="form-group">
+						<label class="form-label">Description</label>
+						<textarea class="form-textarea" placeholder="Describe the role and responsibilities..."></textarea>
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label class="form-label">Industry</label>
+							<select class="form-select">
+								<option>Technology</option>
+								<option>Healthcare</option>
+								<option>Finance</option>
+								<option>Education</option>
+								<option>Retail</option>
+								<option>Manufacturing</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="form-label">Salary Range</label>
+							<input type="text" class="form-input" placeholder="e.g. $120,000 - $160,000">
+						</div>
+					</div>
+				</div>
+
+				<div class="form-section">
+					<h2 class="form-section-title">Job Details</h2>
+					<div class="form-row">
+						<div class="form-group">
+							<label class="form-label">Job Type</label>
+							<select class="form-select">
+								<option>Remote</option>
+								<option>Hybrid</option>
+								<option>On-site</option>
+								<option>Seasonal</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="form-label">Experience Level</label>
+							<select class="form-select">
+								<option>Senior</option>
+								<option>Mid-level</option>
+								<option>Entry-level</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label class="form-label">Town</label>
+							<select class="form-select">
+								<option>Sofia</option>
+								<option>Plovdiv</option>
+								<option>Varna</option>
+								<option>Burgas</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="form-label">Date Posted</label>
+							<input type="date" class="form-input">
+						</div>
+					</div>
+				</div>
+
+				<div class="form-section">
+					<h2 class="form-section-title">Requirements & Benefits</h2>
+					<div class="checkbox-grid">
+						<div class="checkbox-column">
+							<div class="checkbox-group">
+								<h3 class="checkbox-group-title">Requirements</h3>
+								<div class="form-checkbox">
+									<input type="checkbox" id="req1">
+									<label for="req1">Bachelor's Degree</label>
+								</div>
+								<div class="form-checkbox">
+									<input type="checkbox" id="req2">
+									<label for="req2">Problem Solving</label>
+								</div>
+								<div class="form-checkbox">
+									<input type="checkbox" id="req3">
+									<label for="req3">Team Leadership</label>
+								</div>
+								<div class="form-checkbox">
+									<input type="checkbox" id="req4">
+									<label for="req4">Communication Skills</label>
+								</div>
+								<div class="form-checkbox">
+									<input type="checkbox" id="req5">
+									<label for="req5">Project Management</label>
+								</div>
+								<div class="form-checkbox">
+									<input type="checkbox" id="req6">
+									<label for="req6">Agile Experience</label>
+								</div>
+							</div>
+						</div>
+						<div class="checkbox-column">
+							<div class="checkbox-group">
+								<h3 class="checkbox-group-title">Benefits</h3>
+								<div class="form-checkbox">
+									<input type="checkbox" id="ben1">
+									<label for="ben1">Health Insurance</label>
+								</div>
+								<div class="form-checkbox">
+									<input type="checkbox" id="ben2">
+									<label for="ben2">Flexible Hours</label>
+								</div>
+								<div class="form-checkbox">
+									<input type="checkbox" id="ben3">
+									<label for="ben3">Annual Bonus</label>
+								</div>
+								<div class="form-checkbox">
+								<input type="checkbox" id="ben4">
+								<label for="ben4">Stock Options</label>
+							</div>
+							<div class="form-checkbox">
+								<input type="checkbox" id="ben5">
+								<label for="ben5">Professional Development</label>
+							</div>
+							<div class="form-checkbox">
+								<input type="checkbox" id="ben6">
+								<label for="ben6">Gym Membership</label>
+							</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			<button type="submit" class="submit-button">Create Listing</button>
+
+		</div>
+	</div>
+
+</body>
+</html> 

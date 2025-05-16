@@ -1,6 +1,68 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    Layout = null;
 }
-<p>HEEEY</p>
+@model JobBoard.Models.ViewModels.CompanyDashboardViewModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobby - Company Dashboard</title>
+    <link rel="stylesheet" href="/css/company/companyDash.css" />
+</head>
+<body style="font-family: 'Poppins', sans-serif;">
+    @await Html.PartialAsync("~/Views/sidebarCompany.cshtml", Model)
+
+    <div class="main-content">
+        <h1 class="section-title">Company Dashboard</h1>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>Active Job Listings</h3>
+                <div class="value">12</div>
+                <div class="trend up">↑ 2 new this week</div>
+            </div>
+            <div class="stat-card">
+                <h3>Total Applications</h3>
+                <div class="value">156</div>
+                <div class="trend up">↑ 15% from last month</div>
+            </div>
+            <div class="stat-card">
+                <h3>Pending Reviews</h3>
+                <div class="value">23</div>
+                <div class="trend down">↓ 5 completed today</div>
+            </div>
+            <div class="stat-card">
+                <h3>Average Response Time</h3>
+                <div class="value">2.3 days</div>
+                <div class="trend up">↑ Improving</div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Recent Activity</h2>
+        <div class="recent-activity">
+            <div class="activity-item">
+                <div class="activity-icon">📝</div>
+                <div>
+                    <div>New job listing created: Senior Developer</div>
+                    <div style="color: #666; font-size: 0.9rem;">2 hours ago</div>
+                </div>
+            </div>
+            <div class="activity-item">
+                <div class="activity-icon">👥</div>
+                <div>
+                    <div>5 new applications received</div>
+                    <div style="color: #666; font-size: 0.9rem;">4 hours ago</div>
+                </div>
+            </div>
+            <div class="activity-item">
+                <div class="activity-icon">✅</div>
+                <div>
+                    <div>3 applications reviewed</div>
+                    <div style="color: #666; font-size: 0.9rem;">Today</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,12 +1,14 @@
-﻿@model JobBoard.Models.ViewModels.CandidateDashboardViewModel
+﻿@{
+    Layout = null;
+}
+@model JobBoard.Models.ViewModels.CandidateDashboardViewModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Settings - Jobby</title>
-    <link rel="stylesheet" href="~/css/account-settings.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/sidebarCandidate.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/candidate/account-settings.css" asp-append-version="true" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
    
 </head>
@@ -71,6 +73,56 @@
             </div>
             <button type="submit" class="save-btn">Change Password</button>
         </div>
+
+        <div class="settings-section">
+            <h2 class="section-title">Skills</h2>
+            <div class="checkbox-group">
+                <div class="form-checkbox">
+                    <input type="checkbox" id="tech1" checked>
+                    <label for="tech1">JavaScript</label>
+                </div>
+                <div class="form-checkbox">
+                    <input type="checkbox" id="tech2" checked>
+                    <label for="tech2">Python</label>
+                </div>
+                <div class="form-checkbox">
+                    <input type="checkbox" id="tech3">
+                    <label for="tech3">Java</label>
+                </div>
+                <div class="form-checkbox">
+                    <input type="checkbox" id="tech4" checked>
+                    <label for="tech4">React</label>
+                </div>
+                <div class="form-checkbox">
+                    <input type="checkbox" id="tech5">
+                    <label for="tech5">Node.js</label>
+                </div>
+                <div class="form-checkbox">
+                    <input type="checkbox" id="tech6">
+                    <label for="tech6">SQL</label>
+                </div>
+                <div class="form-checkbox">
+                    <input type="checkbox" id="tech6">
+                    <label for="tech6">SQL</label>
+                </div>   <div class="form-checkbox">
+                    <input type="checkbox" id="tech6">
+                    <label for="tech6">SQL</label>
+                </div>   <div class="form-checkbox">
+                    <input type="checkbox" id="tech6">
+                    <label for="tech6">SQL</label>
+                </div>   <div class="form-checkbox">
+                    <input type="checkbox" id="tech6">
+                    <label for="tech6">SQL</label>
+                </div>   <div class="form-checkbox">
+                    <input type="checkbox" id="tech6">
+                    <label for="tech6">SQL</label>
+                </div>
+            </div>
+
+        </div>
+        <button type="submit" class="save-btn" style="margin-top: 1.5rem;">Update Skills</button>
+    </div>
+
     </div>
 </body>
 </html> 

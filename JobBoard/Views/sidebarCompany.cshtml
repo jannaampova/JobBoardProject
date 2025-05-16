@@ -1,0 +1,16 @@
+﻿@model JobBoard.Models.ViewModels.CompanyDashboardViewModel
+<link rel="stylesheet" href="~/css/company/sidebarCompany.css" asp-append-version="true" />
+
+<div class="sidebar">
+    <div class="logo">@Model.user.UserName</div>
+
+    <ul class="sidebar-menu">
+        <li><a asp-controller="CompanyDashboard" asp-action="Company">Home</a></li>
+        <li><a asp-controller="People" asp-action="Index">People</a></li>
+        <li><a asp-controller="CreateListing" asp-action="Index">Create a Listing</a></li>
+        <li><a asp-controller="OurListings" asp-action="Index">Our Listings</a></li>
+        <li><a asp-controller="OurApplications" asp-action="Index">Our Applications</a></li>
+        <li><a asp-controller="OurCompany" asp-action="Index">Our Company</a></li>
+        <li><a asp-controller="CompanyDashboard" asp-action="Company">Log Out</a></li>
+    </ul>
+</div>

@@ -60,7 +60,7 @@
 
         <div class="company-info">
             <div class="company-logo">
-                <!-- Company logo will go here -->
+                CS
             </div>
             <h2 class="company-name">@job.company.companyName</h2>
             <div class="job-meta">
@@ -71,6 +71,7 @@
                 <span class="meta-item">⬜ @job.jobType.jobType</span>
                 <span class="meta-item">📅 @job.datePosted</span>
             </div>
+
             <div class="job-actions">
                 <button class="bookmark-btn" onclick="toggleBookmark(this)">Save</button>
                 <a asp-controller="JobDetails" asp-action="Apply" class="apply-btn">Apply Now</a>

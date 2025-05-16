@@ -1,0 +1,95 @@
+﻿@{
+    Layout = null;
+}
+@model JobBoard.Models.ViewModels.CompanyDashboardViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobby - Our Applications</title>
+    <link rel="stylesheet" href="~/css/company/ourApplications.css" asp-append-version="true" />
+</head>
+<body style="font-family: 'Poppins', sans-serif;">
+
+    @await Html.PartialAsync("~/Views/sidebarCompany.cshtml", Model)
+
+    <div class="main-content">
+        <div class="page-header">
+            <h1 class="section-title">Our Applications</h1>
+        </div>
+
+        <div class="filter-container">
+            <button class="filter-button active">All</button>
+            <button class="filter-button">Pending</button>
+            <button class="filter-button">Accepted</button>
+            <button class="filter-button">Rejected</button>
+        </div>
+
+        <div class="applications-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Candidate</th>
+                        <th>Position</th>
+                        <th>Applied</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="candidate-info">
+                                <div class="candidate-avatar">JD</div>
+                                <div>John Doe</div>
+                            </div>
+                        </td>
+                        <td>Senior Software Engineer</td>
+                        <td>2024-04-10</td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td>
+                            <a asp-controller="OurApplications" asp-action="ViewApplication" class="action-button view-button">View</a>
+                            <a href="#" class="action-button accept-button">Accept</a>
+                            <a href="#" class="action-button reject-button">Reject</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="candidate-info">
+                                <div class="candidate-avatar">AS</div>
+                                <div>Alice Smith</div>
+                            </div>
+                        </td>
+                        <td>Product Manager</td>
+                        <td>2024-04-09</td>
+                        <td><span class="status accepted">Accepted</span></td>
+                        <td>
+                            <a asp-controller="OurApplications" asp-action="ViewApplication" class="action-button view-button">View</a>
+                            <a href="#" class="action-button accept-button">Accept</a>
+                            <a href="#" class="action-button reject-button">Reject</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="candidate-info">
+                                <div class="candidate-avatar">RJ</div>
+                                <div>Robert Johnson</div>
+                            </div>
+                        </td>
+                        <td>UX Designer</td>
+                        <td>2024-04-08</td>
+                        <td><span class="status rejected">Rejected</span></td>
+                        <td>
+                            <a asp-controller="OurApplications" asp-action="ViewApplication" class="action-button view-button">View</a>
+                            <a href="#" class="action-button accept-button">Accept</a>
+                            <a href="#" class="action-button reject-button">Reject</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html> 
