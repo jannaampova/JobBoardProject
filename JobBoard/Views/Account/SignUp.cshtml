@@ -9,73 +9,80 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Job Board</title>
-    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/form.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/signup.css" asp-append-version="true" />
     <partial name="_ValidationScriptsPartial" />
 </head>
 <body>
-    <div class="nav">
+    <nav class="nav">
         <div class="logo">
-            <h2>Job Board</h2>
+            <h1>Jobby</h1>
         </div>
-        <div>
-            <ul class="nav-links">
-                <li><a asp-controller="Home" asp-action="Index" style="text-decoration: none;">Home</a></li>
-            </ul>
+        <ul class="nav-links">
+            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <div class="welcome-text">
+            <h2>Start Your Journey</h2>
+            <p>Create your account and begin your path to success. Join our community of professionals and companies.</p>
         </div>
-    </div>
-    <div class="grid-container">
-        <div class="grid-item">
-            <h1>
-                Start your career journey here!
-                <br>We wish you luck!
-            </h1>
-        </div>
-        <div class="form grid-item">
-            <header>Sign Up</header>
-            
+
+        <div class="signup-form">
+            <div class="form-header">
+                <h3>Create Account</h3>
+            </div>
             <form asp-controller="Account" asp-action="SignUp" method="post">
-                <label for="name">Full Name/Company Name</label>
-                <input type="text" asp-for="Name" placeholder="Teodora Stoycheva / CSoft" required />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <div class="form-group">
+                    <label for="Name">Full Name/Company Name</label>
+                    <input type="text" asp-for="Name" placeholder="Enter your full name or company name" required>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" asp-for="Username" placeholder="Choose a username" required>
+                    <span asp-validation-for="Username" class="text-danger"></span>
 
-                <label for="username">Username</label>
-                <input type="text" asp-for="Username" placeholder="tedi13" required />
-                <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" asp-for="Email" placeholder="Enter your email address" required>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="role">I am a</label>
+                    <select asp-for="AcctTypeId">
+                        <option value="" disabled selected>Select your role</option>
+                        <option value="1">Company</option>
+                        <option value="2">Candidate</option>
+                    </select>
+                    <span asp-validation-for="AcctTypeId" class="text-danger"></span>
 
-                <label for="email">Email</label>
-                <input type="email" asp-for="Email" placeholder="tedi@gmail.com" required />
-                <span asp-validation-for="Email" class="text-danger"></span>
-
-                <label for="role">Role</label>
-                <select asp-for="AcctTypeId">
-                    <option value="" disabled selected>Select your role</option>
-                    <option value="1">Company</option>
-                    <option value="2">Candidate</option>
-                </select>
-                <span asp-validation-for="AcctTypeId" class="text-danger"></span>
-
-                <label for="phone">Phone</label>
-                <input type="phone" asp-for="Phone" placeholder="telefon" required />
-                <span asp-validation-for="Phone" class="text-danger"></span>
-
-
-                <label for="password">Password</label>
-                <input type="password" asp-for="Password" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-
-                <label for="ConfirmPassword">Repeat password</label>
-                <input type="password" asp-for="ConfirmPassword" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-
-                <input type="submit" value="Sign Up" />
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="phone" asp-for="Phone" placeholder="Phone" required />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+         
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" asp-for="Password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="password2">Confirm Password</label>
+                    <input type="password" asp-for="ConfirmPassword" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <input class="submit-btn" type="submit" value="Sign Up" />
             </form>
-
-            <div class="linkToLogIn">
-                Already have an account? Log in <a asp-controller="Account" asp-action="LogIn" style="text-decoration: none;">here</a>
+            <div class="form-footer">
+                Already have an account? <a asp-controller ="Account" asp-action="LogIn">Log in here</a>
             </div>
         </div>
-    </div>
+    </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>

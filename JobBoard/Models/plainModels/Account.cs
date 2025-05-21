@@ -28,14 +28,13 @@ namespace JobBoard.Models.plainModels
 
         [Required(ErrorMessage = "Username is required")]
         public string Username { get; set; }
-
-
+        
         [Required]
         public int AcctTypeId { get; set; }
 
         [ForeignKey("AcctTypeId")]
         public AccountType AccountType { get; set; }
-        public List<SavedListings> SavedListings { get; set; }
+        //public List<SavedListings> SavedListings { get; set; }
 
     }
 }

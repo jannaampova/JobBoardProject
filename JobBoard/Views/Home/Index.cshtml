@@ -3,26 +3,31 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Job Board</title>
+    <title>Jobby</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="~/css/home.css" asp-append-version="true"/>
 </head>
 <body>
-    <div class="nav">
+    <nav class="nav">
         <div class="logo">
-            <h2>Jobby</h2>
+            <h1>Jobby</h1>
         </div>
-        <div>
-            <ul class="nav-links">
-                <li><a asp-controller="Account" asp-action="SignUp">Sign Up</a></li>
-                <li><a asp-controller="Account" asp-action="LogIn">Log In</a></li>
-                <li><a href="">About us</a></li>
-            </ul>
+        <ul class="nav-links">
+            <li><a asp-controller="Account" asp-action="SignUp">Sign Up</a></li>
+            <li><a asp-controller="Account" asp-action="LogIn">Log In</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Find Your Dream Career</h2>
+            <p>Discover opportunities that match your passion and skills. Join thousands of professionals who found their perfect job through Jobby.</p>
+            <div class="cta-buttons">
+                <a asp-controller="Account" asp-action="SignUp" class="cta-button primary-button">Get Started</a>
+                <a asp-controller="Account" asp-action="LogIn" class="cta-button secondary-button">Log In</a>
+            </div>
         </div>
-    </div>
-    <div class="content">
-        <div class="moto">
-            <h1>Find the carrer you deserve!</h1>
-        </div>
-    </div>
+    </section>
 </body>
 </html>

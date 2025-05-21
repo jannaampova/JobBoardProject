@@ -49,8 +49,6 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped< FilterService>();
 builder.Services.AddScoped< JobDetailsService>(); 
-builder.Services.AddScoped<SavedListingService>();
-
 
 
 

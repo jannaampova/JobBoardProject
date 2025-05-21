@@ -26,48 +26,51 @@ namespace JobBoard.Services
         // Register User using UserManager and IdentityUser
         public async Task<bool> RegisterUserAsync(SignUpRequest model)
         {
-            // Check if user already exists by email or username
-            var existingUser = await _userManager.FindByEmailAsync(model.Email);
-            if (existingUser != null)
+            var emailExists = await _userManager.FindByEmailAsync(model.Email);
+            if (emailExists != null)
                 return false;
 
-            existingUser = await _userManager.FindByNameAsync(model.Username);
-            if (existingUser != null)
+            var usernameExists = await _userManager.FindByNameAsync(model.Username);
+            if (usernameExists != null)
                 return false;
 
-            var newAccount = new Account
-            {
-                UserId = existingUser.Id,  // ⬅️ Save the Identity GUID here!
-                Name = model.Name,
-                Username = model.Username,
-                Email = model.Email,
-                Phone = model.Phone,
-                AcctTypeId = model.AcctTypeId, // Assuming AccountTypeId is set in the model
-                Password = BCrypt.Net.BCrypt.HashPassword(model.Password) // Hashing the password
-            };
-            _context.Account.Add(newAccount);
-            await _context.SaveChangesAsync();
-
-            UserData newUser = new UserData
+            var newUser = new UserData
             {
                 UserName = model.Username,
                 Email = model.Email,
                 PhoneNumber = model.Phone,
                 AccountTypeId = model.AcctTypeId
-
             };
-           
 
             var result = await _userManager.CreateAsync(newUser, model.Password);
 
-            if (result.Succeeded)
+            if (!result.Succeeded)
+                return false;
+
+            var newAccount = new Account
             {
-                // Optionally add roles or additional claims here
-                return true;
+                UserId = newUser.Id, 
+                Name = model.Name,
+                Username = model.Username,
+                Email = model.Email,
+                Phone = model.Phone,
+                AcctTypeId = model.AcctTypeId,
+                Password = BCrypt.Net.BCrypt.HashPassword(model.Password)
+            };
+
+            try
+            {
+                _context.Account.Add(newAccount);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("‼️ Грешка при запис в Account: " + ex.Message);
             }
 
-            return false;
+            return true;
         }
+
 
         // Login User using SignInManager and UserManager
         public async Task<LogResult> LogInUserAsync(LogInRequest model)

@@ -1,99 +1,170 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿:root {
+    --primary: #6c63ff;
+    --secondary: #f0f0ff;
+    --accent: #6c63ff;
+    --light: #f8f7ff;
+    --white: #ffffff;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
-:root {
-    --text-color: #e6c6c6;
-    ;
+body {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f7ff 100%);
+    color: #2d2d2d;
+    min-height: 100vh;
+    line-height: 1.6;
 }
 
 .nav {
-    display: flex;
-    flex-direction: row;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem 2rem;
     position: fixed;
     width: 100%;
-    padding: 1%;
-    border-radius: 5px;
-    justify-content: space-between; /* Или смени на space-around */
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    z-index: 999;
+    box-shadow: var(--shadow);
 }
 
+.logo h1 {
+    color: var(--primary);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
 
 .nav-links {
     display: flex;
-    flex-direction: row;
-    padding: 0;
-    gap: 20px; /* Разстояние между елементите */
-}
-
-.nav ul {
-    margin-right: 50px;
-}
-
-.nav-links li {
-    margin: 0 15px;
-    text-wrap: nowrap;
+    gap: 2rem;
     list-style: none;
 }
 
-    .nav-links li a {
+    .nav-links a {
+        color: #666;
         text-decoration: none;
-        color: var(--text-color);
-        font-size: 3vh;
+        font-weight: 500;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
     }
 
-        .nav-links li a:hover {
-            border-radius: 30px;
-            padding: 7px;
-            background-color: rgba(240, 248, 255, 0.33);
-            cursor: pointer;
+        .nav-links a:hover {
+            background: var(--primary);
+            color: var(--white);
         }
 
-
-body {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(rgba(0, 0, 0, 0.67), rgba(0, 0, 0, 0.368)), url("wallpaper.jpg");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
-
-.content {
-    z-index: 1;
+.hero {
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    padding: 2rem;
+    position: relative;
+    background: linear-gradient(135deg, #e6e4ff 0%, #d8d4ff 50%, #e4e6ff 100%);
 }
 
-.moto {
-    text-align: center;
-    border-radius: 45px;
-    color: var(--text-color);
-    font-size: 4vh;
-    padding: 7px;
-    width: 50%;
-    background: rgba(240, 248, 255, 0.15);
-    backdrop-filter: blur(8px);
-    transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease, color 0.4s ease;
-}
-
-    .moto:hover {
-        transform: scale(1.1);
-        box-shadow: 0px 0px 25px rgba(255, 255, 255, 0.4);
-        background: rgba(240, 248, 255, 0.3);
-        color: #ffffff;
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(248, 247, 255, 0.2) 100%);
+        backdrop-filter: blur(2px);
     }
 
-.logo {
-    color: var(--text-color);
-    font-size: 4vh;
+.hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 800px;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(108, 99, 255, 0.2);
 }
 
+    .hero-content h2 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: #2d2d2d;
+        line-height: 1.2;
+        text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+    }
 
+    .hero-content p {
+        font-size: 1.2rem;
+        color: #2d2d2d;
+        margin-bottom: 2rem;
+        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+    }
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.cta-button {
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    text-shadow: none;
+}
+
+.primary-button {
+    background: var(--primary);
+    color: var(--white);
+    box-shadow: 0 4px 12px rgba(108, 99, 255, 0.4);
+}
+
+.secondary-button {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    box-shadow: 0 4px 12px rgba(108, 99, 255, 0.2);
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+    .nav {
+        padding: 1rem;
+    }
+
+    .nav-links {
+        gap: 1rem;
+    }
+
+    .hero-content {
+        padding: 2rem;
+    }
+
+        .hero-content h2 {
+            font-size: 2.5rem;
+        }
+
+    .cta-buttons {
+        flex-direction: column;
+    }
+}

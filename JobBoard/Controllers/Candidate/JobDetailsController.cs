@@ -49,13 +49,25 @@ namespace JobBoard.Controllers.Candidate
 
             return View("~/Views/Candidate/Job-Details.cshtml", viewModel);
         }
-        public async Task<IActionResult> Apply()
+
+        //TOVA DOLNOTO NE TRQBVA DA E TAKA A S NESHTA ZA APPLY
+        public async Task<IActionResult> Apply(int id)
         {
 
             UserData currUser = await _userManager.GetUserAsync(User);
+            Listing job = await _jobDetailsService.getlistedJob(id).ConfigureAwait(false);
+            List<string> requirementsList = _jobDetailsService.GetRequirements(job.Id);
+            List<string> benefitsList = _jobDetailsService.GetBenefits(job.Id);
 
+            JobDetailsModel viewModel = new JobDetailsModel
+            {
+                user = currUser,
+                jobListed = job,
+                requirements = requirementsList,
+                benefits = benefitsList
+            };
 
-            return View("~/Views/Candidate/Apply.cshtml" );
+            return View("~/Views/Candidate/Apply.cshtml", viewModel);
         }
 
     
