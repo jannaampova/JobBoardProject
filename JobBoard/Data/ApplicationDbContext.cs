@@ -20,20 +20,37 @@ namespace JobBoard.Data
         public DbSet<ListingRequirements> ListingRequirements { get; set; }
         [NotMapped]
         public DbSet<ListingBenefits> ListingBenefits { get; set; }
+        
+        public DbSet<Skills> Skills { get; set; }
+        public DbSet<Candidate> Candidate { get; set; }
+        public DbSet<CandidateSkills> CandidateSkills { get; set; }
+        public DbSet<Application> Application { get; set; }
+        public DbSet<SavedListings> SavedListings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ListingRequirements>().HasNoKey();
             modelBuilder.Entity<ListingBenefits>().HasNoKey();
             modelBuilder.Entity<CandidateSkills>().HasNoKey();
-
             modelBuilder.Entity<AccountType>().HasKey(a => a.Id);
-        }
 
-        public DbSet<Skills> Skills { get; set; }
-        public DbSet<Candidate> Candidate { get; set; }
-        public DbSet<CandidateSkills> CandidateSkills { get; set; }
-        public DbSet<Application> Application { get; set; }
+            modelBuilder.Entity<SavedListings>()
+                .HasKey(sl => new { sl.CandidateId, sl.ListingId });
+
+            modelBuilder.Entity<SavedListings>()
+                .HasOne(sl => sl.candidate)
+                .WithMany()
+                .HasForeignKey(sl => sl.CandidateId)
+                .OnDelete(DeleteBehavior.Cascade); // keep cascade here
+
+            modelBuilder.Entity<SavedListings>()
+                .HasOne(sl => sl.listing)
+                .WithMany()
+                .HasForeignKey(sl => sl.ListingId)
+                .OnDelete(DeleteBehavior.Restrict); // prevent cycle here
+        }
+        
+
 
         
 

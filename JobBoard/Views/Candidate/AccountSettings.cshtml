@@ -10,6 +10,10 @@
     <title>Account Settings - Jobby</title>
     <link rel="stylesheet" href="~/css/candidate/account-settings.css" asp-append-version="true" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        UPLOADCARE_PUBLIC_KEY = '9d8862f4a274c4136b36';
+    </script>
+    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
    
 </head>
 <body>
@@ -20,6 +24,10 @@
         <div class="settings-section">
             <h2 class="section-title">Profile Information</h2>
             <div class="profile-header">
+                <form method="post" asp-action="UploadImage">
+                    <input type="hidden" name="ImageUrl" role="uploadcare-uploader" data-clearable />
+                    <button type="submit">Save</button>
+                </form>
                 <div class="profile-photo">
                     <!-- Profile photo placeholder -->
                     <button class="photo-upload">📷</button>
@@ -123,6 +131,5 @@
         <button type="submit" class="save-btn" style="margin-top: 1.5rem;">Update Skills</button>
     </div>
 
-    </div>
 </body>
 </html> 

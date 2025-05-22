@@ -1,7 +1,8 @@
-﻿@{
+﻿@using JobBoard.Models.ViewModels
+@model JobBoard.Models.ViewModels.SavedListingsViewModel 
+@{
     Layout = null;
 }
-@model JobBoard.Models.ViewModels.CandidateDashboardViewModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,40 +13,46 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-       @await Html.PartialAsync("~/Views/sidebar.cshtml",Model)
+    @await Html.PartialAsync("~/Views/sidebar.cshtml", new CandidateDashboardViewModel { user = Model.user })
 
     <div class="main-content">
         <div class="page-header">
             <h1 class="page-title">Saved Listings</h1>
-            <span class="saved-count">3 jobs saved</span>
+            <span class="saved-count">@Model.savedListings?.Count() jobs saved</span>
         </div>
 
-        <div class="job-card">
-            <div class="job-info">
-                <h2 class="job-title">Q4 Engineer</h2>
-                <h3 class="company-name">CSoft</h3>
-                <div class="job-details">
-                    <span class="detail-item">🔥 2500 BGN</span>
-                    <span class="detail-item">📍 Varna</span>
-                    <span class="detail-item">🔼 2-5 years</span>
-                    <span class="detail-item">💻 IT</span>
-                    <span class="detail-item">⬜ Hybrid</span>
-                    <span class="detail-item">📅 01/02/2025</span>
+        @if (Model.savedListings != null && Model.savedListings.Any())
+        {
+            foreach (var listing in Model.savedListings)
+            {
+                <div class="job-card">
+                    <div class="job-info">
+                        <h2 class="job-title">@listing?.title</h2>
+                        <h3 class="company-name">@listing?.company?.companyName</h3>
+                        <div class="job-details">
+                            <span class="detail-item">📍 @listing?.town?.Name</span>
+                            <span class="detail-item">🔼 @listing?.experienceLevel</span>
+                            <span class="detail-item">💻 @listing?.company?.industry?.industry</span>
+                            <span class="detail-item">⬜ @listing?.jobType?.jobType</span>
+                            <span class="detail-item">📅 @(listing?.datePosted.ToString("dd/MM/yyyy"))</span>
+                        </div>
+                    </div>
+                    <div class="job-right">
+                        <div class="company-logo">
+                            <!-- Company logo will go here -->
+                        </div>
+                        <div class="job-actions">
+                            <button class="bookmark-btn active" onclick="toggleBookmark(this)">Saved</button>
+                           @* <a asp-controller="JobDetails" asp-action="Index" asp-route-id="@listing?.id" class="view-job-btn">View Details</a>*@
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="job-right">
-                <div class="company-logo">
-                    <!-- Company logo will go here -->
-                </div>
-                <div class="job-actions">
-                    <button class="bookmark-btn active" onclick="toggleBookmark(this)">Saved</button>
-                    <a asp-controller="JobDetails" asp-action="Index" class="view-job-btn">View Details</a>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- Add more saved job cards here -->
+            }
+        }
+        else
+        {
+            <p>No saved job listings available.</p>
+        }
     </div>
 
     <script>
@@ -54,7 +61,6 @@
             button.classList.toggle('active');
             button.textContent = button.classList.contains('active') ? 'Saved' : 'Save';
 
-            // If unsaved, add animation and remove the job card
             if (!button.classList.contains('active')) {
                 jobCard.classList.add('removing');
                 setTimeout(() => {

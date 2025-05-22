@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using JobBoard.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using JobBoard.Services;
 using JobBoard.Migrations;
@@ -15,11 +16,13 @@ namespace JobBoard.Controllers.Candidate
 
         private readonly FilterService filterService;
         private readonly UserManager<UserData> _userManager;
+        private readonly ApplicationDbContext _context;
 
-        public CandidateDashboardController(FilterService filters, UserManager<UserData> userManager)
+        public CandidateDashboardController(FilterService filters, UserManager<UserData> userManager, ApplicationDbContext context)
         {
             filterService = filters;
             _userManager = userManager;
+            _context = context;
         }
         [HttpGet("applicantDashboard")]
 
@@ -49,8 +52,9 @@ namespace JobBoard.Controllers.Candidate
         }
 
         [HttpGet]
-        public IActionResult Filter(CandidateDashboardViewModel filters)
+        public async Task<IActionResult> Filter(CandidateDashboardViewModel filters)
         {
+            UserData currUser = await _userManager.GetUserAsync(User);
 
             CandidateDashboardViewModel filteredResults = filterService.GetFilteredJobs(filters);
             filteredResults.SelectedIndustries = filters.SelectedIndustries;
@@ -58,9 +62,54 @@ namespace JobBoard.Controllers.Candidate
             filteredResults.SelectedCities = filters.SelectedCities;
             filteredResults.SelectedLevels = filters.SelectedLevels;
             filteredResults.SearchQuery = filters.SearchQuery;
+            filteredResults.user = currUser;
 
 
             return View("~/Views/Dashboards/CandidateDashboard.cshtml", filteredResults);
+        }
+
+        [HttpPost]
+        public IActionResult SaveListing(int listingId)
+        {
+            var service = new SavedListingService(_context);
+
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            var account = _context.Account.FirstOrDefault(a => a.UserId == userId);
+            if (account == null)
+            {
+                return NotFound("Account not found.");
+            }
+            var candidate = _context.Candidate.Single(c => c.AccountId == account.Id);
+
+            service.saveListingToCandidate(listingId, candidate.Id);
+
+            return RedirectToAction("Applicant", "CandidateDashboard");
+        }
+        public IActionResult SaveListingFromJobDetails(int listingId)
+        {
+            var service = new SavedListingService(_context);
+
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            var account = _context.Account.FirstOrDefault(a => a.UserId == userId);
+            if (account == null)
+            {
+                return NotFound("Account not found.");
+            }
+            var candidate = _context.Candidate.Single(c => c.AccountId == account.Id);
+
+            service.saveListingToCandidate(listingId, candidate.Id);
+
+            return RedirectToAction("Index", "JobDetails", new { id = listingId });
         }
 
 

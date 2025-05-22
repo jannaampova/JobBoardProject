@@ -31,12 +31,12 @@ namespace JobBoard.Services
                 .ToList(); // Convert to a List of strings
             return requirements;
         }
-        public List<string> GetBenefits(int id)
+        public List<string> GetBenefits(int listingId)
         {
             List<string> benefits = _context.ListingBenefits
-                .Where(b => b.BenefitId == id) // Filter by listingId
-                .Select(b => b.Benefit.benefit) // Select the requirement name
-                .ToList(); // Convert to a List of strings
+                .Where(b => b.ListingId == listingId) 
+                .Select(b => b.Benefit.benefit)
+                .ToList();
             return benefits;
         }
     }
