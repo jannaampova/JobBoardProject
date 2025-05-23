@@ -49,6 +49,8 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped< FilterService>();
 builder.Services.AddScoped< JobDetailsService>(); 
+builder.Services.AddScoped< SavedListingService>(); 
+
 
 
 
@@ -70,5 +72,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.Run();

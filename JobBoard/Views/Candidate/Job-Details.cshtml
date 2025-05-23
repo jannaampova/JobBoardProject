@@ -21,7 +21,6 @@
     @await Html.PartialAsync("~/Views/sidebar.cshtml", new CandidateDashboardViewModel { user = Model.user })
     <div class="main-content">
         <div class="job-content">
-            <a asp-action="CandidateDashboard" asp-action="Applicant" class="back-link">← Back to Job Board</a>
             <h1 class="page-title">@job.title</h1>
 
             <div class="content-section">
@@ -73,7 +72,8 @@
             </div>
 
             <div class="job-actions">
-                <button class="bookmark-btn" onclick="toggleBookmark(this)">Save</button>
+                <a class="bookmark-btn" asp-controller="CandidateDashboard" asp-action="SaveListingFromJobDetails" asp-route-listingId="@job.Id">Save</a>
+                @* <button class="bookmark-btn" onclick="toggleBookmark(this)" asp-route-id="@job.Id" asp-controller="CandidateDashboard" asp-action="SaveListingFromJobDetails">Save</button> *@
                 <a asp-controller="JobDetails" asp-action="Apply" class="apply-btn">Apply Now</a>
             </div>
         </div>

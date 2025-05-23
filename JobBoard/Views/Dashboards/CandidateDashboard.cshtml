@@ -108,7 +108,6 @@
                                     <input type="checkbox" id="exp-@level" name="SelectedLevels" value="@level"
                                     @(Model.SelectedLevels?.Contains(level) == true ? "checked" : "") />
                                     <label for="exp-@level">@level</label>
-                                    <span class="count">to be dev</span>
                                 </div>
                             }   
                         </div>
@@ -119,38 +118,51 @@
 
         @{
             var listingsToShow = Model.FilteredJobs?.Any() == true ? Model.FilteredJobs : Model.AllListings;
-        }            @foreach (var job in listingsToShow)
-                        {
-        <div class="job-card"> @*WITH STATUS ACTIVE - TODO*@
-          
+        }   
+        @if (listingsToShow == null || !listingsToShow.Any())
+        {
+            <div class="job-card">
                 <div class="job-info">
-                    <h2 class="job-title">@job.title</h2>
-                    <h3 class="company-name">@job.company.companyName</h3>
-                    <div class="job-details">
-@*                            <span class="detail-item">🔥 @job.company.sal BGN</span>
- *@                        <span class="detail-item">📍 @job.town.Name</span>
-                        <span class="detail-item">🔼 @job.experienceLevel</span>
-                        <span class="detail-item">💻 @job.company.industry.industry</span>
-                        <span class="detail-item">⬜ @job.jobType.jobType</span>
-                        <span class="detail-item">📅 @job.datePosted.ToString("dd/MM/yyyy")</span>
-                    </div>
-                </div>
-            
-            <div class="job-right">
-                <div class="company-logo">
-                </div>
-                 
-
-                <div class="job-actions">
-                        <form asp-controller="SavedListings" asp-action="SaveListing" method="post">
-                            <input type="hidden" name="id" value="@job.Id" />
-                            <button type="submit" class="bookmark-btn">Save</button>
-                        </form>
-                        <a asp-controller="JobDetails" asp-action="Index" class="view-job-btn" asp-route-id="@job.Id">View Details</a>
+                    <h2 class="job-title">No job listings available.</h2>
                 </div>
             </div>
-        </div>
-          
+        }
+        else
+        {
+
+            @foreach (var listing in listingsToShow)
+            {
+                <div class="job-card">
+
+                    <div class="job-info">
+                        <h2 class="job-title">@listing.title</h2>
+                        <h3 class="company-name">@listing.company.companyName</h3>
+                        <div class="job-details">
+                            @*                            <span class="detail-item">🔥 @job.company.sal BGN</span>
+ *@ <span class="detail-item">📍 @listing.town.Name</span>
+                            <span class="detail-item">🔼 @listing.experienceLevel</span>
+                            <span class="detail-item">💻 @listing.company.industry.industry</span>
+                            <span class="detail-item">⬜ @listing.jobType.jobType</span>
+                            <span class="detail-item">📅 @listing.datePosted.ToString("dd/MM/yyyy")</span>
+                        </div>
+                    </div>
+
+                    <div class="job-right">
+                        <div class="company-logo">
+                        </div>
+
+
+                        <div class="job-actions">
+                            <form asp-controller="CandidateDashboard" asp-action="SaveListing" method="post">
+                                <input type="hidden" name="listingId" value="@listing.Id"/>
+                                <button type="submit" class="bookmark-btn">Save</button>
+                            </form>
+                            <a asp-controller="JobDetails" asp-action="Index" class="view-job-btn" asp-route-id="@listing.Id">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+            }
         }
     </div>
  

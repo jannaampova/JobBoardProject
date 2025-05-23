@@ -49,7 +49,7 @@ namespace JobBoard.Services
 
             var newAccount = new Account
             {
-                UserId = newUser.Id, 
+                UserId = newUser.Id,
                 Name = model.Name,
                 Username = model.Username,
                 Email = model.Email,
@@ -62,14 +62,38 @@ namespace JobBoard.Services
             {
                 _context.Account.Add(newAccount);
                 await _context.SaveChangesAsync();
+
+                // 👇 If AccountType = 2, create a Candidate record with AccountId only
+                if (model.AcctTypeId == 2)
+                {
+                    var newCandidate = new Candidate
+                    {
+                        AccountId = newAccount.Id // assuming this is the foreign key
+                    };
+
+                    _context.Candidate.Add(newCandidate);
+                    await _context.SaveChangesAsync();
+                }
+                if (model.AcctTypeId == 1)
+                {
+                    var newCompany = new Company
+                    {
+                        accountId = newAccount.Id // assuming this is the foreign key
+                    };
+
+                    _context.Company.Add(newCompany);
+                    await _context.SaveChangesAsync();
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("‼️ Грешка при запис в Account: " + ex.Message);
+                Console.WriteLine("‼️ Грешка при запис в Account или Candidate: " + ex.Message);
+                return false;
             }
 
             return true;
         }
+
 
 
         // Login User using SignInManager and UserManager

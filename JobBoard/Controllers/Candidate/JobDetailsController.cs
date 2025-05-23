@@ -55,19 +55,19 @@ namespace JobBoard.Controllers.Candidate
         {
 
             UserData currUser = await _userManager.GetUserAsync(User);
-            Listing job = await _jobDetailsService.getlistedJob(id).ConfigureAwait(false);
-            List<string> requirementsList = _jobDetailsService.GetRequirements(job.Id);
-            List<string> benefitsList = _jobDetailsService.GetBenefits(job.Id);
+            // Listing job = await _jobDetailsService.getlistedJob(id).ConfigureAwait(false);
+            // List<string> requirementsList = _jobDetailsService.GetRequirements(job.Id);
+            // List<string> benefitsList = _jobDetailsService.GetBenefits(job.Id);
 
             JobDetailsModel viewModel = new JobDetailsModel
             {
                 user = currUser,
-                jobListed = job,
-                requirements = requirementsList,
-                benefits = benefitsList
+                // jobListed = job,
+                // requirements = requirementsList,
+                // benefits = benefitsList
             };
 
-            return View("~/Views/Candidate/Apply.cshtml", viewModel);
+            return View("~/Views/Candidate/Apply.cshtml",viewModel);
         }
 
     
