@@ -78,7 +78,9 @@ namespace JobBoard.Services
                 {
                     var newCompany = new Company
                     {
-                        accountId = newAccount.Id // assuming this is the foreign key
+                        accountId = newAccount.Id, // assuming this is the foreign key
+                        companyName = model.Name,
+                        industryId = 1
                     };
 
                     _context.Company.Add(newCompany);
