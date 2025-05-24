@@ -25,18 +25,37 @@
      <div class="settings-section">
             <h2 class="section-title">Profile Information</h2>
             <div class="profile-header">
-                <div class="profile-photo">
-                    <img src="@Model.PhotoPath" alt="Profile Photo"
-                         style="width: 120px; height: 120px; object-fit: cover; border-radius: 8px;" />
-                </div>
+                <div class="photo-upload-row">
+                    <div class="profile-photo">
+                        @if (Model.PhotoPath == "TBA" || string.IsNullOrEmpty(Model.PhotoPath))
+                        {
+                            <span class="no-photo-text">No photo</span>
+                        }
+                        else
+                        {
+                            <img src="@Model.PhotoPath" alt="Profile Photo"
+                                 style="width: 120px; height: 120px; object-fit: cover; border-radius: 8px;" />
+                        }
+                    </div>
 
+                  
+                </div>
+            </div>
+            
                 <form asp-controller="AccountSettings" asp-action="UploadPhoto" method="post">
-                    <input type="hidden" name="candidateId" value="@Model.CandidateId" />
-                    <input type="hidden" name="imageUrl" role="uploadcare-uploader" data-clearable />
-                    <button type="submit" class="save-btn">Save Photo</button>
-                </form>
-                </div>
+                    <input
+                        type="hidden"
+                        name="imageUrl"
+                        role="uploadcare-uploader"
+                        data-clearable
+                        class="choose-file-input" />
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="candidateId" value="@Model.CandidateId"/>
 
+                    <button type="submit" class="save-btn" style="margin-bottom:2rem;">Save Photo</button>
+                </form>
+
+            
             <form asp-controller="AccountSettings" asp-action="ChangeDetails" method="post">
                 <input type="hidden" name="candidateId" value="@Model.CandidateId" />
                 <div class="form-group">
@@ -54,7 +73,7 @@
                     <input type="tel" name="Phone" class="form-control" value="@Model.Phone" />
                 </div>
 
-                <button type="submit" class="save-btn">Save Changes</button>
+                <button type="submit" class="save-btn">Update Details</button>
             </form>
 
         </div>
@@ -64,15 +83,42 @@
 
             @if (!string.IsNullOrEmpty(Model.ResumePath))
             {
-                <p><a href="@Model.ResumePath" style="text-decoration:none;"target="_blank">View Current Resume</a></p>
+                <div class="resume-top">
+                    @if (Model.ResumePath == "TBA" || string.IsNullOrEmpty(Model.ResumePath))
+                    {
+                        <span class="resume-tba">You haven't uploaded a resume yet!</span>
+                    }
+                    else if (!string.IsNullOrEmpty(Model.ResumePath))
+                    {
+                        <a href="@Model.ResumePath"
+                           target="_blank"
+                           class="resume-link">
+                            View Current Resume
+                        </a>
+                    }
+                    @* always show the Uploadcare “choose a file” button *@
+                    <input
+                        type="hidden"
+                        name="resumeUrl"
+                        role="uploadcare-uploader"
+                        data-tabs="file"
+                        data-clearable />
+                </div>
             }
 
-            <form asp-controller="AccountSettings" asp-action="UploadResume" method="post">
+            <form asp-controller="AccountSettings"
+                  asp-action="UploadResume"
+                  method="post">
+                @Html.AntiForgeryToken()
                 <input type="hidden" name="candidateId" value="@Model.CandidateId" />
-                <input type="hidden" name="resumeUrl" role="uploadcare-uploader" data-tabs="file" data-clearable />
-                <button type="submit" class="save-btn">Update Resume</button>
+
+                <!-- Update button on its own line -->
+                <button type="submit" class="save-btn">
+                    Update Resume
+                </button>
             </form>
         </div>
+
 
 
         <div class="settings-section">
