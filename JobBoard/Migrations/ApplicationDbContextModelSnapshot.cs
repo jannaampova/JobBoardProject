@@ -192,9 +192,6 @@ namespace JobBoard.Migrations
                     b.Property<int>("industryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("location")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("photoPath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
