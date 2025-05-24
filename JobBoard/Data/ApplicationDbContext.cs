@@ -31,7 +31,8 @@ namespace JobBoard.Data
         {
             modelBuilder.Entity<ListingRequirements>().HasNoKey();
             modelBuilder.Entity<ListingBenefits>().HasNoKey();
-            modelBuilder.Entity<CandidateSkills>().HasNoKey();
+            modelBuilder.Entity<CandidateSkills>()
+                .HasKey(cs => new { cs.CandidateId, cs.SkillId });           
             modelBuilder.Entity<AccountType>().HasKey(a => a.Id);
 
             modelBuilder.Entity<SavedListings>()

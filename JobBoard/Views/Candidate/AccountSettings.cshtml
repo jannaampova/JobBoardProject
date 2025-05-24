@@ -22,24 +22,23 @@
     <div class="main-content">
         <h1 class="page-title">Account Settings</h1>
 
-        <div class="settings-section">
+     <div class="settings-section">
             <h2 class="section-title">Profile Information</h2>
             <div class="profile-header">
                 <div class="profile-photo">
                     <img src="@Model.PhotoPath" alt="Profile Photo"
-                         style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;" />
+                         style="width: 120px; height: 120px; object-fit: cover; border-radius: 8px;" />
                 </div>
 
                 <form asp-controller="AccountSettings" asp-action="UploadPhoto" method="post">
                     <input type="hidden" name="candidateId" value="@Model.CandidateId" />
                     <input type="hidden" name="imageUrl" role="uploadcare-uploader" data-clearable />
-                    <button type="submit">Save Photo</button>
+                    <button type="submit" class="save-btn">Save Photo</button>
                 </form>
                 </div>
 
-            <form asp-controller="AccountSettings" asp-action="UpdateProfile" method="post">
-                <input type="hidden" name="AccountId" value="@Model.AccountId" />
-
+            <form asp-controller="AccountSettings" asp-action="ChangeDetails" method="post">
+                <input type="hidden" name="candidateId" value="@Model.CandidateId" />
                 <div class="form-group">
                     <label class="form-label">Full Name</label>
                     <input type="text" name="FullName" class="form-control" value="@Model.FullName" />
@@ -65,7 +64,7 @@
 
             @if (!string.IsNullOrEmpty(Model.ResumePath))
             {
-                <p><a href="@Model.ResumePath" target="_blank">View Current Resume</a></p>
+                <p><a href="@Model.ResumePath" style="text-decoration:none;"target="_blank">View Current Resume</a></p>
             }
 
             <form asp-controller="AccountSettings" asp-action="UploadResume" method="post">
