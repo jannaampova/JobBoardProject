@@ -68,7 +68,11 @@ namespace JobBoard.Services
                 {
                     var newCandidate = new Candidate
                     {
-                        AccountId = newAccount.Id // assuming this is the foreign key
+                        AccountId = newAccount.Id, 
+                        PhotoPath = "TBA",
+                        ResumePath = "TBA",
+                        ExperienceLevel = "TBA",
+                        Education = "TBA"
                     };
 
                     _context.Candidate.Add(newCandidate);
@@ -78,9 +82,11 @@ namespace JobBoard.Services
                 {
                     var newCompany = new Company
                     {
-                        accountId = newAccount.Id, // assuming this is the foreign key
+                        accountId = newAccount.Id,
                         companyName = model.Name,
-                        industryId = 1
+                        industryId = 1,
+                        webUrl="TBA",
+                        photoPath = "TBA"
                     };
 
                     _context.Company.Add(newCompany);

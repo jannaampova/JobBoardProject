@@ -1,7 +1,8 @@
 ﻿@{
     Layout = null;
 }
-@model JobBoard.Models.ViewModels.CandidateDashboardViewModel
+@using JobBoard.Models.ViewModels
+@model JobBoard.Models.ViewModels.AccountSettingsViewModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,118 +18,85 @@
    
 </head>
 <body>
-    @await Html.PartialAsync("~/Views/sidebar.cshtml", Model)
+@await Html.PartialAsync("~/Views/sidebar.cshtml", new CandidateDashboardViewModel { user = Model.user })
     <div class="main-content">
         <h1 class="page-title">Account Settings</h1>
 
         <div class="settings-section">
             <h2 class="section-title">Profile Information</h2>
             <div class="profile-header">
-                <form method="post" asp-action="UploadImage">
-                    <input type="hidden" name="ImageUrl" role="uploadcare-uploader" data-clearable />
-                    <button type="submit">Save</button>
-                </form>
                 <div class="profile-photo">
-                    <!-- Profile photo placeholder -->
-                    <button class="photo-upload">📷</button>
+                    <img src="@Model.PhotoPath" alt="Profile Photo"
+                         style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;" />
                 </div>
+
+                <form asp-controller="AccountSettings" asp-action="UploadPhoto" method="post">
+                    <input type="hidden" name="candidateId" value="@Model.CandidateId" />
+                    <input type="hidden" name="imageUrl" role="uploadcare-uploader" data-clearable />
+                    <button type="submit">Save Photo</button>
+                </form>
+                </div>
+
+            <form asp-controller="AccountSettings" asp-action="UpdateProfile" method="post">
+                <input type="hidden" name="AccountId" value="@Model.AccountId" />
+
                 <div class="form-group">
-                    <label class="form-label">Profile Photo</label>
-                    <input type="file" class="form-control" accept="image/*">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" name="FullName" class="form-control" value="@Model.FullName" />
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="form-label">Full Name</label>
-                <input type="text" class="form-control" value="Name Surname">
-            </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="Email" class="form-control" value="@Model.Email" />
+                </div>
 
-            <div class="form-group">
-                <label class="form-label">Email</label>
-                <input type="email" class="form-control" value="namesurname@mail.com">
-            </div>
+                <div class="form-group">
+                    <label class="form-label">Phone</label>
+                    <input type="tel" name="Phone" class="form-control" value="@Model.Phone" />
+                </div>
 
-            <div class="form-group">
-                <label class="form-label">Phone</label>
-                <input type="tel" class="form-control" value="phone">
-            </div>
+                <button type="submit" class="save-btn">Save Changes</button>
+            </form>
 
-            <button type="submit" class="save-btn">Save Changes</button>
         </div>
 
         <div class="settings-section">
-            <h2 class="section-title">Resume/CV</h2>
-            <div class="form-group">
-                <label class="form-label">Upload New Resume</label>
-                <input type="file" class="form-control" accept=".pdf,.doc,.docx">
-            </div>
-            <button type="submit" class="save-btn">Update Resume</button>
+            <h2 class="section-title">Resume</h2>
+
+            @if (!string.IsNullOrEmpty(Model.ResumePath))
+            {
+                <p><a href="@Model.ResumePath" target="_blank">View Current Resume</a></p>
+            }
+
+            <form asp-controller="AccountSettings" asp-action="UploadResume" method="post">
+                <input type="hidden" name="candidateId" value="@Model.CandidateId" />
+                <input type="hidden" name="resumeUrl" role="uploadcare-uploader" data-tabs="file" data-clearable />
+                <button type="submit" class="save-btn">Update Resume</button>
+            </form>
         </div>
 
-        <div class="settings-section">
-            <h2 class="section-title">Password</h2>
-            <div class="form-group">
-                <label class="form-label">Current Password</label>
-                <input type="password" class="form-control">
-            </div>
-            <div class="form-group">
-                <label class="form-label">New Password</label>
-                <input type="password" class="form-control">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Confirm New Password</label>
-                <input type="password" class="form-control">
-            </div>
-            <button type="submit" class="save-btn">Change Password</button>
-        </div>
 
         <div class="settings-section">
             <h2 class="section-title">Skills</h2>
-            <div class="checkbox-group">
-                <div class="form-checkbox">
-                    <input type="checkbox" id="tech1" checked>
-                    <label for="tech1">JavaScript</label>
-                </div>
-                <div class="form-checkbox">
-                    <input type="checkbox" id="tech2" checked>
-                    <label for="tech2">Python</label>
-                </div>
-                <div class="form-checkbox">
-                    <input type="checkbox" id="tech3">
-                    <label for="tech3">Java</label>
-                </div>
-                <div class="form-checkbox">
-                    <input type="checkbox" id="tech4" checked>
-                    <label for="tech4">React</label>
-                </div>
-                <div class="form-checkbox">
-                    <input type="checkbox" id="tech5">
-                    <label for="tech5">Node.js</label>
-                </div>
-                <div class="form-checkbox">
-                    <input type="checkbox" id="tech6">
-                    <label for="tech6">SQL</label>
-                </div>
-                <div class="form-checkbox">
-                    <input type="checkbox" id="tech6">
-                    <label for="tech6">SQL</label>
-                </div>   <div class="form-checkbox">
-                    <input type="checkbox" id="tech6">
-                    <label for="tech6">SQL</label>
-                </div>   <div class="form-checkbox">
-                    <input type="checkbox" id="tech6">
-                    <label for="tech6">SQL</label>
-                </div>   <div class="form-checkbox">
-                    <input type="checkbox" id="tech6">
-                    <label for="tech6">SQL</label>
-                </div>   <div class="form-checkbox">
-                    <input type="checkbox" id="tech6">
-                    <label for="tech6">SQL</label>
-                </div>
-            </div>
 
+            <form asp-controller="AccountSettings" asp-action="UpdateSkills" method="post">
+                <input type="hidden" name="CandidateId" value="@Model.CandidateId" />
+
+                <div class="checkbox-group">
+                    @foreach (var skill in Model.AllSkills)
+                    {
+                        var isChecked = Model.SelectedSkillIds.Contains(skill.Id);
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="skill-@skill.Id" name="SelectedSkillIds" value="@skill.Id" @(isChecked ? "checked" : "") />
+                            <label for="skill-@skill.Id">@skill.Skill</label>
+                        </div>
+                    }
+                </div>
+
+                <button type="submit" class="save-btn" style="margin-top: 1.5rem;">Update Skills</button>
+            </form>
         </div>
-        <button type="submit" class="save-btn" style="margin-top: 1.5rem;">Update Skills</button>
+
     </div>
 
 </body>
