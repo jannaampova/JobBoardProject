@@ -285,6 +285,7 @@ body {
     background-color: #f8f7ff;
     border-radius: 8px;
     margin-bottom: 1rem;
+    overflow:hidden;
 }
 
 .job-actions {
