@@ -10,5 +10,6 @@ public class ApplicationsViewModel
 
     public List<Application> applications { get; set; }
     public int candidateId { get; set; }
+    public ApplicationStatus? CurrentStatus { get; set; }
 
 }

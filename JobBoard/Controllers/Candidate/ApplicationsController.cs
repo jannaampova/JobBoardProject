@@ -23,7 +23,7 @@ namespace JobBoard.Controllers.Candidate
 
         [HttpGet("/applications")]
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? status)
         { 
             UserData currUser = await _userManager.GetUserAsync(User);
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
@@ -37,15 +37,25 @@ namespace JobBoard.Controllers.Candidate
                 return NotFound("Account not found.");
             }
             var candidate = _context.Candidate.Single(c => c.AccountId == account.Id);
-            var apps = _applicationsService.FindCandidateApplications(candidate.Id);
+            ApplicationStatus? filter = null;
+            if (!string.IsNullOrEmpty(status)
+                && Enum.TryParse<ApplicationStatus>(status, true, out var parsed))
+            {
+                filter = parsed;
+            }
+            var apps = _applicationsService.FindCandidateApplications(candidate.Id,filter);
             var appsCount = apps.Count;
+
+         
+
 
             ApplicationsViewModel viewModel = new ApplicationsViewModel
             {
                 user = currUser,
                 applications = apps,
                 candidateId=candidate.Id,
-                count = appsCount
+                count = appsCount,
+                CurrentStatus   = filter
             };
 
             return View("~/Views/Candidate/CandidateApplications.cshtml",viewModel);

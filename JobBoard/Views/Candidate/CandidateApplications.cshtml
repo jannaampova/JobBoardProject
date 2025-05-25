@@ -2,6 +2,8 @@
     Layout = null;
 }
 
+@using System.Globalization
+@using JobBoard.Models.plainModels
 @using JobBoard.Models.ViewModels
 @model JobBoard.Models.ViewModels.ApplicationsViewModel
 <!DOCTYPE html>
@@ -23,10 +25,26 @@
         </div>
 
         <div class="status-filters">
-            <button class="status-filter active">All</button>
-            <button class="status-filter">Pending</button>
-            <button class="status-filter">Accepted</button>
-            <button class="status-filter">Rejected</button>
+            <a asp-action="Index" 
+               asp-route-status="" 
+               class="status-filter @(Model.CurrentStatus == null ? "active" : "")" style="text-decoration: none;">
+                All
+            </a>
+            <a asp-action="Index" 
+               asp-route-status="PENDING" 
+               class="status-filter @(Model.CurrentStatus == ApplicationStatus.PENDING ? "active" : "")" style="text-decoration: none;">
+                Pending
+            </a>
+            <a asp-action="Index" 
+               asp-route-status="ACCEPTED" 
+               class="status-filter @(Model.CurrentStatus == ApplicationStatus.ACCEPTED ? "active" : "") "style="text-decoration: none;">
+                Accepted
+            </a>
+            <a asp-action="Index" 
+               asp-route-status="REJECTED" 
+               class="status-filter @(Model.CurrentStatus == ApplicationStatus.REJECTED ? "active" : "") "style="text-decoration: none;">
+                Rejected
+            </a>
         </div>
     @if (Model.applications != null && Model.applications.Any())
         {
@@ -38,16 +56,28 @@
                         <h3 class="company-name">@app.Listing.company.companyName</h3>
                         <div class="application-details">
                             <span class="detail-item">📍 @app.Listing.town.Name</span>
+                            <span class="detail-item">🔼 @app.Listing.experienceLevel</span>
                             <span class="detail-item">💻 @app.Listing.company.industry.industry</span>
                             <span class="detail-item">⬜ @app.Listing.jobType.jobType</span>
+                            <span class="detail-item">📅 @app.Listing.datePosted.ToString("d", CultureInfo.InvariantCulture)</span>
+
                         </div>
                     </div>
                     <div class="application-right">
                         <div class="company-logo">
                             <img src="@app.Listing.company.photoPath" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"/>
                         </div>
-                        <span class="application-status status-reviewing">@app.Status</span>
-                        <span class="application-date">@app.AppliedAt</span>
+                        @{
+                            // get the enum name, lowercase it, then Title-Case it
+                            var raw = app.Status.ToString();
+                            var nice = System.Globalization.CultureInfo
+                                .CurrentCulture
+                                .TextInfo
+                                .ToTitleCase(raw.ToLowerInvariant());
+                        }
+                        <span class="application-status status-@raw.ToLowerInvariant()">
+                            @nice
+                        </span>                        <span class="application-date">Applied on @app.AppliedAt.ToString("D", CultureInfo.InvariantCulture)</span>
                     </div>
                 </div>
             }

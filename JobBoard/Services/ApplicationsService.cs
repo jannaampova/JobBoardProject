@@ -12,10 +12,12 @@ public class ApplicationsService
     {
         _context = context;
     }
-    public List<Application> FindCandidateApplications(int candidateId)
-    {
-        return _context.Application
-            .Where(a => a.CandidateId == candidateId)
+    public List<Application> FindCandidateApplications(int candidateId, ApplicationStatus? status = null)    {
+        var query = _context.Application
+            .Where(a => a.CandidateId == candidateId);
+        if (status.HasValue)
+            query = query.Where(a => a.Status == status.Value);
+        return query
             .Include(a => a.Listing)
             .ThenInclude(l => l.company)
             .ThenInclude(c => c.industry)

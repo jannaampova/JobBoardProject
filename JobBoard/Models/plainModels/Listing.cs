@@ -23,6 +23,8 @@ namespace JobBoard.Models.plainModels
         [ForeignKey("townId")]
         public Town town { get; set; }
         public string experienceLevel { get; set; }
+        
+        public string status { get; set; }
 
 
         [NotMapped]

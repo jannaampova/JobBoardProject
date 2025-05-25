@@ -80,7 +80,7 @@ namespace JobBoard.Services
                 }
                 if (model.AcctTypeId == 1)
                 {
-                    var newCompany = new Company
+                    var newCompany = new Models.plainModels.Company
                     {
                         accountId = newAccount.Id,
                         companyName = model.Name,

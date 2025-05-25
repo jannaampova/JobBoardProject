@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using JobBoard.Models.plainModels;
 using System.Reflection.Emit;
+using JobBoard.Services.Company;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -53,6 +54,9 @@ builder.Services.AddScoped< SavedListingService>();
 builder.Services.AddScoped< AccountSettingsService>(); 
 builder.Services.AddScoped< ApplyService>(); 
 builder.Services.AddScoped< ApplicationsService>(); 
+
+builder.Services.AddScoped< CreateListingService>(); 
+
 
 
 var app = builder.Build();
