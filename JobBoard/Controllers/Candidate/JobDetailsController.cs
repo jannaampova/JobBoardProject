@@ -25,18 +25,34 @@ namespace JobBoard.Controllers.Candidate
             Listing job= await jobDetailsService.getlistedJob(id).ConfigureAwait(false);
             List<string> requirementsList = jobDetailsService.GetRequirements(job.Id);
             List<string> benefitsList = jobDetailsService.GetBenefits(job.Id);
+            
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            var account = context.Account.FirstOrDefault(a => a.UserId == userId);
+            if (account == null)
+            {
+                return NotFound("Account not found.");
+            }
+            var candidate = context.Candidate.Single(c => c.AccountId == account.Id);
 
             if (job == null)
             {
                 return NotFound();
             }
+            bool isSaved = await context.SavedListings
+                .AnyAsync(s => s.CandidateId == candidate.Id 
+                               && s.ListingId   == job.Id);
 
             JobDetailsModel viewModel = new JobDetailsModel
             {
                 user = currUser,
                 jobListed = job,
                 requirements = requirementsList,
-                benefits = benefitsList
+                benefits = benefitsList,
+                IsSaved = isSaved
             };
 
             return View("~/Views/Candidate/Job-Details.cshtml", viewModel);

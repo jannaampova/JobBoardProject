@@ -9,6 +9,7 @@ namespace JobBoard.Models.ViewModels
         public Listing jobListed { get; set; }
         public List<string> requirements { get; set; } 
         public List<string> benefits { get; set; } 
+        public bool IsSaved { get; set; }
         public JobDetailsModel() {
         }
 

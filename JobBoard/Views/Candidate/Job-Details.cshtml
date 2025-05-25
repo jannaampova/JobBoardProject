@@ -72,18 +72,36 @@
             </div>
 
             <div class="job-actions">
-                <a class="bookmark-btn" asp-controller="CandidateDashboard" asp-action="SaveListingFromJobDetails" asp-route-listingId="@job.Id">Save</a>
-                @* <button class="bookmark-btn" onclick="toggleBookmark(this)" asp-route-id="@job.Id" asp-controller="CandidateDashboard" asp-action="SaveListingFromJobDetails">Save</button> *@
+                @if (Model.IsSaved)
+                {
+                    <form asp-controller="CandidateDashboard"
+                          asp-action="SaveListingFromJobDetails"
+                          method="post"
+                          class="inline-form">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="listingId" value="@job.Id" />
+                        <button type="submit" class="bookmark-btn">
+                            Unsave
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <form asp-controller="CandidateDashboard"
+                          asp-action="SaveListingFromJobDetails"
+                          method="post"
+                          class="inline-form">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="listingId" value="@job.Id" />
+                        <button type="submit" class="bookmark-btn">
+                            Save
+                        </button>
+                    </form>
+                }                
                 <a asp-controller="JobDetails" asp-action="Apply" class="apply-btn" asp-route-id="@job.Id">Apply Now</a>
             </div>
         </div>
     </div>
-
-    <script>
-        function toggleBookmark(button) {
-            button.classList.toggle('active');
-            button.textContent = button.classList.contains('active') ? 'Saved' : 'Save';
-        }
-    </script>
+    
 </body>
 </html> 
