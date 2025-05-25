@@ -18,7 +18,7 @@ public class SavedListingsController : Controller
     public SavedListingsController(UserManager<UserData> userManager, SavedListingService savedListingService, ApplicationDbContext context)
     {
         _userManager = userManager;
-        this._savedListingService = savedListingService;
+        _savedListingService = savedListingService;
         _context = context;
     }
 

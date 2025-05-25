@@ -52,6 +52,8 @@ builder.Services.AddScoped< JobDetailsService>();
 builder.Services.AddScoped< SavedListingService>(); 
 builder.Services.AddScoped< AccountSettingsService>(); 
 builder.Services.AddScoped< ApplyService>(); 
+builder.Services.AddScoped< ApplicationsService>(); 
+
 
 var app = builder.Build();
 

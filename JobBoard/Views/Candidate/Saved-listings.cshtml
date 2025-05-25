@@ -67,25 +67,5 @@
         }
     </div>
 
-    <script>
-        function toggleBookmark(button) {
-            const jobCard = button.closest('.job-card');
-            button.classList.toggle('active');
-            button.textContent = button.classList.contains('active') ? 'Saved' : 'Save';
-
-            if (!button.classList.contains('active')) {
-                jobCard.classList.add('removing');
-                setTimeout(() => {
-                    jobCard.remove();
-                    updateSavedCount();
-                }, 300);
-            }
-        }
-
-        function updateSavedCount() {
-            const count = document.querySelectorAll('.job-card').length;
-            document.querySelector('.saved-count').textContent = count + ' jobs saved';
-        }
-    </script>
 </body>
 </html>
