@@ -45,9 +45,19 @@ public class SavedListingsController : Controller
         SavedListingsViewModel model = new SavedListingsViewModel
         {
             user = currUser,
-            savedListings = listings
+            savedListings = listings,
+            candidateId=candidate.Id
         };
 
         return View("/views/Candidate/Saved-listings.cshtml", model);
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> Unsave(int listingId, int candidateId)
+    {
+        var service = new SavedListingService(_context);
+        service.saveListingToCandidate(listingId, candidateId);
+
+        return RedirectToAction(nameof(Index));
     }
 }

@@ -42,8 +42,6 @@ namespace JobBoard.Controllers.Candidate
             return View("~/Views/Candidate/Job-Details.cshtml", viewModel);
         }
         
-        
-
         public async Task<IActionResult> Apply(int id)
         {
 
@@ -83,8 +81,7 @@ namespace JobBoard.Controllers.Candidate
 
             return View("~/Views/Candidate/Apply.cshtml",viewModel);
         }
-
-
+        
         public async Task<IActionResult> SubmitApplication(int candidateId, int jobId)
         {
             var candidate = context.Candidate.Single(c => c.Id == candidateId);

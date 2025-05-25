@@ -42,8 +42,20 @@
                             <img src="@listing?.company?.photoPath" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;" />
                         </div>
                         <div class="job-actions">
-                            <button class="bookmark-btn active" onclick="toggleBookmark(this)">Saved</button>
-                           @* <a asp-controller="JobDetails" asp-action="Index" asp-route-id="@listing?.id" class="view-job-btn">View Details</a>*@
+                            <form asp-controller="SavedListings"
+                                  asp-action="Unsave"
+                                  method="post"
+                                  class="inline-form">
+                                @Html.AntiForgeryToken()
+
+                                <input type="hidden" name="listingId"   value="@listing.Id" />
+                                <input type="hidden" name="candidateId" value="@Model.candidateId" />
+
+                                <button type="submit" class="bookmark-btn active">
+                                    Remove
+                                </button>
+                            </form>
+                           <a asp-controller="JobDetails" asp-action="Index" asp-route-id="@listing?.Id" class="view-job-btn">View Details</a>
                         </div>
                     </div>
                 </div>
