@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using JobBoard.Data;
 using JobBoard.Models.plainModels;
+using JobBoard.Models.ViewModels;
 
 namespace JobBoard.Services.Company
 {
@@ -15,50 +16,51 @@ namespace JobBoard.Services.Company
         }
 
  
-        public async Task<int> CreateListingAsync(
-            int companyId,
-            string title,
-            string description,
-            DateOnly datePosted,
-            int jobTypeId,
-            int townId,
-            string experienceLevel,
-            IEnumerable<int> requirementIds,
-            IEnumerable<int> benefitIds)
+        public async Task<int> CreateListingAsync(CreateListingViewModel model)
         {
+            
             var listing = new Listing
             {
-                companyId        = companyId,
-                title            = title,
-                Description      = description,
-                datePosted       = datePosted,
-                jobTypeId        = jobTypeId,
-                townId           = townId,
-                experienceLevel  = experienceLevel,
-                status="Active",
-                listingRequirements = new List<ListingRequirements>(),
-                listingBenefits     = new List<ListingBenefits>()
+                companyId        = model.CompanyId,
+                title            = model.Title,
+                Description      = model.Description,
+                datePosted       = model.DatePosted,
+                jobTypeId        = model.JobTypeId,
+                townId           = model.TownId,
+                experienceLevel  = model.Level,
+                status="Active"
+  
             };
+
 
             _context.Listings.Add(listing);
             await _context.SaveChangesAsync();
+          
+                listing.listingRequirements = new List<ListingRequirements>();
+                listing.listingBenefits = new List<ListingBenefits>();
+            
 
-            foreach (var reqId in requirementIds)
+
+            foreach (var reqId in model.RequirementIds)
             {
-                listing.listingRequirements.Add(new ListingRequirements
+                var listingRequirement=new ListingRequirements
                 {
                     ListingId     = listing.Id,
                     RequirementId = reqId
-                });
+                };
+                listing.listingRequirements.Add(listingRequirement);
+                _context.ListingRequirements.Add(listingRequirement);
             }
 
-            foreach (var benId in benefitIds)
+            foreach (var benId in model.BenefitIds)
             {
-                listing.listingBenefits.Add(new ListingBenefits
+                var listingBenefit = new ListingBenefits
                 {
-                    ListingId  = listing.Id,
-                    BenefitId  = benId
-                });
+                    ListingId = listing.Id,
+                    BenefitId = benId
+                };
+                listing.listingBenefits.Add(listingBenefit);
+                _context.ListingBenefits.Add(listingBenefit);
             }
 
             await _context.SaveChangesAsync();

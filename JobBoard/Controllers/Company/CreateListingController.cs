@@ -72,19 +72,9 @@ namespace JobBoard.Controllers.Company
                 return RedirectToAction(nameof(Index));
             }
       
-            var newListingId = await _createListingService.CreateListingAsync(
-                companyId:       model.CompanyId,
-                title:           model.Title,
-                description:     model.Description,
-                datePosted:      model.DatePosted,
-                jobTypeId:       model.JobTypeId,
-                townId:          model.TownId,
-                experienceLevel: model.Level,
-                requirementIds:  model.RequirementIds,
-                benefitIds:      model.BenefitIds
-            );
+            var newListingId = await _createListingService.CreateListingAsync(model);
 
-            return RedirectToAction("Details", "Listings", new { id = newListingId });
+            return RedirectToAction("Index", "CreateListing");
         }
     }
 }

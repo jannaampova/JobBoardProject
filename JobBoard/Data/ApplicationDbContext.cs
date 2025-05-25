@@ -29,8 +29,10 @@ namespace JobBoard.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ListingRequirements>().HasNoKey();
-            modelBuilder.Entity<ListingBenefits>().HasNoKey();
+            modelBuilder.Entity<ListingRequirements>()
+                .HasKey(lr => new { lr.ListingId, lr.RequirementId });;
+            modelBuilder.Entity<ListingBenefits>()
+                .HasKey(lb => new { lb.ListingId, lb.BenefitId });;
             modelBuilder.Entity<CandidateSkills>()
                 .HasKey(cs => new { cs.CandidateId, cs.SkillId });           
             modelBuilder.Entity<AccountType>().HasKey(a => a.Id);

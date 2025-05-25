@@ -1,17 +1,24 @@
 ﻿using JobBoard.Models.plainModels;
 using JobBoard.Security;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace JobBoard.Models.ViewModels;
 
 public class CreateListingViewModel
 {
+    [ValidateNever]
     public UserData user { get; set; }
     public int CompanyId { get; set; }
     public string Industry { get; set; }
+    [ValidateNever]
     public List<JobType> jobTypes { get; set; }
+    [ValidateNever]
     public List<Town> cities { get; set; }
+    [ValidateNever]
     public List<ExperienceLevel> levels { get; set; }
+    [ValidateNever]
     public List<Benefits> Benefits { get; set; }
+    [ValidateNever]
     public List<Requirements> Requirements { get; set; }
     
     public string Title { get; set; }
