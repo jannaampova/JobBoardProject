@@ -17,7 +17,6 @@ public class AccountSettingsService
             .Where(cs => cs.CandidateId == candidateId);
         _context.CandidateSkills.RemoveRange(existing);
 
-        // 2) Add a row for each newly selected skill
         var toAdd = selectedSkillIds.Select(skillId => new CandidateSkills()
         {
             CandidateId = candidateId,

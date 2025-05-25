@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Q4 Engineer at CSoft - Job Details</title>
+    <title>Job Details</title>
     <link rel="stylesheet" href="~/css/candidate/sidebarCandidate.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/candidate/job-details.css" asp-append-version="true" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -74,7 +74,7 @@
             <div class="job-actions">
                 <a class="bookmark-btn" asp-controller="CandidateDashboard" asp-action="SaveListingFromJobDetails" asp-route-listingId="@job.Id">Save</a>
                 @* <button class="bookmark-btn" onclick="toggleBookmark(this)" asp-route-id="@job.Id" asp-controller="CandidateDashboard" asp-action="SaveListingFromJobDetails">Save</button> *@
-                <a asp-controller="JobDetails" asp-action="Apply" class="apply-btn">Apply Now</a>
+                <a asp-controller="JobDetails" asp-action="Apply" class="apply-btn" asp-route-id="@job.Id">Apply Now</a>
             </div>
         </div>
     </div>

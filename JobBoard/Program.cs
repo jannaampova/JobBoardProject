@@ -45,20 +45,16 @@ builder.Services.AddAuthorization(options =>
 
 });
 
-// Register AccountService
+// Register
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped< FilterService>();
 builder.Services.AddScoped< JobDetailsService>(); 
 builder.Services.AddScoped< SavedListingService>(); 
 builder.Services.AddScoped< AccountSettingsService>(); 
-
-
-
-
+builder.Services.AddScoped< ApplyService>(); 
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");

@@ -93,7 +93,6 @@ namespace JobBoard.Controllers.Candidate
         [ValidateAntiForgeryToken]
         public IActionResult UpdateSkills(int candidateId, List<int> selectedSkillIds)
         {
-            // Ensure we never pass null into the service
             selectedSkillIds ??= new List<int>();
 
             _accountSettingsService.UpdateSkills(candidateId, selectedSkillIds);

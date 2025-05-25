@@ -10,29 +10,21 @@ using Microsoft.VisualBasic;
 
 namespace JobBoard.Controllers.Candidate
 {
-    public class JobDetailsController : Controller
+    public class JobDetailsController(
+        UserManager<UserData> userManager,
+        ApplicationDbContext context,
+        JobDetailsService jobDetailsService,
+        ApplyService applyService)
+        : Controller
     {
-        private readonly UserManager<UserData> _userManager;
-        private ApplicationDbContext _context;
-        private JobDetailsService _jobDetailsService;
-
-        public JobDetailsController(UserManager<UserData> userManager, ApplicationDbContext context, JobDetailsService jobDetailsService)
-        {
-            _userManager = userManager;
-            _context = context;
-            _jobDetailsService = jobDetailsService; 
-        }
-
-
-
         [HttpGet("/details")]
         public async Task<IActionResult> Index(int id)
         {
-            UserData currUser = await _userManager.GetUserAsync(User);
+            UserData currUser = await userManager.GetUserAsync(User);
 
-            Listing job= await _jobDetailsService.getlistedJob(id).ConfigureAwait(false);
-            List<string> requirementsList = _jobDetailsService.GetRequirements(job.Id);
-            List<string> benefitsList = _jobDetailsService.GetBenefits(job.Id);
+            Listing job= await jobDetailsService.getlistedJob(id).ConfigureAwait(false);
+            List<string> requirementsList = jobDetailsService.GetRequirements(job.Id);
+            List<string> benefitsList = jobDetailsService.GetBenefits(job.Id);
 
             if (job == null)
             {
@@ -49,28 +41,61 @@ namespace JobBoard.Controllers.Candidate
 
             return View("~/Views/Candidate/Job-Details.cshtml", viewModel);
         }
+        
+        
 
-        //TOVA DOLNOTO NE TRQBVA DA E TAKA A S NESHTA ZA APPLY
         public async Task<IActionResult> Apply(int id)
         {
 
-            UserData currUser = await _userManager.GetUserAsync(User);
-            // Listing job = await _jobDetailsService.getlistedJob(id).ConfigureAwait(false);
-            // List<string> requirementsList = _jobDetailsService.GetRequirements(job.Id);
-            // List<string> benefitsList = _jobDetailsService.GetBenefits(job.Id);
+            UserData currUser = await userManager.GetUserAsync(User);
 
-            JobDetailsModel viewModel = new JobDetailsModel
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            var account = context.Account.FirstOrDefault(a => a.UserId == userId);
+            if (account == null)
+            {
+                return NotFound("Account not found.");
+            }
+            var candidate = context.Candidate.Single(c => c.AccountId == account.Id);
+            
+            Listing job= await jobDetailsService.getlistedJob(id).ConfigureAwait(false);
+            bool hasApplied = await context.Application
+                .AnyAsync(a => a.CandidateId == candidate.Id 
+                               && a.ListingId   == job.Id);
+
+
+            ApplyViewModel viewModel = new ApplyViewModel()
             {
                 user = currUser,
-                // jobListed = job,
-                // requirements = requirementsList,
-                // benefits = benefitsList
+                PhotoPath = candidate.PhotoPath,
+                Email=candidate.Account.Email,
+                FullName = candidate.Account.Name,
+                Phone=candidate.Account.Phone,
+                ResumePath = candidate.ResumePath,
+                jobListed = job,
+                CandidateId = candidate.Id,
+                JobId=job.Id,
+                HasApplied   = hasApplied  
             };
 
             return View("~/Views/Candidate/Apply.cshtml",viewModel);
         }
 
-    
 
+        public async Task<IActionResult> SubmitApplication(int candidateId, int jobId)
+        {
+            var candidate = context.Candidate.Single(c => c.Id == candidateId);
+            var job = context.Listings.Single(l=>l.Id==jobId);
+            var result = await applyService.SubmitApplication(candidate,job);
+            if (!result)
+            {
+                ModelState.AddModelError("", "Signup failed. Please try again.");
+            }
+
+            return RedirectToAction(nameof(Index), new { id = jobId });
+        }
     }
 }

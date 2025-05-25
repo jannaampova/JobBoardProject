@@ -1,68 +1,96 @@
 ﻿@{
     Layout = null;
 }
+@{
+    var job = Model.jobListed;
+}
 @using JobBoard.Models.ViewModels
-@model JobBoard.Models.ViewModels.JobDetailsModel
+@model JobBoard.Models.ViewModels.ApplyViewModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apply for Q4 Engineer - Jobby</title>
+    <title>Apply</title>
     <link rel="stylesheet" href="~/css/candidate/apply.css" asp-append-version="true" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-   
+    <script>
+        UPLOADCARE_PUBLIC_KEY = 'b5d90fd3facb415b7188';
+    </script>
+    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
 </head>
 <body>
     @await Html.PartialAsync("~/Views/sidebar.cshtml",new CandidateDashboardViewModel { user = Model.user })
 
     <div class="main-content">
         <div class="application-form">
-            <h1 class="page-title">Apply for Q4 Engineer</h1>
+            <h1 class="page-title">Apply for @job.title</h1>
 
             <div class="form-section">
                 <div class="profile-header">
                     <div class="profile-photo">
-                        <!-- Profile photo placeholder -->
-                    </div>
+                        @if (Model.PhotoPath == "TBA" || string.IsNullOrEmpty(Model.PhotoPath))
+                        {
+                            <span class="no-photo-text">No photo</span>
+                        }
+                        else
+                        {
+                            <img src="@Model.PhotoPath" alt="Profile Photo"
+                                 style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px;" />
+                        }                    </div>
                     <div class="profile-info">
-                        <h2>Name Surname</h2>
-                        <p>📱 phone</p>
-                        <p>📧 namesurname@mail.com</p>
+                        <h2>@Model.FullName</h2>
+                        <p>📱 @Model.Phone</p>
+                        <p>📧 @Model.Email</p>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label class="form-label">Resume/CV:</label>
-                    <div class="cv-options">
-                        <select class="form-control">
-                            <option value="">Select existing CV</option>
-                            <option value="cv1">CV_Latest.pdf</option>
-                            <option value="cv2">Software_Engineer_CV.pdf</option>
-                            <option value="cv3">Technical_Resume_2024.pdf</option>
-                        </select>
-                        <div class="or-divider">or</div>
-                        <div class="file-upload">
-                            <input type="file" class="form-control" accept=".pdf,.doc,.docx" id="cv-upload">
-                            <label for="cv-upload" class="upload-label">Upload new CV</label>
+                
+                <form asp-controller="JobDetails" asp-action="SubmitApplication" method="post">
+                    <div class="form-group">
+                        <label class="form-label">Resume/CV:</label>
+                        <div class="cv-options">
+                            @if (Model.ResumePath == "TBA" || string.IsNullOrEmpty(Model.ResumePath))
+                            {
+                                <span class="resume-tba">Go to Account Settings to upload a resume!</span>
+                            }
+                            else if (!string.IsNullOrEmpty(Model.ResumePath))
+                            {
+                                <a href="@Model.ResumePath"
+                                   target="_blank"
+                                   class="resume-link">
+                                    View Current Resume
+                                </a>
+                            }
                         </div>
                     </div>
-                </div>
-
-                <button type="submit" class="submit-btn">Submit application</button>
+                    <input asp-for="CandidateId" type="hidden" />
+                    <input asp-for="JobId"       type="hidden" />
+                
+                    @if (Model.HasApplied)
+                    {
+                        <button class="submit-btn" disabled>
+                            You already applied!
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="submit-btn">
+                            Submit application
+                        </button>
+                    }                
+                    </form>
             </div>
         </div>
 
         <div class="job-info">
-            <h2 class="job-title">Q4 Engineer</h2>
-            <h3 class="company-name">CSoft</h3>
+            <h2 class="job-title">@job.title</h2>
+            <h2 class="company-name" style="font-size:20px;margin-top:5%;margin-bottom:2%;font-weight:lighter;">@job.company.companyName</h2>
             <div class="job-details">
-                <span class="detail-item">🔥 2500 BGN</span>
-                <span class="detail-item">📍 Varna</span>
-                <span class="detail-item">🔼 2-5 years</span>
-                <span class="detail-item">💻 IT</span>
-                <span class="detail-item">⬜ Hybrid</span>
-                <span class="detail-item">📅 01/02/2025</span>
+                <span class="detail-item">📍 @job.town.Name</span>
+                <span class="detail-item">🔼 @job.experienceLevel</span>
+                <span class="detail-item">💻 @job.company.industry.industry</span>
+                <span class="detail-item">⬜ @job.jobType.jobType</span>
+                <span class="detail-item">📅 @job.datePosted</span>
             </div>
         </div>
     </div>
