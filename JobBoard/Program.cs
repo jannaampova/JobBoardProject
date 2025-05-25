@@ -54,6 +54,7 @@ builder.Services.AddScoped< SavedListingService>();
 builder.Services.AddScoped< AccountSettingsService>(); 
 builder.Services.AddScoped< ApplyService>(); 
 builder.Services.AddScoped< ApplicationsService>(); 
+builder.Services.AddScoped< CompanyApplicationsService>(); 
 
 builder.Services.AddScoped< CreateListingService>(); 
 

@@ -1,125 +1,112 @@
 ﻿@{
-	Layout = null;
+    Layout = null;
 }
-@model JobBoard.Models.ViewModels.CompanyDashboardViewModel
+@using JobBoard.Models.ViewModels
+@model JobBoard.Models.ViewModels.CompanyApplications
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Jobby - Application Details</title>
-	<link rel="stylesheet" href="~/css/company/applicationDetails.css" asp-append-version="true" />
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobby - Application Details</title>
+    <link rel="stylesheet" href="~/css/company/applicationDetails.css" asp-append-version="true" />
 </head>
 <body style="font-family: 'Poppins', sans-serif;">
 
-	@await Html.PartialAsync("~/Views/sidebarCompany.cshtml", Model)
+@await Html.PartialAsync("~/Views/sidebarCompany.cshtml", new CompanyDashboardViewModel() { user = Model?.user })
 
-	<div class="main-content">
-		<a asp-controller="OurApplicants" asp-action="Index" class="back-link">← Back to Applications</a>
+<div class="main-content">
+    <a asp-controller="OurApplicants" asp-action="Index" class="back-link">← Back to Applications</a>
 
-		<div class="application-header">
-			<div class="candidate-info">
-				<div class="candidate-avatar">JD</div>
-				<div class="candidate-details">
-					<h1>John Doe</h1>
-				</div>
-			</div>
-		</div>
+    <div class="application-header">
+        <div class="candidate-info">
+            <div class="candidate-avatar">JD</div>
+            <div class="candidate-details">
+                <h1>@(Model?.application?.Candidate?.Account?.Name ?? "N/A")</h1>
+            </div>
+        </div>
+    </div>
 
-		<div class="content-grid">
-			<div>
-				<div class="content-section">
-					<h2 class="section-title">Contact Information</h2>
-					<div class="section-content">
-						<p>
-							<strong>Email</strong><br>
-						</p>
-						<p>
-							johndoe@mail.com
-						</p>
-					</div>
-					<div class="section-content">
-						<p>
-							<strong>Phone</strong><br>
-						</p>
-						<p>
-							0899968467
-						</p>
-					</div>
-					<div class="section-content">
-						<p>
-							<strong>Level</strong><br>
-						</p>
-						<p>
-							Senior
-						</p>
-					</div>
-				</div>
+    <div class="content-grid">
+        <div>
+            <div class="content-section">
+                <h2 class="section-title">Contact Information</h2>
+                <div class="section-content">
+                    <p><strong>Email</strong><br></p>
+                    <p>@(Model?.application?.Candidate?.Account?.Email ?? "N/A")</p>
+                </div>
+                <div class="section-content">
+                    <p><strong>Phone</strong><br></p>
+                    <p>@(Model?.application?.Candidate?.Account?.Phone ?? "N/A")</p>
+                </div>
+                <div class="section-content">
+                    <p><strong>Level</strong><br></p>
+                    <p>@(Model?.application?.Candidate?.ExperienceLevel ?? "N/A")</p>
+                </div>
+            </div>
 
-				<div class="content-section">
-					<h2 class="section-title">Skills</h2>
-					<div class="skills-list">
-						<span class="skill-tag">JavaScript</span>
-						<span class="skill-tag">React</span>
-						<span class="skill-tag">Node.js</span>
-						<span class="skill-tag">TypeScript</span>
-						<span class="skill-tag">AWS</span>
-						<span class="skill-tag">Docker</span>
-						<span class="skill-tag">SQL</span>
-						<span class="skill-tag">Git</span>
-					</div>
-				</div>
+            <div class="content-section">
+                <h2 class="section-title">Skills</h2>
+                <div class="skills-list">
+                    @if (Model.application.Candidate.candidateSkills != null)
+                    {
+                        foreach (var skill in Model.application.Candidate.candidateSkills)
+                        {
+                            <span class="skill-tag">@skill.Skill.Skill</span>
+                        }
+                    }
+                    else
+                    {
+                        <span>No skills available</span>
+                    }
+                </div>
+            </div>
 
-				<div class="content-section">
-					<h2 class="section-title">Education</h2>
-					<div class="section-content">
-						<p>
-							<strong>Senior Software Engineer</strong><br>
-							TechCorp Inc. | 2020 - Present
-						</p>
-						<p>Led development of core platform features, mentored junior developers, and implemented CI/CD pipelines.</p>
-					</div>
-				</div>
-			</div>
+            <div class="content-section">
+                <h2 class="section-title">Education</h2>
+                <div class="section-content">
+                    <p><strong>@(Model?.application?.Candidate?.Education ?? "N/A")</strong><br></p>
+                </div>
+            </div>
+        </div>
 
-			<div>
-				<div class="application-info">
-					<div class="info-item">
-						<div class="info-label">Applied For</div>
-						<div class="info-value">Senior Software Engineer</div>
-					</div>
-					<div class="info-item">
-						<div class="info-label">Application Date</div>
-						<div class="info-value">April 10, 2024</div>
-					</div>
-					<div class="info-item">
-						<div class="info-label">Location</div>
-						<div class="info-value">Remote</div>
-					</div>
+        <div>
+            <div class="application-info">
+                <div class="info-item">
+                    <div class="info-label">Applied For</div>
+                    <div class="info-value">@(Model?.application?.Listing?.title ?? "N/A")</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Application Date</div>
+                    <div class="info-value">@Model?.application?.AppliedAt.ToString("yyyy-MM-dd")</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">@Model?.application?.Listing?.town?.Name ?? "N/A"</div>
+                    <div class="info-value">@Model?.application?.Listing?.jobType?.jobType ?? "N/A"</div>
+                </div>
 
-					<div class="resume-preview">
-						<h2 class="section-title">Resume</h2>
-						<div class="resume-container">
-							<div class="resume-file">
-								<div class="file-icon">📄</div>
-								<div class="file-info">
-									<h3>John_Doe_Resume.pdf</h3>
-									<p>2.4 MB • PDF</p>
-								</div>
-							</div>
-							<a href="#" class="download-button">Download Resume</a>
-						</div>
-					</div>
+                <div class="resume-preview">
+                    <h2 class="section-title">Resume</h2>
+                    <div class="resume-container">
+                        <div class="resume-file">
+                            <div class="file-icon">📄</div>
+                            <div class="file-info">
+                                <h3>@(Model?.application?.Candidate?.ResumePath ?? "No resume uploaded")</h3>
+                                <p>2.4 MB • PDF</p>
+                            </div>
+                        </div>
+                        <a href="#" class="download-button">Download Resume</a>
+                    </div>
+                </div>
 
-					<div class="action-buttons">
-						<a href="#" class="action-button accept-button">Accept Application</a>
-						<a href="#" class="action-button reject-button">Reject Application</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                <div class="action-buttons">
+                    <a asp-action="StatusChangeAccept" asp-controller="OurApplications" asp-route-id="@Model.application.Id" class="action-button accept-button">Accept Application</a>
+                    <a asp-action="StatusChangeDecline" asp-controller="OurApplications" asp-route-id="@Model.application.Id" class="action-button reject-button">Reject Application</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
-</html> 
+</html>

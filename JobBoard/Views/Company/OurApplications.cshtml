@@ -1,7 +1,8 @@
 ﻿@{
     Layout = null;
 }
-@model JobBoard.Models.ViewModels.CompanyDashboardViewModel
+@using JobBoard.Models.ViewModels
+@model JobBoard.Models.ViewModels.CompanyApplications
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,8 +14,7 @@
 </head>
 <body style="font-family: 'Poppins', sans-serif;">
 
-    @await Html.PartialAsync("~/Views/sidebarCompany.cshtml", Model)
-
+    @await Html.PartialAsync("~/Views/sidebarCompany.cshtml", new CompanyDashboardViewModel(){user = Model.user})
     <div class="main-content">
         <div class="page-header">
             <h1 class="section-title">Our Applications</h1>
@@ -39,54 +39,26 @@
                     </tr>
                 </thead>
                 <tbody>
+                @foreach(var app in Model.Applications)
+                {
                     <tr>
                         <td>
                             <div class="candidate-info">
-                                <div class="candidate-avatar">JD</div>
-                                <div>John Doe</div>
+                                <div class="candidate-avatar">
+                                    @app.Candidate.Account.Name
+                                </div>
                             </div>
                         </td>
-                        <td>Senior Software Engineer</td>
-                        <td>2024-04-10</td>
-                        <td><span class="status pending">Pending</span></td>
+                        <td>@app.Listing.title</td>
+                        <td>@app.AppliedAt.ToString("yyyy-MM-dd")</td>
+                        <td><span class="status @(app.Status.ToString().ToLower())">@app.Status</span></td>
                         <td>
-                            <a asp-controller="OurApplications" asp-action="ViewApplication" class="action-button view-button">View</a>
-                            <a href="#" class="action-button accept-button">Accept</a>
-                            <a href="#" class="action-button reject-button">Reject</a>
+                            <a asp-controller="OurApplications" asp-action="ViewApplication" asp-route-id="@app.Id" class="action-button view-button">View</a>
+                            <a asp-controller="OurApplications" asp-action="StatusChangeAccept" asp-route-id="@app.Id" class="action-button accept-button">Accept</a>
+                            <a asp-controller="OurApplications" asp-action="StatusChangeDecline" asp-route-id="@app.Id" class="action-button reject-button">Reject</a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <div class="candidate-info">
-                                <div class="candidate-avatar">AS</div>
-                                <div>Alice Smith</div>
-                            </div>
-                        </td>
-                        <td>Product Manager</td>
-                        <td>2024-04-09</td>
-                        <td><span class="status accepted">Accepted</span></td>
-                        <td>
-                            <a asp-controller="OurApplications" asp-action="ViewApplication" class="action-button view-button">View</a>
-                            <a href="#" class="action-button accept-button">Accept</a>
-                            <a href="#" class="action-button reject-button">Reject</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="candidate-info">
-                                <div class="candidate-avatar">RJ</div>
-                                <div>Robert Johnson</div>
-                            </div>
-                        </td>
-                        <td>UX Designer</td>
-                        <td>2024-04-08</td>
-                        <td><span class="status rejected">Rejected</span></td>
-                        <td>
-                            <a asp-controller="OurApplications" asp-action="ViewApplication" class="action-button view-button">View</a>
-                            <a href="#" class="action-button accept-button">Accept</a>
-                            <a href="#" class="action-button reject-button">Reject</a>
-                        </td>
-                    </tr>
+                }
                 </tbody>
             </table>
         </div>
