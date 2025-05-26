@@ -21,13 +21,18 @@ namespace JobBoard.Controllers.Company
         }
 
         [HttpGet("/ourApplications")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? status)
         {
             UserData currUser = await _userManager.GetUserAsync(User);
-
-            List<Application> companyListings = _companyApplicationsService.FindCompanyApplications(currUser);
+            ApplicationStatus? filter = null;
+            if (!string.IsNullOrEmpty(status)
+                && Enum.TryParse<ApplicationStatus>(status, true, out var parsed))
+            {
+                filter = parsed;
+            }
+            List<Application> companyListings = _companyApplicationsService.FindCompanyApplications(currUser,filter);
  
-            CompanyApplications viewModel = new CompanyApplications()
+            CompanyApplicationsViewModel viewModel = new CompanyApplicationsViewModel()
             {
                 user = currUser,
                 Applications = companyListings
@@ -42,11 +47,14 @@ namespace JobBoard.Controllers.Company
         {
             UserData currUser = await _userManager.GetUserAsync(User);
             Application application=await _companyApplicationsService.fetchApplicationInfo(id);
+            var candidateId = application.CandidateId;
+            List<CandidateSkills> skills = _companyApplicationsService.FindCandidateSkills(candidateId);
 
-            CompanyApplications viewModel = new CompanyApplications()
+            CompanyApplicationsViewModel viewModel = new CompanyApplicationsViewModel()
             {
                 user = currUser,
-                application=application
+                application = application,
+                candidateSkills = skills
             };
 
             return View("~/Views/Company/ApplicationDetails.cshtml", viewModel);

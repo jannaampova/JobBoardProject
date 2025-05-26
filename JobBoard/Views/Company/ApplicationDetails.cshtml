@@ -1,8 +1,10 @@
 ﻿@{
     Layout = null;
 }
+@using System.Globalization
+@using JobBoard.Models.plainModels
 @using JobBoard.Models.ViewModels
-@model JobBoard.Models.ViewModels.CompanyApplications
+@model JobBoard.Models.ViewModels.CompanyApplicationsViewModel
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,11 +19,11 @@
 @await Html.PartialAsync("~/Views/sidebarCompany.cshtml", new CompanyDashboardViewModel() { user = Model?.user })
 
 <div class="main-content">
-    <a asp-controller="OurApplicants" asp-action="Index" class="back-link">← Back to Applications</a>
 
     <div class="application-header">
         <div class="candidate-info">
-            <div class="candidate-avatar">JD</div>
+            <div class="candidate-avatar"><img src="@Model.application.Candidate.PhotoPath" style="width: 100%; height: 100%; object-fit: cover; border-radius: 60px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);" />
+            </div>
             <div class="candidate-details">
                 <h1>@(Model?.application?.Candidate?.Account?.Name ?? "N/A")</h1>
             </div>
@@ -49,9 +51,9 @@
             <div class="content-section">
                 <h2 class="section-title">Skills</h2>
                 <div class="skills-list">
-                    @if (Model.application.Candidate.candidateSkills != null)
+                    @if (Model.candidateSkills != null && Model.candidateSkills.Any())
                     {
-                        foreach (var skill in Model.application.Candidate.candidateSkills)
+                        foreach (var skill in Model.candidateSkills)
                         {
                             <span class="skill-tag">@skill.Skill.Skill</span>
                         }
@@ -79,11 +81,11 @@
                 </div>
                 <div class="info-item">
                     <div class="info-label">Application Date</div>
-                    <div class="info-value">@Model?.application?.AppliedAt.ToString("yyyy-MM-dd")</div>
+                    <div class="info-value">@Model?.application?.AppliedAt.ToString("D",CultureInfo.InvariantCulture)</div>
                 </div>
                 <div class="info-item">
-                    <div class="info-label">@Model?.application?.Listing?.town?.Name ?? "N/A"</div>
-                    <div class="info-value">@Model?.application?.Listing?.jobType?.jobType ?? "N/A"</div>
+                    <div class="info-label">Town</div>
+                    <div class="info-value">@Model?.application?.Listing?.town?.Name</div>
                 </div>
 
                 <div class="resume-preview">
@@ -91,18 +93,48 @@
                     <div class="resume-container">
                         <div class="resume-file">
                             <div class="file-icon">📄</div>
-                            <div class="file-info">
-                                <h3>@(Model?.application?.Candidate?.ResumePath ?? "No resume uploaded")</h3>
-                                <p>2.4 MB • PDF</p>
-                            </div>
+                                <a href="@Model.application.Candidate.ResumePath"
+                                   target="_blank"
+                                   class="download-button">
+                                    View Resume
+                                </a>
                         </div>
-                        <a href="#" class="download-button">Download Resume</a>
                     </div>
                 </div>
 
                 <div class="action-buttons">
-                    <a asp-action="StatusChangeAccept" asp-controller="OurApplications" asp-route-id="@Model.application.Id" class="action-button accept-button">Accept Application</a>
-                    <a asp-action="StatusChangeDecline" asp-controller="OurApplications" asp-route-id="@Model.application.Id" class="action-button reject-button">Reject Application</a>
+                    @if (Model.application.Status == ApplicationStatus.PENDING) 
+                    {
+                        <a asp-action="StatusChangeAccept"
+                           asp-controller="OurApplications"
+                           asp-route-id="@Model.application.Id"
+                           class="action-button accept-button">
+                            Accept Application
+                        </a>
+                        <a asp-action="StatusChangeDecline"
+                           asp-controller="OurApplications"
+                           asp-route-id="@Model.application.Id"
+                           class="action-button reject-button">
+                            Reject Application
+                        </a>
+                    }
+                    else
+                    {
+                        if (Model.application.Status == ApplicationStatus.ACCEPTED)
+                        {
+                            <div class="info-item">
+                                <div class="info-label">Status</div>
+                                <div class="info-value">Accepted</div>
+                            </div>
+                        }
+                        if (Model.application.Status == ApplicationStatus.REJECTED)
+                        {
+                            <div class="info-item">
+                                <div class="info-label">Status</div>
+                                <div class="info-value">Rejected</div>
+                            </div>
+                        }
+                    }
                 </div>
             </div>
         </div>

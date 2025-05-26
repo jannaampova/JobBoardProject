@@ -14,24 +14,38 @@ public class CompanyApplicationsService
         _context = context;
     }
 
-    public List<Application> FindCompanyApplications(UserData user)
+    public List<Application> FindCompanyApplications(UserData user, ApplicationStatus? status = null)
     {
-        var account = _context.Account.FirstOrDefault(a => a.UserId == user.Id);
-        if (account == null) return new List<Application>();
+        var account = _context.Account
+            .FirstOrDefault(a => a.UserId == user.Id);
+        if (account == null)
+            return new List<Application>();
 
-        var company = _context.Company.FirstOrDefault(c => c.accountId == account.Id);
-        if (company == null) return new List<Application>();
+        var company = _context.Company
+            .FirstOrDefault(c => c.accountId == account.Id);
+        if (company == null)
+            return new List<Application>();
 
-        var applications = _context.Application
+        var query = _context.Application
+            .Where(a => a.Listing.companyId == company.Id);
+
+        if (status.HasValue)
+            query = query.Where(a => a.Status == status.Value);
+
+        return query
             .Include(a => a.Candidate)
-            .ThenInclude(c => c.Account)     
+            .ThenInclude(c => c.Account)
             .Include(a => a.Listing)
             .ThenInclude(l => l.company)
-            .Where(a => a.Listing.companyId == company.Id)
+            .ThenInclude(c => c.industry)
+            .Include(a => a.Listing)
+            .ThenInclude(l => l.town)
+            .Include(a => a.Listing)
+            .ThenInclude(l => l.jobType)
+            .OrderByDescending(a => a.AppliedAt)
             .ToList();
-
-        return applications;
     }
+
 
     public async Task<Application> fetchApplicationInfo(int applicationId)
     {
@@ -64,5 +78,10 @@ public class CompanyApplicationsService
         application.Status = status;
         _context.Update(application);
         _context.SaveChanges();
+    }
+
+    public List<CandidateSkills> FindCandidateSkills(int candidateId)
+    {
+        return _context.CandidateSkills.Where(cs => cs.CandidateId == candidateId).ToList();
     }
 }

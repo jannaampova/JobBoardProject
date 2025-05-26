@@ -80,9 +80,6 @@
 
         <div class="settings-section">
             <h2 class="section-title">Resume</h2>
-
-            @if (!string.IsNullOrEmpty(Model.ResumePath))
-            {
                 <div class="resume-top">
                     @if (Model.ResumePath == "TBA" || string.IsNullOrEmpty(Model.ResumePath))
                     {
@@ -96,23 +93,19 @@
                             View Current Resume
                         </a>
                     }
-                    @* always show the Uploadcare “choose a file” button *@
-                    <input
-                        type="hidden"
-                        name="resumeUrl"
-                        role="uploadcare-uploader"
-                        data-tabs="file"
-                        data-clearable />
-                </div>
-            }
-
+           </div>
+            
             <form asp-controller="AccountSettings"
                   asp-action="UploadResume"
                   method="post">
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="candidateId" value="@Model.CandidateId" />
-
-                <!-- Update button on its own line -->
+                <input
+                    type="hidden"
+                    name="resumeUrl"
+                    role="uploadcare-uploader"
+                    data-tabs="file"
+                    data-clearable />
                 <button type="submit" class="save-btn">
                     Update Resume
                 </button>
