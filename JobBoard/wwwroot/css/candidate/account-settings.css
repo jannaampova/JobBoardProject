@@ -130,6 +130,14 @@ body {
     transition: border-color 0.2s;
 }
 
+.form-control select {
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.5rem;
+    padding-right: 3rem;
+}
+
 .form-control:focus {
     outline: none;
     border-color: #6c63ff;

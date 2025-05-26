@@ -1,4 +1,5 @@
 ﻿using JobBoard.Data;
+using JobBoard.Models.plainModels;
 using JobBoard.Models.ViewModels;
 using JobBoard.Security;
 using JobBoard.Services;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace JobBoard.Controllers.Candidate
 {
+    [Route("settings")]
     public class AccountSettingsController : Controller
     {
         private readonly UserManager<UserData> _userManager;
@@ -24,7 +26,7 @@ namespace JobBoard.Controllers.Candidate
         }
         
         //GET
-        [HttpGet("/settings")]
+        [HttpGet("")]
         public async Task<IActionResult> Index()
         {
             UserData currUser = await _userManager.GetUserAsync(User);
@@ -58,22 +60,24 @@ namespace JobBoard.Controllers.Candidate
                 PhotoPath = candidate.PhotoPath,
                 ResumePath = candidate.ResumePath,
                 AllSkills=allSkills,
-                SelectedSkillIds=selectedSkillIds
+                SelectedSkillIds=selectedSkillIds,
+                ExperienceLevel = candidate.ExperienceLevel,
+                Education = candidate.Education,
             };
 
             return View("~/Views/Candidate/AccountSettings.cshtml", viewModel);
         }
         
         // POST DETAILS
-        [HttpPost("/settings/details")]
-        public async Task<IActionResult> ChangeDetails(int candidateId, string FullName, string Email, string Phone)
+        [HttpPost("details")]
+        public async Task<IActionResult> ChangeDetails(int candidateId, string FullName, string Email, string Phone, ExperienceLevel ExperienceLevel, string Education)
         {
-            _accountSettingsService.ChangeDetails(candidateId, FullName, Email, Phone);;
+            _accountSettingsService.ChangeDetails(candidateId, FullName, Email, Phone, ExperienceLevel, Education);;
             return RedirectToAction(nameof(Index));
         }
         
         // POST PHOTO
-        [HttpPost("/settings/photo")]
+        [HttpPost("/photo")]
         public async Task<IActionResult> UploadPhoto(int candidateId, string imageUrl)
         {
             _accountSettingsService.UpdatePhotoPath(candidateId, imageUrl);
@@ -81,7 +85,7 @@ namespace JobBoard.Controllers.Candidate
         }
         
         // POST RESUME
-        [HttpPost("/settings/resume")]
+        [HttpPost("resume")]
         public async Task<IActionResult> UploadResume(int candidateId, string resumeUrl)
         {
             _accountSettingsService.UpdateResumePath(candidateId, resumeUrl);
@@ -89,7 +93,7 @@ namespace JobBoard.Controllers.Candidate
         }
         
         // POST SKILLS
-        [HttpPost("/settings/skills")]
+        [HttpPost("skills")]
         [ValidateAntiForgeryToken]
         public IActionResult UpdateSkills(int candidateId, List<int> selectedSkillIds)
         {

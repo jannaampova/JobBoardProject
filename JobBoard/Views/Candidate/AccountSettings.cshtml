@@ -1,6 +1,7 @@
 ﻿@{
     Layout = null;
 }
+@using JobBoard.Models.plainModels
 @using JobBoard.Models.ViewModels
 @model JobBoard.Models.ViewModels.AccountSettingsViewModel
 <!DOCTYPE html>
@@ -56,7 +57,7 @@
                 </form>
 
             
-            <form asp-controller="AccountSettings" asp-action="ChangeDetails" method="post">
+            <form action="/settings/details" method="post">
                 <input type="hidden" name="candidateId" value="@Model.CandidateId" />
                 <div class="form-group">
                     <label class="form-label">Full Name</label>
@@ -72,8 +73,25 @@
                     <label class="form-label">Phone</label>
                     <input type="tel" name="Phone" class="form-control" value="@Model.Phone" />
                 </div>
-
-                <button type="submit" class="save-btn">Update Details</button>
+                
+                <div class="form-group">
+                    <label class="form-label" for="ExperienceLevel">Level</label>
+                    <select name="ExperienceLevel" id="ExperienceLevel" class="form-control">
+                        @foreach (ExperienceLevel lvl in Enum.GetValues(typeof(ExperienceLevel)))
+                        {
+                            <option value="@lvl" selected="@(Model.ExperienceLevel == lvl.ToString())">
+                                @lvl
+                            </option>
+                        }
+                    </select> 
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Education</label>
+                    <input type="text" name="Education" class="form-control" value="@Model.Education" />
+                </div>
+                
+          <button type="submit" class="save-btn">Update Details</button>
             </form>
 
         </div>
@@ -138,4 +156,4 @@
     </div>
 
 </body>
-</html> 
+</html>

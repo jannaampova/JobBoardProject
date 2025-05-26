@@ -47,7 +47,7 @@ public class AccountSettingsService
         
     }
 
-    public void ChangeDetails(int candidateId, string fullName, string email, string phone)
+    public void ChangeDetails(int candidateId, string fullName, string email, string phone, ExperienceLevel level, string education)
     {
         var candidate = _context.Candidate.Find(candidateId);
         if (candidate == null)
@@ -60,6 +60,8 @@ public class AccountSettingsService
         account.Name  = fullName;
         account.Email = email;
         account.Phone = phone;
+        candidate.ExperienceLevel = level.ToString();
+        candidate.Education = education;
 
         _context.SaveChanges();
     }
