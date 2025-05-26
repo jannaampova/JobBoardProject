@@ -1,7 +1,8 @@
 ﻿@{
     Layout = null;
 }
-@model JobBoard.Models.ViewModels.CompanyDashboardViewModel
+@using JobBoard.Models.ViewModels
+@model JobBoard.Models.ViewModels.CompanyListingViewModel
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,52 +13,42 @@
     <title>Jobby - Listing Details</title>
 </head>
 <body style="font-family: 'Poppins', sans-serif;">
-    @await Html.PartialAsync("~/Views/sidebarCompany.cshtml", Model)
+    @await Html.PartialAsync("~/Views/sidebarCompany.cshtml", new CompanyDashboardViewModel(){user = Model.user})
     <div class="main-content">
         <div class="job-content">
             <a asp-controller="OurListings" asp-action="Index" class="back-link">← Back to Listings</a>
-            <h1 class="page-title">Senior Software Engineer</h1>
+            <h1 class="page-title">@Model.selectedListing.title</h1>
 
             <div class="content-section">
                 <h2 class="section-title">Description</h2>
                 <div class="section-content">
-                    <p>We are looking for a Senior Software Engineer to join our team. You will be responsible for developing and maintaining our core platform, implementing new features, and mentoring junior developers.</p>
+                    <p>@Model.selectedListing.Description</p>
                 </div>
             </div>
 
             <div class="content-section">
                 <h2 class="section-title">Requirements</h2>
                 <div class="tag-container">
-                    <div class="tag">
-                        <i>✓</i>
-                        <span>Bachelor's Degree</span>
-                    </div>
-                    <div class="tag">
-                        <i>✓</i>
-                        <span>Problem Solving</span>
-                    </div>
-                    <div class="tag">
-                        <i>✓</i>
-                        <span>Communication Skills</span>
-                    </div>
+                    @foreach (var lr in @Model.requirements)
+                    {
+                        <div class="tag">
+                            <i>✓</i>
+                            <span>@lr</span>
+                        </div>
+                    }
                 </div>
             </div>
 
             <div class="content-section">
                 <h2 class="section-title">Benefits</h2>
                 <div class="tag-container">
+                @foreach (var lb in @Model.benefits)
+                {
                     <div class="tag benefit">
                         <i>✓</i>
-                        <span>Health Insurance</span>
+                        <span>@lb</span>
                     </div>
-                    <div class="tag benefit">
-                        <i>✓</i>
-                        <span>Flexible Hours</span>
-                    </div>
-                    <div class="tag benefit">
-                        <i>✓</i>
-                        <span>Annual Bonus</span>
-                    </div>
+                }
                 </div>
             </div>
         </div>
@@ -65,35 +56,32 @@
         <div class="stats-info">
             <div class="meta-item">
                 <i>🏢</i>
-                <span>Technology</span>
+                <span>@Model.selectedListing.company.industry.industry</span>
             </div>
             <div class="meta-item">
                 <i>📍</i>
-                <span>Sofia</span>
+                <span>@Model.selectedListing.town.Name</span>
             </div>
             <div class="meta-item">
                 <i>💼</i>
-                <span>Remote</span>
+                <span>@Model.selectedListing.jobType.jobType</span>
             </div>
             <div class="meta-item">
                 <i>⭐</i>
-                <span>Senior Level</span>
+                <span>@Model.selectedListing.experienceLevel</span>
             </div>
-            <div class="meta-item">
-                <i>💰</i>
-                <span>$120,000 - $160,000</span>
-            </div>
+           
             <div class="meta-item">
                 <i>📅</i>
-                <span>Posted Feb 20, 2024</span>
+                <span>@Model.selectedListing.datePosted</span>
             </div>
             <div class="meta-item">
-                <span class="status active">Active</span>
+                <span class="status active">@Model.selectedListing.status</span>
             </div>
 
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-value">24</div>
+                    <div class="stat-value">@Model.selectedListing.Applications.Count</div>
                     <div class="stat-label">Applications</div>
                 </div>
                 <div class="stat-card">
@@ -104,7 +92,7 @@
 
             <div class="action-buttons">
                 <a asp-controller="OurListings" asp-action="EditListing" class="action-button edit-button">Edit Listing</a>
-                <a href="#" class="action-button close-button">Close Listing</a>
+                <a asp-action="ChangeStatus" asp-controller="OurListings" asp-route-id="@Model.selectedListing.Id" class="action-button close-button">Close Listing</a>
             </div>
         </div>
     </div>

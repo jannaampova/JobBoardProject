@@ -132,36 +132,41 @@
 
             @foreach (var listing in listingsToShow)
             {
-                <div class="job-card">
+                if (listing.status != "Closed")
+                {
+                    <div class="job-card">
 
-                    <div class="job-info">
-                        <h2 class="job-title">@listing.title</h2>
-                        <h3 class="company-name">@listing.company.companyName</h3>
-                        <div class="job-details">
-                            @*<span class="detail-item">🔥 @job.company.sal BGN</span>*@ 
-                            <span class="detail-item">📍 @listing.town.Name</span>
-                            <span class="detail-item">🔼 @listing.experienceLevel</span>
-                            <span class="detail-item">💻 @listing.company.industry.industry</span>
-                            <span class="detail-item">⬜ @listing.jobType.jobType</span>
-                            <span class="detail-item">📅 @listing.datePosted.ToString("dd/MM/yyyy")</span>
-                        </div>
-                    </div>
-
-                    <div class="job-right">
-                        <div class="company-logo">
-                            <img src="@listing.company.photoPath" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);" />
+                        <div class="job-info">
+                            <h2 class="job-title">@listing.title</h2>
+                            <h3 class="company-name">@listing.company.companyName</h3>
+                            <div class="job-details">
+                                @*<span class="detail-item">🔥 @job.company.sal BGN</span>*@
+                                <span class="detail-item">📍 @listing.town.Name</span>
+                                <span class="detail-item">🔼 @listing.experienceLevel</span>
+                                <span class="detail-item">💻 @listing.company.industry.industry</span>
+                                <span class="detail-item">⬜ @listing.jobType.jobType</span>
+                                <span class="detail-item">📅 @listing.datePosted.ToString("dd/MM/yyyy")</span>
+                            </div>
                         </div>
 
+                        <div class="job-right">
+                            <div class="company-logo">
+                                <img src="@listing.company.photoPath"
+                                     style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);"/>
+                            </div>
 
-                        <div class="job-actions">
-                           @* <form asp-controller="CandidateDashboard" asp-action="SaveListing" method="post">
+
+                            <div class="job-actions">
+                                @* <form asp-controller="CandidateDashboard" asp-action="SaveListing" method="post">
                                 <input type="hidden" name="listingId" value="@listing.Id"/>
                                 <button type="submit" class="bookmark-btn">Save</button>
                             </form>*@
-                            <a asp-controller="JobDetails" asp-action="Index" class="view-job-btn" asp-route-id="@listing.Id">View Details</a>
+                                <a asp-controller="JobDetails" asp-action="Index" class="view-job-btn"
+                                   asp-route-id="@listing.Id">View Details</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
 
             }
         }

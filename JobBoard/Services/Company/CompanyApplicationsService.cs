@@ -84,4 +84,22 @@ public class CompanyApplicationsService
     {
         return _context.CandidateSkills.Where(cs => cs.CandidateId == candidateId).ToList();
     }
+
+    public List<Listing> getCompanyListings(UserData? currUser)
+    {
+        var account = _context.Account.FirstOrDefault(a => a.UserId == currUser.Id);
+        if (account == null)
+            return new List<Listing>(); 
+
+        var company = _context.Company.FirstOrDefault(c => c.accountId == account.Id);
+        if (company == null)
+            return new List<Listing>();
+
+         return _context.Listings
+            .Where(l => l.companyId == company.Id)
+            .Include(l => l.jobType)
+            .Include(l => l.town)
+            .Include(l => l.Applications)
+            .ToList();
+    }
 }

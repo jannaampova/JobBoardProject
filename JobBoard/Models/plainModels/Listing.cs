@@ -31,6 +31,9 @@ namespace JobBoard.Models.plainModels
         public List<ListingBenefits> listingBenefits { get; set; }
         [NotMapped]
         public List<ListingRequirements> listingRequirements { get; set; }
+        
+        public ICollection<Application> Applications { get; set; }
+
 
 
     }

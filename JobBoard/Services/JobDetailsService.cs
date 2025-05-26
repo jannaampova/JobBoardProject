@@ -23,21 +23,42 @@ namespace JobBoard.Services
             return job;
         }
 
-        public List<string> GetRequirements(int id)
+        public async Task<List<string>> GetRequirements(int id)
         {
-            List<string> requirements = _context.ListingRequirements
+            List<string> requirements = await _context.ListingRequirements
                 .Where(r => r.ListingId == id) // Filter by listingId
                 .Select(r => r.Requirement.requirement) // Select the requirement name
-                .ToList(); // Convert to a List of strings
+                .ToListAsync(); // Convert to a List of strings
             return requirements;
         }
-        public List<string> GetBenefits(int listingId)
+        public async Task<List<int>> GetRequirementsIds(int id)
         {
-            List<string> benefits = _context.ListingBenefits
+            List<int> requirements = await _context.ListingRequirements
+                .Where(r => r.ListingId == id) // Filter by listingId
+                .Select(r => r.Requirement.Id) // Select the requirement name
+                .ToListAsync(); // Convert to a List of strings
+            return requirements;
+        }
+        public  async Task<List<string>> GetBenefits(int listingId)
+        {
+            List<string> benefits =await _context.ListingBenefits
                 .Where(b => b.ListingId == listingId) 
                 .Select(b => b.Benefit.benefit)
-                .ToList();
+                .ToListAsync();
             return benefits;
+        }
+        public async Task<List<int>> GetBenefitsIds(int id)
+        {
+            List<int> benefits = await _context.ListingBenefits
+                .Where(r => r.ListingId == id) // Filter by listingId
+                .Select(r => r.Benefit.Id) // Select the requirement name
+                .ToListAsync(); // Convert to a List of strings
+            return benefits;
+        }
+
+        public List<Industry> GetIndustries()
+        {
+            return _context.Industry.ToList();
         }
     }
 }

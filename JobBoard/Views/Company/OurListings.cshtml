@@ -1,7 +1,8 @@
 ﻿@{
     Layout = null;
 }
-@model JobBoard.Models.ViewModels.CompanyDashboardViewModel
+@using JobBoard.Models.ViewModels
+@model JobBoard.Models.ViewModels.CompanyListingViewModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +12,7 @@
     <link rel="stylesheet" href="~/css/company/ourListings.css" asp-append-version="true" />
 </head>
 <body style="font-family: 'Poppins', sans-serif;">
-    @await Html.PartialAsync("~/Views/sidebarCompany.cshtml", Model)
+    @await Html.PartialAsync("~/Views/sidebarCompany.cshtml", new CompanyDashboardViewModel(){user = Model.user})
 
     <div class="main-content">
         <div class="page-header">
@@ -30,39 +31,37 @@
                     </tr>
                 </thead>
                 <tbody>
+                @foreach (var listing in Model.listingsByCompany)
+                {
                     <tr>
-                        <td>Senior Software Engineer</td>
-                        <td>Remote</td>
-                        <td>24</td>
-                        <td><span class="status active">Active</span></td>
+                        <td>@listing.title</td>
+                        <td>@listing.jobType.jobType</td>
+                        <td>@(listing.Applications?.Count ?? 0)</td>
                         <td>
-                            <a asp-controller="OurListings" asp-action="EditListing" class="action-button edit-button">Edit</a>
-                            <a asp-controller="OurListings" asp-action="ViewListing" class="action-button view-button">View</a>
-                            <a href="#" class="action-button close-button">Close</a>
+                            @if (listing.status.Equals("Active"))
+                            {
+                                <span class="status active">@listing.status</span>
+                            }
+                            else
+                            {
+                                <span class="status closed">@listing.status</span>
+                            }
+                        </td>
+                        <td>
+                            <a asp-controller="OurListings" asp-action="EditListing" asp-route-id="@listing.Id" class="action-button edit-button">Edit</a>
+                            <a asp-controller="OurListings" asp-action="ViewListing" asp-route-id="@listing.Id" class="action-button view-button" asp-route-id="@listing.Id">View</a>
+
+                         @if (@listing.status.Equals("Closed"))
+                            {
+                                <a asp-controller="OurListings" asp-action="ChangeStatus" asp-route-id="@listing.Id" class="action-button edit-button"> Open</a>
+                            }
+                         else
+                         {
+                             <a asp-controller="OurListings" asp-action="ChangeStatus" asp-route-id="@listing.Id" class="action-button close-button"> Close</a>
+                         }
                         </td>
                     </tr>
-                    <tr>
-                        <td>Product Manager</td>
-                        <td>San Francisco</td>
-                        <td>18</td>
-                        <td><span class="status active">Active</span></td>
-                        <td>
-                            <a asp-controller="OurListings" asp-action="EditListing" class="action-button edit-button">Edit</a>
-                            <a asp-controller="OurListings" asp-action="ViewListing" class="action-button view-button">View</a>
-                            <a href="#" class="action-button close-button">Close</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>UX Designer</td>
-                        <td>New York</td>
-                        <td>12</td>
-                        <td><span class="status closed">Closed</span></td>
-                        <td>
-                            <a asp-controller="OurListings" asp-action="EditListing" class="action-button edit-button">Edit</a>
-                            <a asp-controller="OurListings" asp-action="ViewListing" class="action-button view-button">View</a>
-                            <a href="#" class="action-button close-button">Close</a>
-                        </td>
-                    </tr>
+                }
                 </tbody>
             </table>
         </div>

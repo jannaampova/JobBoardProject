@@ -23,8 +23,8 @@ namespace JobBoard.Controllers.Candidate
             UserData currUser = await userManager.GetUserAsync(User);
 
             Listing job= await jobDetailsService.getlistedJob(id).ConfigureAwait(false);
-            List<string> requirementsList = jobDetailsService.GetRequirements(job.Id);
-            List<string> benefitsList = jobDetailsService.GetBenefits(job.Id);
+            List<string> requirementsList = await jobDetailsService.GetRequirements(job.Id);
+            List<string> benefitsList =await jobDetailsService.GetBenefits(job.Id);
             
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             if (userId == null)

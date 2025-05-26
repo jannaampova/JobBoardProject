@@ -1,7 +1,8 @@
 ﻿@{
     Layout = null;
 }
-@model JobBoard.Models.ViewModels.CompanyDashboardViewModel
+@using JobBoard.Models.ViewModels
+@model EditListingViewModel
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,41 +13,24 @@
     <link rel="stylesheet" href="~/css/company/editListing.css" asp-append-version="true" />
 </head>
 <body style="font-family: 'Poppins', sans-serif;">
-    @await Html.PartialAsync("~/Views/sidebarCompany.cshtml", Model)
+    @await Html.PartialAsync("~/Views/sidebarCompany.cshtml", new CompanyDashboardViewModel(){user = Model.user})
     <div class="main-content">
-        <a asp-controller="OurListings" asp-action="Index" class="back-link">← Back to Listings</a>
         <div class="page-header">
             <h1 class="section-title">Edit Job Listing</h1>
         </div>
 
         <div class="form-container">
-            <form>
+            <form asp-controller="OurListings" asp-action="SubmitChanges" method="post">
                 <div class="form-section">
+                    <input type="hidden" name="selectedListing.Id" value="@Model.selectedListing.Id" />
                     <h2 class="form-section-title">Basic Information</h2>
                     <div class="form-group">
                         <label class="form-label">Job Title</label>
-                        <input type="text" class="form-input" value="Senior Software Engineer">
+                        <input asp-for="Title" type="text" class="form-input" value="@Model.selectedListing.title">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Description</label>
-                        <textarea class="form-textarea">We are looking for a Senior Software Engineer to join our team...</textarea>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Industry</label>
-                            <select class="form-select">
-                                <option>Technology</option>
-                                <option>Healthcare</option>
-                                <option>Finance</option>
-                                <option>Education</option>
-                                <option>Retail</option>
-                                <option>Manufacturing</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Salary Range</label>
-                            <input type="text" class="form-input" value="$120,000 - $160,000">
-                        </div>
+                        <textarea name="Desc" class="form-textarea">@Model.selectedListing.Description</textarea>
                     </div>
                 </div>
 
@@ -55,35 +39,43 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label">Job Type</label>
-                            <select class="form-select">
-                                <option>Remote</option>
-                                <option>Hybrid</option>
-                                <option>On-site</option>
-                                <option>Seasonal</option>
+                            <select asp-for="selectedJobType"class="form-select">
+                                @foreach (var jt in @Model.jobTypes)
+                                {
+                                    <option 
+                                        selected="@(Model.selectedJobType==jt.Id)"
+                                        value="@jt.Id">@jt.jobType</option>
+                                }
                             </select>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Experience Level</label>
-                            <select class="form-select">
-                                <option>Senior</option>
-                                <option>Mid-level</option>
-                                <option>Entry-level</option>
+                            <select asp-for="selectedExperienceLevel" class="form-select">
+                                <option value="">Select experience level</option>
+                                @foreach (var level in Model.experienceLevels)
+                                {
+                                    <option
+                                        selected="@(Model.selectedExperienceLevel.Equals(level.ToString()))"
+                                        value="@level" selected="@(Model.selectedExperienceLevel.Equals(level))">@level</option>
+                                }
                             </select>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label">Town</label>
-                            <select class="form-select">
-                                <option>Sofia</option>
-                                <option>Plovdiv</option>
-                                <option>Varna</option>
-                                <option>Burgas</option>
+                            <select asp-for="selectedTownId" class="form-select">
+                                @foreach (var city in Model.towns)
+                                {
+                                    <option value="@city.Id" selected="@(Model.selectedTownId==city.Id)">@city.Name</option>
+
+                                }
+
                             </select>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Date Posted</label>
-                            <input type="date" class="form-input" value="2024-02-20">
+                            <input asp-for="datePosted" type="date" class="form-input" value="@Model.selectedListing.datePosted.ToString("yyyy-MM-dd")" />
                         </div>
                     </div>
                 </div>
@@ -94,61 +86,32 @@
                         <div class="checkbox-column">
                             <div class="checkbox-group">
                                 <h3 class="checkbox-group-title">Requirements</h3>
-                                <div class="form-checkbox">
-                                    <input type="checkbox" id="req1" checked>
-                                    <label for="req1">Bachelor's Degree</label>
-                                </div>
-                                <div class="form-checkbox">
-                                    <input type="checkbox" id="req2" checked>
-                                    <label for="req2">Problem Solving</label>
-                                </div>
-                                <div class="form-checkbox">
-                                    <input type="checkbox" id="req3">
-                                    <label for="req3">Team Leadership</label>
-                                </div>
-                                <div class="form-checkbox">
-                                    <input type="checkbox" id="req4" checked>
-                                    <label for="req4">Communication Skills</label>
-                                </div>
-                                <div class="form-checkbox">
-                                    <input type="checkbox" id="req5">
-                                    <label for="req5">Project Management</label>
-                                </div>
-                                <div class="form-checkbox">
-                                    <input type="checkbox" id="req6">
-                                    <label for="req6">Agile Experience</label>
-                                </div>
+                                @foreach (var r in Model.requirements)
+                                {
+                                    var isChecked = Model.selectedRequirements.Contains(r);
+                                    <div class="form-checkbox">
+                                        <input type="checkbox" name="selectedRequirements" value="@r" id="req_@r" @(isChecked ? "checked" : "") />
+                                        <label for="req_@r">@r</label>
+                                    </div>
+                                }
+
                             </div>
                         </div>
                         <div class="checkbox-column">
                             <div class="checkbox-group">
                                 <h3 class="checkbox-group-title">Benefits</h3>
-                                <div class="form-checkbox">
-                                    <input type="checkbox" id="ben1" checked>
-                                    <label for="ben1">Health Insurance</label>
-                                </div>
-                                <div class="form-checkbox">
-                                    <input type="checkbox" id="ben2" checked>
-                                    <label for="ben2">Flexible Hours</label>
-                                </div>
-                                <div class="form-checkbox">
-                                    <input type="checkbox" id="ben3" checked>
-                                    <label for="ben3">Annual Bonus</label>
-                                </div>
-                                <div class="form-checkbox">
-                                    <input type="checkbox" id="ben4">
-                                    <label for="ben4">Stock Options</label>
-                                </div>
-                                <div class="form-checkbox">
-                                    <input type="checkbox" id="ben5">
-                                    <label for="ben5">Professional Development</label>
-                                </div>
-                                <div class="form-checkbox">
-                                    <input type="checkbox" id="ben6">
-                                    <label for="ben6">Gym Membership</label>
-                                </div>
+                                @foreach (var b in Model.benefits)
+                                {
+                                    var isChecked = Model.selectedBenefits.Contains(b);
+                                    <div class="form-checkbox">
+                                        <input type="checkbox" name="selectedBenefits" value="@b" id="ben_@b" @(isChecked ? "checked" : "") />
+                                        <label for="ben_@b">@b</label>
+                                    </div>
+                                }
                             </div>
+                                    
                         </div>
+                                    
                     </div>
                 </div>
 
