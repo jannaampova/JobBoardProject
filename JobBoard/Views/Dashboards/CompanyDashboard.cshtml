@@ -19,22 +19,22 @@
         <div class="stats-container">
             <div class="stat-card">
                 <h3>Active Job Listings</h3>
-                <div class="value">12</div>
+                <div class="value">@Model.ActiveListings</div>
                 <div class="trend up">↑ 2 new this week</div>
             </div>
             <div class="stat-card">
                 <h3>Total Applications</h3>
-                <div class="value">156</div>
-                <div class="trend up">↑ 15% from last month</div>
+                <div class="value">@Model.TotalApplications</div>
+                <div class="trend up">↑ 5% from last month</div>
             </div>
             <div class="stat-card">
                 <h3>Pending Reviews</h3>
-                <div class="value">23</div>
+                <div class="value">@Model.PendingReviews</div>
                 <div class="trend down">↓ 1 completed today</div>
             </div>
             <div class="stat-card">
                 <h3>Average Response Time</h3>
-                <div class="value">2.3 days</div>
+                <div class="value">2.2 days</div>
                 <div class="trend up">↑ Improving</div>
             </div>
         </div>

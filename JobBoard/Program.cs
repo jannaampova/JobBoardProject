@@ -55,13 +55,10 @@ builder.Services.AddScoped< AccountSettingsService>();
 builder.Services.AddScoped< ApplyService>(); 
 builder.Services.AddScoped< ApplicationsService>(); 
 builder.Services.AddScoped< CompanyApplicationsService>(); 
-
 builder.Services.AddScoped< CreateListingService>(); 
 builder.Services.AddScoped< CompanySettingsService>(); 
+builder.Services.AddScoped< CompanyDashboardService>(); ; 
 builder.Services.AddScoped< PeopleService>(); 
-
-
-
 
 var app = builder.Build();
 
