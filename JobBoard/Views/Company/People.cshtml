@@ -1,7 +1,8 @@
 ﻿@{
     Layout = null;
 }
-@model JobBoard.Models.ViewModels.CompanyDashboardViewModel
+@using JobBoard.Models.ViewModels
+@model JobBoard.Models.ViewModels.PeopleViewModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +13,7 @@
 </head>
 <body style="font-family: 'Poppins', sans-serif;">
 
-    @await Html.PartialAsync("~/Views/sidebarCompany.cshtml", Model)
+@await Html.PartialAsync("~/Views/sidebarCompany.cshtml", new CompanyDashboardViewModel() { user = Model?.user })
 
     <div class="main-content">
         <div class="page-header">
@@ -20,71 +21,32 @@
         </div>
 
         <div class="candidates-grid">
-            <div class="candidate-card">
-                <div class="candidate-header">
-                    <div class="candidate-avatar">JD</div>
-                    <div class="candidate-info">
-                        <div class="candidate-name">John Doe</div>
-                        <div class="contact-info">
-                            <div class="contact-item">
-                                <i>📧</i>
-                                <span>john.doe@email.com</span>
-                            </div>
-                            <div class="contact-item">
-                                <i>📱</i>
-                                <span>+1 (555) 123-4567</span>
+            @foreach (var candidate in Model.Candidates)
+            {
+                <div class="candidate-card">
+                    <div class="candidate-header">
+                        <div class="candidate-avatar">
+                            <img src="@candidate.PhotoPath" alt="Profile Photo" style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px;"/>
+                        </div>
+                        <div class="candidate-info">
+                            <div class="candidate-name">@candidate.Account.Name</div>
+                            <div class="contact-info">
+                                <div class="contact-item">
+                                    <i>📧</i>
+                                    <span>@candidate.Account.Email</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i>📱</i>
+                                    <span>@candidate.Account.Phone</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="candidate-footer">
-                    <a asp-controller="People" asp-action="ViewProfile" class="view-profile">View Profile</a>
-                </div>
-            </div>
-
-            <div class="candidate-card">
-                <div class="candidate-header">
-                    <div class="candidate-avatar">AS</div>
-                    <div class="candidate-info">
-                        <div class="candidate-name">Alice Smith</div>
-                        <div class="contact-info">
-                            <div class="contact-item">
-                                <i>📧</i>
-                                <span>alice.smith@email.com</span>
-                            </div>
-                            <div class="contact-item">
-                                <i>📱</i>
-                                <span>+1 (555) 234-5678</span>
-                            </div>
-                        </div>
+                    <div class="candidate-footer">
+                        <a asp-controller="People" asp-action="ViewProfile" asp-route-id="@candidate.Id" class="view-profile">View Profile</a>
                     </div>
                 </div>
-                <div class="candidate-footer">
-                    <a asp-controller="People" asp-action="ViewProfile" class="view-profile">View Profile</a>
-                </div>
-            </div>
-
-            <div class="candidate-card">
-                <div class="candidate-header">
-                    <div class="candidate-avatar">RJ</div>
-                    <div class="candidate-info">
-                        <div class="candidate-name">Robert Johnson</div>
-                        <div class="contact-info">
-                            <div class="contact-item">
-                                <i>📧</i>
-                                <span>robert.j@email.com</span>
-                            </div>
-                            <div class="contact-item">
-                                <i>📱</i>
-                                <span>+1 (555) 345-6789</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="candidate-footer">
-                    <a asp-controller="People" asp-action="ViewProfile" class="view-profile">View Profile</a>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </body>

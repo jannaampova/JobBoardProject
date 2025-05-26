@@ -58,6 +58,7 @@ builder.Services.AddScoped< CompanyApplicationsService>();
 
 builder.Services.AddScoped< CreateListingService>(); 
 builder.Services.AddScoped< CompanySettingsService>(); 
+builder.Services.AddScoped< PeopleService>(); 
 
 
 

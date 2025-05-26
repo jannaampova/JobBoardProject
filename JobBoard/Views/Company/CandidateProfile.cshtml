@@ -1,34 +1,32 @@
 ﻿@{
 	Layout = null;
 }
-@model JobBoard.Models.ViewModels.CompanyDashboardViewModel
+@using JobBoard.Models.ViewModels
+@model JobBoard.Models.ViewModels.PeopleViewModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>John Doe - Candidate Profile</title>
+	<title>Candidate Profile</title>
 	<link rel="stylesheet" href="~/css/company/candidateProfile.css" asp-append-version="true" />
 </head>
 <body style="font-family: 'Poppins', sans-serif;">
-	@await Html.PartialAsync("~/Views/sidebarCompany.cshtml", Model);
+@await Html.PartialAsync("~/Views/sidebarCompany.cshtml", new CompanyDashboardViewModel() { user = Model?.user })
 	<div class="main-content">
 		<div class="profile-content">
-			<a asp-controller="People" asp-action="Index" class="back-link">← Back to People</a>
-
 			<div class="profile-header">
-				<img src="../assets/profile-placeholder.jpg" alt="Profile Photo" class="profile-photo">
+				<img src="@Model.PhotoPath" alt="Profile Photo" class="profile-photo">
 				<div class="profile-info">
-					<h1 class="profile-name">John Doe</h1>
-					<p class="profile-username">username</p>
+					<h1 class="profile-name">@Model.FullName</h1>
 					<div class="contact-details">
 						<div class="contact-item">
 							<i>📧</i>
-							<span>john.doe@email.com</span>
+							<span>@Model.Email</span>
 						</div>
 						<div class="contact-item">
 							<i>📱</i>
-							<span>+1 (555) 123-4567</span>
+							<span>@Model.Phone</span>
 						</div>
 					</div>
 				</div>
@@ -42,10 +40,10 @@
 				<div class="resume-section">
 					<div class="resume-icon">📄</div>
 					<div class="resume-info">
-						<div class="resume-title">John_Doe_Resume.pdf</div>
-						<div class="resume-size">2.4 MB</div>
+						<div class="resume-title">@Model.FullName's Resume</div>
+						<div class="resume-size">1.2 MB</div>
 					</div>
-					<a href="#" class="download-resume">Download</a>
+					<a target="blank" href="@Model.ResumePath" class="download-resume">Download</a>
 				</div>
 			</div>
 
@@ -55,7 +53,7 @@
 					Experience Level
 				</h2>
 				<div class="section-content">
-					<p>Senior (5+ years)</p>
+					<p>@Model.ExperienceLevel</p>
 				</div>
 			</div>
 
@@ -65,9 +63,7 @@
 					Education
 				</h2>
 				<div class="section-content">
-					<h3>Master of Science in Computer Science</h3>
-					<p>Stanford University</p>
-					<p>2016 - 2018</p>
+					<h3>@Model.Education</h3>
 				</div>
 			</div>
 		</div>
