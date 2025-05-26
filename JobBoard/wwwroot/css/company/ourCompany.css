@@ -145,6 +145,13 @@ body {
     font-weight: 600;
 }
 
+.no-photo-text {
+    color: #666;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+
 .upload-button {
     background: #f0f0ff;
     color: #6c63ff;

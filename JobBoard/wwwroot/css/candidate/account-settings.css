@@ -181,6 +181,19 @@ body {
         margin: 0 auto;
     }
 }
+.form-textarea {
+    display: block;
+    width: 100%;
+    /* match your .form-input height */
+    height: 2.5rem;          /* same height as inputs */
+    padding: 0.5rem;         /* same padding */
+    font-size: 1rem;         /* same font size */
+    line-height: 1.5;        /* same line-height */
+    border: 1px solid #ccc;  /* same border */
+    border-radius: 4px;      /* same border-radius */
+    resize: none;            /* optional: disable manual resizing */
+    box-sizing: border-box;  /* include padding in height/width */
+}
 
 .photo-upload-row {
     display: flex;

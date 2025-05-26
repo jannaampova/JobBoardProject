@@ -1,7 +1,8 @@
 ﻿@{
 	Layout = null;
 }
-@model JobBoard.Models.ViewModels.CompanyDashboardViewModel
+@using JobBoard.Models.ViewModels
+@model JobBoard.Models.ViewModels.CompanySettingsViewModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,59 +10,95 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Jobby - Our Company</title>
 	<link rel="stylesheet" href="~/css/company/ourCompany.css" asp-append-version="true" />
+	<script>
+        UPLOADCARE_PUBLIC_KEY = 'b5d90fd3facb415b7188';
+    </script>
+	<script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
 </head>
 <body style="font-family: 'Poppins', sans-serif;">
 
-	@await Html.PartialAsync("~/Views/sidebarCompany.cshtml", Model)
+@await Html.PartialAsync("~/Views/sidebarCompany.cshtml", new CompanyDashboardViewModel() { user = Model?.user })
 
 	<div class="main-content">
 		<div class="page-header">
 			<h1 class="section-title">Our Company</h1>
 		</div>
-
+		
 		<div class="settings-container">
-			<div class="settings-card">
-				<h2 class="card-title">Company Profile</h2>
-				<div class="company-logo">TC</div>
-				<button class="upload-button">Upload Company Photo</button>
-				<div class="form-group">
-					<label class="form-label">Company Name</label>
-					<input type="text" class="form-input" value="TechCorp Inc.">
-				</div>
-				<div class="form-group">
-					<label class="form-label">Industry</label>
-					<select class="form-input">
-						<option value="technology">Technology</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<label class="form-label">City</label>
-					<input type="text" class="form-input" value="San Francisco, CA">
-				</div>
-				<div class="form-group">
-					<label class="form-label">Description</label>
-					<textarea class="form-textarea">TechCorp is a leading technology company specializing in innovative software solutions and digital transformation services.</textarea>
-				</div>
-				<button class="save-button">Save Changes</button>
-			</div>
+    <form asp-controller="OurCompany" asp-action="ChangeDetails" method="post">
+        <div class="settings-card">
+            <h2 class="card-title">Company Profile</h2>
+            <div class="photo-upload-row" style="display: flex; align-items: center; gap: 1rem;">
+                <div class="company-logo">
+                    @if (Model.PhotoPath == "TBA" || string.IsNullOrEmpty(Model.PhotoPath))
+                    {
+                        <span class="no-photo-text">No photo</span>
+                    }
+                    else
+                    {
+                        <img src="@Model.PhotoPath" alt="Profile Photo"
+                             style="width: 120px; height: 120px; object-fit: cover; border-radius: 8px;"/>
+                    }
+                </div>
+                <input
+                    type="hidden"
+                    name="PhotoUrl"
+                    role="uploadcare-uploader"
+                    data-clearable
+                    class="choose-file-input" 
+                    asp-for="PhotoUrl" />
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="CompanyId"/>
+                <input type="hidden" asp-for="AccountId"/>
 
-			<div class="settings-card">
-				<h2 class="card-title">Account Settings</h2>
-				<div class="form-group">
-					<label class="form-label">Email Address</label>
-					<input type="email" class="form-input" value="admin@techcorp.com">
-				</div>
-				<div class="form-group">
-					<label class="form-label">Phone Number</label>
-					<input type="tel" class="form-input" value="+1 (555) 123-4567">
-				</div>
-				<div class="form-group">
-					<label class="form-label">Website URL</label>
-					<input type="url" class="form-input" value="https://techcorp.com">
-				</div>
-				<button class="save-button">Update Settings</button>
-			</div>
-		</div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="form-label">Company Name</label>
+                <input asp-for="Name" class="form-input">
+            </div>
+            <div class="form-group">
+                <label asp-for="Industry" class="form-label">Industry</label>
+                <select asp-for="Industry" class="form-input">
+                    @foreach (var ind in Model.AllIndustries)
+                    {
+                        <option
+                            value="@ind.industry"
+                            selected="@(Model.Industry == ind.industry)">
+                            @ind.industry
+                        </option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="form-label">Description</label>
+                <textarea asp-for="Description" class="form-textarea"></textarea>
+            </div>
+            <button class="save-button">Save Changes</button>
+        </div>
+    </form>
+
+    <form asp-controller="OurCompany" asp-action="ChangeAccount" method="post">
+        <div class="settings-card">
+            <h2 class="card-title">Account Settings</h2>
+            <input type="hidden" asp-for="CompanyId"/>
+            <input type="hidden" asp-for="AccountId"/>
+            <div class="form-group">
+                <label asp-for="Email" class="form-label">Email Address</label>
+                <input asp-for="Email" class="form-input">
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="form-label">Phone Number</label>
+                <input asp-for="Phone" class="form-input">
+            </div>
+            <div class="form-group">
+                <label asp-for="WebURL" class="form-label">Website URL</label>
+                <input asp-for="WebURL" class="form-input">
+            </div>
+            <button class="save-button">Update Settings</button>
+        </div>
+    </form>
+</div>
 	</div>
 </body>
 </html>
