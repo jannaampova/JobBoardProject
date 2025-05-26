@@ -71,8 +71,8 @@ namespace JobBoard.Services
                         AccountId = newAccount.Id, 
                         PhotoPath = "TBA",
                         ResumePath = "TBA",
-                        ExperienceLevel = "TBA",
-                        Education = "TBA"
+                        ExperienceLevel = "Entry",
+                        Education = "Where did you study?"
                     };
 
                     _context.Candidate.Add(newCandidate);
@@ -85,7 +85,7 @@ namespace JobBoard.Services
                         accountId = newAccount.Id,
                         companyName = model.Name,
                         industryId = 1,
-                        webUrl="TBA",
+                        webUrl="https://www1.tu-varna.bg/tu-varna/",
                         photoPath = "TBA"
                     };
 

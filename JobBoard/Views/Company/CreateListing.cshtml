@@ -40,13 +40,13 @@
                     <h2 class="form-section-title">Job Details</h2>
                     <div class="form-row">
                         <div class="form-group">
-                            <label asp-for="JobTypeId" class="form-label"></label>
+                            <label asp-for="JobTypeId" class="form-label">Type</label>
                             <select asp-for="JobTypeId" class="form-select" asp-items="@(new SelectList(Model.jobTypes, "Id", "jobType"))">
                                 <option value="">Select job type</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Level" class="form-label"></label>
+                            <label asp-for="Level" class="form-label">Experience Level</label>
                             <select asp-for="Level" class="form-select">
                                 <option value="">Select experience level</option>
                                 @foreach (var level in Model.levels)
@@ -58,13 +58,13 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label asp-for="TownId" class="form-label"></label>
+                            <label asp-for="TownId" class="form-label">City</label>
                             <select asp-for="TownId" class="form-select" asp-items="@(new SelectList(Model.cities, "Id", "Name"))">
                                 <option value="">Select town</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label asp-for="DatePosted" class="form-label"></label>
+                            <label asp-for="DatePosted" class="form-label">Date</label>
                             <input asp-for="DatePosted" type="date" class="form-input" />
                         </div>
                     </div>
